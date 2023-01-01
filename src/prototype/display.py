@@ -33,7 +33,7 @@ class VideoStreamCapture(object):
     def show_frame(self):
         # Display frames in main program
         if self.status:
-            self.frame = self.maintain_aspect_ratio_resize(self.frame, width=1080)
+            self.frame = self.set_resolution(self.frame, height=1280, width=720)
             cv2.imshow('IP Camera Video Streaming', self.frame)
 
         # Press Q on keyboard to stop recording
@@ -44,25 +44,9 @@ class VideoStreamCapture(object):
             exit(1)
 
     # Resizes a image and maintains aspect ratio
-    def maintain_aspect_ratio_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
-        # Grab the image size and initialize dimensions
-        dim = None
-        (h, w) = image.shape[:2]
+    def set_resolution(self, image, height, width, inter=cv2.INTER_AREA):
 
-        # Return original image if no need to resize
-        if width is None and height is None:
-            return image
-
-        # We are resizing height if width is none
-        if width is None:
-            # Calculate the ratio of the height and construct the dimensions
-            r = height / float(h)
-            dim = (int(w * r), height)
-        # We are resizing width if height is none
-        else:
-            # Calculate the ratio of the 0idth and construct the dimensions
-            r = width / float(w)
-            dim = (width, int(h * r))
+        dim = (height, width)
 
         # Return the resized image
         return cv2.resize(image, dim, interpolation=inter)
