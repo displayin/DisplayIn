@@ -9,7 +9,7 @@ import time, cv2
 class VideoStreamCapture(object):
     def __init__(self, src=0):
         # Create a VideoCapture object
-        self.capture = cv2.VideoCapture(src)
+        self.capture = cv2.VideoCapture(src, cv2.CAP_V4L2)
         self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 3)
        
         # FPS = 1/X
@@ -26,6 +26,7 @@ class VideoStreamCapture(object):
         # Read the next frame from the stream in a different thread
         while True:
             if self.capture.isOpened():
+                self.capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
             time.sleep(self.FPS)
 
