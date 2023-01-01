@@ -1,6 +1,8 @@
 # Real-Time Camera
 # https://stackoverflow.com/questions/55828451/video-streaming-from-ip-camera-in-python-using-opencv-cv2-videocapture
 # https://stackoverflow.com/questions/58293187/opencv-real-time-streaming-video-capture-is-slow-how-to-drop-frames-or-get-sync
+# https://stackoverflow.com/questions/65683036/delay-lag-in-opencv-videocapture
+# https://stackoverflow.com/questions/37799847/python-playing-a-video-with-audio-with-opencv
 from threading import Thread
 import time, cv2
 
@@ -8,7 +10,7 @@ class VideoStreamCapture(object):
     def __init__(self, src=0):
         # Create a VideoCapture object
         self.capture = cv2.VideoCapture(src)
-        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
+        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 3)
        
         # FPS = 1/X
         # X = desired FPS
