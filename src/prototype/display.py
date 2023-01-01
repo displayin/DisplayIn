@@ -10,12 +10,21 @@ class VideoStreamCapture(object):
     def __init__(self, src=0):
         # Create a VideoCapture object
         self.capture = cv2.VideoCapture(src, cv2.CAP_V4L2)
-        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 3)
-       
+        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 5)
+        self.capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+        width = 1920
+        height = 1080
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+
         # FPS = 1/X
         # X = desired FPS
         self.FPS = 1/60
         self.FPS_MS = int(self.FPS * 1000)
+
+        # Fullscreen
+        cv2.namedWindow("Display", cv2.WINDOW_AUTOSIZE)
+        cv2.setWindowProperty("Display", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
         # Start the thread to read frames from the video stream
         self.thread = Thread(target=self.update, args=())
@@ -34,7 +43,7 @@ class VideoStreamCapture(object):
         # Display frames in main program
         if self.status:
             self.frame = self.set_resolution(self.frame, height=1280, width=720)
-            cv2.imshow('IP Camera Video Streaming', self.frame)
+            cv2.imshow('DisplayIn Video Stream', self.frame)
 
         # Press Q on keyboard to stop recording
         key = cv2.waitKey(1)
