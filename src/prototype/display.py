@@ -4,13 +4,14 @@
 # https://stackoverflow.com/questions/65683036/delay-lag-in-opencv-videocapture
 # https://stackoverflow.com/questions/37799847/python-playing-a-video-with-audio-with-opencv
 from threading import Thread
-import time, cv2
+import time, cv2, wave, pyaudio, threading
+import sounddevice as sd
 
 class VideoStreamCapture(object):
     def __init__(self, src=0):
         # Create a VideoCapture object
         self.capture = cv2.VideoCapture(src, cv2.CAP_V4L2)
-        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 5)
+        self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 2)
         self.capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
         width = 1920
         height = 1080
@@ -37,7 +38,7 @@ class VideoStreamCapture(object):
             if self.capture.isOpened():
                 self.capture.set(cv2.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
-            time.sleep(self.FPS)
+            # time.sleep(self.FPS)
 
     def show_frame(self):
         # Display frames in main program
@@ -63,9 +64,19 @@ class VideoStreamCapture(object):
 if __name__ == '__main__':
     stream_link = 0
     video_stream_widget = VideoStreamCapture(stream_link)
+    # sd.default.device = 10
+    # sd.default.samplerate = 44100
+    # sd.default.channels = 2
+
+    devices = sd.query_devices()
+    
+    audiostream = sd.Stream(device=(10, 15), samplerate=48000.0, blocksize=4096, channels=2)
+    audiostream.start()
     while True:
         try:
             video_stream_widget.show_frame()
+            indata, overflowed = audiostream.read(4096)
+            audiostream.write(indata)
         except AttributeError:
             pass
     
