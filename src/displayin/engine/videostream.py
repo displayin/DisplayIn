@@ -3,10 +3,9 @@ from threading import Thread
 import time
 import cv2 as cv
 
-
 class VideoStream(object):
     def __init__(self, config: VideoStreamConfig):
-        
+        # Set config
         self.config: VideoStreamConfig = config
         
         # Create a VideoCapture object
@@ -18,14 +17,21 @@ class VideoStream(object):
 
         # FPS = 1/X
         # X = desired FPS
-        fps: float = 1/config.fps
-        self.fpsMs: int = int(fps * 1000)
+        self.fps: float = 1/config.fps
+
+        # Initialize Status
+        self.status = False
+        self.frame = []
 
     def start(self):
         # Start the thread to read frames from the video stream
-        self.thread = Thread(target=self.update, args=())
-        self.thread.daemon = True
-        self.thread.start()
+        self.running: bool = True
+        self.updatethread = Thread(target=self.read, args=())
+        self.updatethread.daemon = True
+        self.updatethread.start()
+
+        self.writethread = Thread(target=self.write, args=())
+        self.writethread.start()
 
     def read(self):
         # Read the next frame from the stream in a different thread
@@ -33,23 +39,33 @@ class VideoStream(object):
             self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
             (self.status, self.frame) = self.capture.read()
 
-    def write(self):
-        # Display frames in main program
-        if self.status:
-            self.frame = self.setResolution(self.frame, height=1280, width=720)
-            cv.imshow('DisplayIn Video Stream', self.frame)
+        time.sleep(self.fps)
 
-        # Press Q on keyboard to stop recording
-        key = cv.waitKey(1)
-        if key == ord('q'):
-            self.capture.release()
-            cv.destroyAllWindows()
-            exit(1)
+    def write(self):
+        while self.running:
+            try:
+                # Display frames in main program
+                if self.status and self.frame.any():
+                    self.frame = self.setResolution(self.frame, width=self.config.width, height=self.config.height)
+                    cv.imshow(self.config.name, self.frame)
+
+                # Press Q on keyboard to stop recording
+                key = cv.waitKey(1)
+                if key == ord('q'):
+                    self.stop()
+            except Exception as e:
+                pass
+
+    def stop(self):
+        self.running = False
+        self.capture.release()
+        cv.destroyAllWindows()
+        exit(0)
 
     # Resizes a image and maintains aspect ratio
     def setResolution(self, image, width, height, inter=cv.INTER_AREA):
 
-        dim = (height, width)
+        dim = (width, height)
 
         # Return the resized image
         return cv.resize(image, dim, interpolation=inter)

@@ -7,4 +7,5 @@ class VideoStreamConfig:
     self.fps: int = fps
     self.width: int = width
     self.height: int = height
+    self.bufferSize: int = bufferSize
     self.api = api
