@@ -64,8 +64,9 @@ class VideoStream(object):
     def stop(self):
         self.running = False
         self.capture.release()
-        cv.destroyAllWindows()
-        exit(0)
+        if not self.config.writeCallback:
+            cv.destroyAllWindows()
+            exit(0)
 
     # Resizes a image and maintains aspect ratio
     def setResolution(self, image, width, height, inter=cv.INTER_AREA):

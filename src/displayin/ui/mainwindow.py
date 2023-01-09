@@ -9,7 +9,7 @@ import cv2 as cv
 import os
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, GLib
 
 def writeDisplay(uiBuilder, fileName, frame):
     # Write Frame
@@ -20,7 +20,7 @@ def writeDisplay(uiBuilder, fileName, frame):
 
     # Display File
     imageDisplay = uiBuilder.get_object("display")
-    imageDisplay.set_from_pixbuf(pixbuf.copy())
+    GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf.copy())
     pass
 
 class UIHandler:
@@ -189,5 +189,11 @@ class MainWindow:
         Gtk.main()
 
     def exit(self):
+        if self.videoStream:
+            self.videoStream.stop()
+
+        if self.audioStream:
+            self.audioStream.stop()
+
         self.window.close()
         exit(0)
