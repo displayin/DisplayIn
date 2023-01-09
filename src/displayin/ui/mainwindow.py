@@ -11,6 +11,15 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+def writeDisplay(uiBuilder, fileName, frame):
+    # Write Frame
+    cv.imwrite(fileName, frame)
+
+    # Display File
+    imageDisplay = uiBuilder.get_object("display")
+    imageDisplay.set_from_file(fileName)
+    pass
+
 class UIHandler:
     def __init__(self, window) -> None:
         self.window = window
@@ -50,9 +59,16 @@ class MainWindow:
         self.selectedAudioIn = -1
         self.selectedAudioOut = -1
 
+        self.videoStream: VideoStream = None
+        self.audioStream: AudioStream = None
+
         # Initialize Devices Lists
         self.initVideo()
         self.initAudio()
+
+        # Start Video and Audio
+        # self.startVideo()
+        # self.startAudio()
 
     def initVideo(self):
         # Find all available video device ids
@@ -63,9 +79,11 @@ class MainWindow:
                 config = VideoStreamConfig(
                     deviceId=i,
                     name=str("Display " + str(i)),
-                    width=cap.get(cv.CAP_PROP_FRAME_WIDTH),
-                    height=cap.get(cv.CAP_PROP_FRAME_HEIGHT),
-                    fps=cap.get(cv.CAP_PROP_FPS)
+                    width=1280, # cap.get(cv.CAP_PROP_FRAME_WIDTH),
+                    height=720, # cap.get(cv.CAP_PROP_FRAME_HEIGHT),
+                    # fps=cap.get(cv.CAP_PROP_FPS),
+                    uiBuilder=self.builder,
+                    writeCallback=writeDisplay
                 )
                 self.videoDevices.append(config)
                 cap.release()
@@ -85,7 +103,7 @@ class MainWindow:
             self.selectDisplay.set_id_column(0)
             self.selectDisplay.set_entry_text_column(1)
             self.selectDisplay.set_active(currentDeviceId)
-            self.selectDisplay = currentDeviceId
+            self.selectedDisplay = currentDeviceId
         pass
 
     def initAudio(self):
@@ -137,6 +155,29 @@ class MainWindow:
             self.selectAudioOut.set_entry_text_column(2)
             self.selectAudioOut.set_active(currentOutputDeviceId)
 
+        pass
+
+    def startVideo(self):
+        if self.selectedDisplay != -1:
+            videoConfig = self.videoDevices[self.selectedDisplay]
+            if self.videoStream:
+                self.videoStream.stop()
+
+            self.videoStream = VideoStream(videoConfig)
+            self.videoStream.start()
+        pass
+
+    def startAudio(self):
+        if self.selectedAudioIn != -1 and self.selectedAudioOut != -1:
+            audioIn = self.audioDevices[self.selectedAudioIn]
+            audioOut = self.audioDevices[self.selectedAudioOut]
+            
+            if self.audioStream:
+                self.audioStream.stop()
+
+            audioConfig = AudioStreamConfig(audioIn["index"], audioOut["index"])
+            self.audioStream = AudioStream(audioConfig)
+            self.audioStream.start()
         pass
 
     def show(self):

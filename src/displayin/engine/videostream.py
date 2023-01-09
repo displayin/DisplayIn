@@ -45,8 +45,14 @@ class VideoStream(object):
             try:
                 # Display frames in main program
                 if self.status and self.frame.any():
-                    self.frame = self.setResolution(self.frame, width=self.config.width, height=self.config.height)
-                    cv.imshow(self.config.name, self.frame)
+                    if self.config.writeCallback:
+                        # Call Write Callback
+                        self.config.writeCallback(self.config.uiBuilder, "display.jpg", self.frame)
+                    else:
+                        # Show
+                        self.frame = self.setResolution(
+                            self.frame, width=self.config.width, height=self.config.height)
+                        cv.imshow(self.config.name, self.frame)
 
                 # Press Q on keyboard to stop recording
                 key = cv.waitKey(1)
