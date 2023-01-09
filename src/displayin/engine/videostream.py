@@ -27,7 +27,6 @@ class VideoStream(object):
         # Start the thread to read frames from the video stream
         self.running: bool = True
         self.updatethread = Thread(target=self.read, args=())
-        self.updatethread.daemon = True
         self.updatethread.start()
 
         self.writethread = Thread(target=self.write, args=())

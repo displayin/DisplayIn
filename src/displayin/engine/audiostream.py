@@ -2,7 +2,6 @@ from config.audiostreamconfig import AudioStreamConfig
 from threading import Thread
 import sounddevice as sd
 
-
 class AudioStream(object):
     def __init__(self, config: AudioStreamConfig):
         # Set config
