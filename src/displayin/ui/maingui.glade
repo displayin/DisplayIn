@@ -144,6 +144,7 @@
                     <child internal-child="entry">
                       <object class="GtkEntry">
                         <property name="can-focus">False</property>
+                        <property name="editable">False</property>
                         <property name="placeholder-text" translatable="yes">None</property>
                       </object>
                     </child>
@@ -162,6 +163,7 @@
                     <child internal-child="entry">
                       <object class="GtkEntry">
                         <property name="can-focus">False</property>
+                        <property name="editable">False</property>
                         <property name="text" translatable="yes">None</property>
                       </object>
                     </child>
@@ -180,6 +182,7 @@
                     <child internal-child="entry">
                       <object class="GtkEntry">
                         <property name="can-focus">False</property>
+                        <property name="editable">False</property>
                         <property name="text" translatable="yes">None</property>
                       </object>
                     </child>

@@ -45,29 +45,98 @@ class MainWindow:
         self.selectAudioIn = self.builder.get_object("selectAudioIn")
         self.selectAudioOut = self.builder.get_object("selectAudioOut")
 
+        # initialize selected devices
+        self.selectedDisplay = -1
+        self.selectedAudioIn = -1
+        self.selectedAudioOut = -1
+
         # Initialize Devices Lists
         self.initVideo()
         self.initAudio()
 
     def initVideo(self):
         # Find all available video device ids
-        self.videoDevices = []
+        self.videoDevices: list[VideoStreamConfig] = []
         for i in range(50):
             cap = cv.VideoCapture(i)
             if cap.read()[0]:
-                self.videoDevices.append(i)
+                config = VideoStreamConfig(
+                    deviceId=i,
+                    name=str("Display " + str(i)),
+                    width=cap.get(cv.CAP_PROP_FRAME_WIDTH),
+                    height=cap.get(cv.CAP_PROP_FRAME_HEIGHT),
+                    fps=cap.get(cv.CAP_PROP_FPS)
+                )
+                self.videoDevices.append(config)
                 cap.release()
             else:
                 break
 
         # Populate Drop Down
+        deviceListStore = Gtk.ListStore(int, str)
+        currentDeviceId = -1
+        device: VideoStreamConfig
         for device in self.videoDevices:
-            self.selectDisplay.append_text("Display " + device)
+            deviceListStore.append([device.deviceId, device.name])
+            currentDeviceId = device.deviceId
+
+        if self.videoDevices:
+            self.selectDisplay.set_model(deviceListStore)
+            self.selectDisplay.set_id_column(0)
+            self.selectDisplay.set_entry_text_column(1)
+            self.selectDisplay.set_active(currentDeviceId)
+            self.selectDisplay = currentDeviceId
         pass
 
     def initAudio(self):
         # Get list of all sound devices
         self.audioDevices = sd.query_devices()
+
+        inputDeviceListStore = Gtk.ListStore(int, int, str)
+        outputDeviceListStore = Gtk.ListStore(int, int, str)
+
+        i = 0
+        j = 0
+        currentInputDeviceId = -1
+        currentOutputDeviceId = -1
+        for device in self.audioDevices:
+            if device["max_input_channels"] > 0:
+                inputDeviceListStore.append([i, device["index"], device["name"]])
+                # select first available input device
+                if currentInputDeviceId == -1:
+                    currentInputDeviceId = i
+                    self.selectedAudioIn = device["index"]
+                # Prioritize USB devices in input
+                if "usb" in device["name"].lower():
+                    currentInputDeviceId = i
+                    self.selectedAudioIn = device["index"]
+                i += 1
+
+            if device["max_output_channels"] > 0:
+                outputDeviceListStore.append([j, device["index"], device["name"]])
+                # select first available output device
+                if currentOutputDeviceId == -1:
+                    currentOutputDeviceId = j
+                    self.selectedAudioOut = device["index"]
+                # If there is a default device, then set it
+                if "default" in device["name"].lower():
+                    currentOutputDeviceId = j
+                    self.selectedAudioOut = device["index"]
+                j += 1
+
+        if len(inputDeviceListStore) > 0:
+            self.selectAudioIn.set_model(inputDeviceListStore)
+            self.selectAudioIn.set_id_column(0)
+            self.selectAudioIn.set_entry_text_column(2)
+            self.selectAudioIn.set_active(currentInputDeviceId)
+            
+
+        if len(outputDeviceListStore) > 0:
+            self.selectAudioOut.set_model(outputDeviceListStore)
+            self.selectAudioOut.set_id_column(0)
+            self.selectAudioOut.set_entry_text_column(2)
+            self.selectAudioOut.set_active(currentOutputDeviceId)
+
         pass
 
     def show(self):
