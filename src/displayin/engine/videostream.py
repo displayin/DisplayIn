@@ -54,10 +54,10 @@ class VideoStream(object):
                             self.frame, width=self.config.width, height=self.config.height)
                         cv.imshow(self.config.name, self.frame)
 
-                # Press Q on keyboard to stop recording
-                key = cv.waitKey(1)
-                if key == ord('q'):
-                    self.stop()
+                        # Press Q on keyboard to stop recording
+                        key = cv.waitKey(1)
+                        if key == ord('q'):
+                            self.stop()
             except Exception as e:
                 pass
 

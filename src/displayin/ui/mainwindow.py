@@ -67,8 +67,8 @@ class MainWindow:
         self.initAudio()
 
         # Start Video and Audio
-        # self.startVideo()
-        # self.startAudio()
+        self.startVideo()
+        self.startAudio()
 
     def initVideo(self):
         # Find all available video device ids
