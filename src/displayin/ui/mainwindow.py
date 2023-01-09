@@ -9,15 +9,18 @@ import cv2 as cv
 import os
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 
 def writeDisplay(uiBuilder, fileName, frame):
     # Write Frame
-    cv.imwrite(fileName, frame)
+    frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+    h, w, d = frame.shape
+    pixbuf = GdkPixbuf.Pixbuf.new_from_data(
+        frame.tostring(), GdkPixbuf.Colorspace.RGB, False, 8, w, h, w*d)
 
     # Display File
     imageDisplay = uiBuilder.get_object("display")
-    imageDisplay.set_from_file(fileName)
+    imageDisplay.set_from_pixbuf(pixbuf.copy())
     pass
 
 class UIHandler:
