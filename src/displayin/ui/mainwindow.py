@@ -11,7 +11,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
-def writeDisplay(uiBuilder, fileName, frame):
+def writeDisplay(uiBuilder, frame):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     h, w, d = frame.shape
@@ -82,9 +82,9 @@ class MainWindow:
                 config = VideoStreamConfig(
                     deviceId=i,
                     name=str("Display " + str(i)),
+                    # TODO: Dynamically set width and height
                     width=1280, # cap.get(cv.CAP_PROP_FRAME_WIDTH),
                     height=720, # cap.get(cv.CAP_PROP_FRAME_HEIGHT),
-                    # fps=cap.get(cv.CAP_PROP_FPS),
                     uiBuilder=self.builder,
                     writeCallback=writeDisplay
                 )
@@ -186,7 +186,7 @@ class MainWindow:
 
     def show(self):
         # Display Window
-        self.window.show_all()
+        self.window.show()
         Gtk.main()
 
     def exit(self):

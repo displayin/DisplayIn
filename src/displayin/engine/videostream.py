@@ -47,7 +47,7 @@ class VideoStream(object):
                 if self.status and self.frame.any():
                     if self.config.writeCallback:
                         # Call Write Callback
-                        self.config.writeCallback(self.config.uiBuilder, "display.jpg", self.frame)
+                        self.config.writeCallback(self.config.uiBuilder, self.frame)
                     else:
                         # Show
                         self.frame = self.setResolution(
