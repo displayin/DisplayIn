@@ -6,6 +6,7 @@ from engine.audiostream import AudioStream
 import sounddevice as sd
 import cv2 as cv
 from util.exceptionhandler import ExceptionHandler
+import numpy as np
 
 import os
 import gi
@@ -69,7 +70,7 @@ class UIHandler:
             self.handleException(e)
 
 class MainWindow:
-    def __init__(self, exHandler: ExceptionHandler = None) -> None:
+    def __init__(self, exHandler: ExceptionHandler=None) -> None:
         self.exHandler = exHandler
 
         try:
@@ -213,7 +214,13 @@ class MainWindow:
                     self.audioStream.stop()
 
                 audioConfig = AudioStreamConfig(
-                    inputDeviceId=audioIn["index"], outputDeviceId=audioOut["index"], sampleRate=audioIn["default_samplerate"], channels=audioIn["max_input_channels"])
+                    inputDeviceId=audioIn["index"],
+                    outputDeviceId=audioOut["index"],
+                    sampleRate=audioIn["default_samplerate"], 
+                    channels=(audioIn["max_input_channels"], audioIn["max_input_channels"]),
+                    latency=(audioIn["default_low_input_latency"], audioIn["default_high_input_latency"]),
+                    dtype=np.int32,
+                    blockSize=8192)
                 self.audioStream = AudioStream(audioConfig, self.exHandler)
                 self.audioStream.start()
         except Exception as e:

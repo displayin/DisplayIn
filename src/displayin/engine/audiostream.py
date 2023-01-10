@@ -9,7 +9,13 @@ class AudioStream(object):
         try:
             # Set config
             self.config: AudioStreamConfig = config
-            self.audiostream = sd.Stream(device=(config.inputDeviceId, config.outputDeviceId), samplerate=config.sampleRate, blocksize=config.blockSize, channels=config.channels)
+            self.audiostream = sd.Stream(
+                device=(config.inputDeviceId, config.outputDeviceId), 
+                samplerate=config.sampleRate, 
+                blocksize=config.blockSize, 
+                channels=config.channels,
+                latency=config.latency,
+                dtype=config.dtype)
         except Exception as e:
             self.handleException(e)
             self.audiostream = None
