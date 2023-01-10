@@ -24,7 +24,10 @@ class AudioStream(object):
                 self.audiostream.write(indata)
             except AttributeError:
                 pass
+        
+        # When we stop running, stop and close the stream
+        self.audiostream.stop()
+        self.audiostream.close()
 
     def stop(self):
         self.running = False
-

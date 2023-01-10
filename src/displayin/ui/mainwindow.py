@@ -27,13 +27,27 @@ class UIHandler:
     def __init__(self, window) -> None:
         self.window = window
 
-    def onSelectDisplay(self, obj):
+    def onSelectDisplay(self, combo):
+        selected = combo.get_active()
+        if selected is not None:
+            self.window.selectedDisplay = selected
+            self.window.startVideo()
         pass
 
-    def onSelectAudioIn(self, obj):
+    def onSelectAudioIn(self, combo):
+        selected = combo.get_active()
+        if selected is not None:
+            model = combo.get_model()
+            self.window.selectedAudioIn = model[selected][1]
+            self.window.startAudio()
         pass
 
-    def onSelectAudioOut(self, obj):
+    def onSelectAudioOut(self, combo):
+        selected = combo.get_active()
+        if selected is not None:
+            model = combo.get_model()
+            self.window.selectedAudioOut = model[selected][1]
+            self.window.startAudio()
         pass
 
     def onExit(self, obj):
@@ -58,9 +72,9 @@ class MainWindow:
         self.selectAudioOut = self.builder.get_object("selectAudioOut")
 
         # initialize selected devices
-        self.selectedDisplay = -1
-        self.selectedAudioIn = -1
-        self.selectedAudioOut = -1
+        self.selectedDisplay: int = -1
+        self.selectedAudioIn: int = -1
+        self.selectedAudioOut: int = -1
 
         self.videoStream: VideoStream = None
         self.audioStream: AudioStream = None
@@ -68,10 +82,6 @@ class MainWindow:
         # Initialize Devices Lists
         self.initVideo()
         self.initAudio()
-
-        # Start Video and Audio
-        self.startVideo()
-        self.startAudio()
 
     def initVideo(self):
         # Find all available video device ids
@@ -106,7 +116,6 @@ class MainWindow:
             self.selectDisplay.set_id_column(0)
             self.selectDisplay.set_entry_text_column(1)
             self.selectDisplay.set_active(currentDeviceId)
-            self.selectedDisplay = currentDeviceId
         pass
 
     def initAudio(self):
@@ -126,11 +135,9 @@ class MainWindow:
                 # select first available input device
                 if currentInputDeviceId == -1:
                     currentInputDeviceId = i
-                    self.selectedAudioIn = device["index"]
                 # Prioritize USB devices in input
                 if "usb" in device["name"].lower():
                     currentInputDeviceId = i
-                    self.selectedAudioIn = device["index"]
                 i += 1
 
             if device["max_output_channels"] > 0:
@@ -138,11 +145,9 @@ class MainWindow:
                 # select first available output device
                 if currentOutputDeviceId == -1:
                     currentOutputDeviceId = j
-                    self.selectedAudioOut = device["index"]
                 # If there is a default device, then set it
                 if "default" in device["name"].lower():
                     currentOutputDeviceId = j
-                    self.selectedAudioOut = device["index"]
                 j += 1
 
         if len(inputDeviceListStore) > 0:
@@ -184,17 +189,22 @@ class MainWindow:
             self.audioStream.start()
         pass
 
+    def stopVideo(self):
+        if self.videoStream:
+            self.videoStream.stop()
+
+    def stopAudio(self):
+        if self.audioStream:
+            self.audioStream.stop()
+
     def show(self):
         # Display Window
         self.window.show()
         Gtk.main()
 
     def exit(self):
-        if self.videoStream:
-            self.videoStream.stop()
-
-        if self.audioStream:
-            self.audioStream.stop()
+        self.stopVideo()
+        self.stopAudio()
 
         self.window.close()
         exit(0)

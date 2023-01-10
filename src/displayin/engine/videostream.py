@@ -49,7 +49,7 @@ class VideoStream(object):
                         # Call Write Callback
                         self.config.writeCallback(self.config.uiBuilder, self.frame)
                     else:
-                        # Show
+                        # Show using OpenCV
                         self.frame = self.setResolution(
                             self.frame, width=self.config.width, height=self.config.height)
                         cv.imshow(self.config.name, self.frame)
@@ -61,12 +61,14 @@ class VideoStream(object):
             except Exception as e:
                 pass
 
-    def stop(self):
-        self.running = False
+        # Release the capture
         self.capture.release()
         if not self.config.writeCallback:
             cv.destroyAllWindows()
             exit(0)
+
+    def stop(self):
+        self.running = False
 
     # Resizes a image and maintains aspect ratio
     def setResolution(self, image, width, height, inter=cv.INTER_AREA):
