@@ -178,7 +178,8 @@ class MainWindow:
             if self.audioStream:
                 self.audioStream.stop()
 
-            audioConfig = AudioStreamConfig(audioIn["index"], audioOut["index"])
+            audioConfig = AudioStreamConfig(
+                inputDeviceId=audioIn["index"], outputDeviceId=audioOut["index"], sampleRate=audioIn["default_samplerate"], channels=audioIn["max_input_channels"])
             self.audioStream = AudioStream(audioConfig)
             self.audioStream.start()
         pass
