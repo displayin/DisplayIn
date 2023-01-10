@@ -12,6 +12,7 @@ class AudioStream(object):
             self.audiostream = sd.Stream(device=(config.inputDeviceId, config.outputDeviceId), samplerate=config.sampleRate, blocksize=config.blockSize, channels=config.channels)
         except Exception as e:
             self.handleException(e)
+            self.audiostream = None
 
     def handleException(self, e: Exception):
         if self.exHandler:
