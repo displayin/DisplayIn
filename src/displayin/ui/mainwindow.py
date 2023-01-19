@@ -75,6 +75,7 @@ class MainWindow:
                 if cap.read()[0]:
                     config = VideoStreamConfig(
                         deviceId=i,
+                        # TODO Localize String
                         name=str("Display " + str(i)),
                         uiBuilder=self.builder,
                         writeCallback=writeDisplay
