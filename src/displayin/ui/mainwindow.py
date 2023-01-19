@@ -42,10 +42,10 @@ class MainWindow:
             self.builder.connect_signals(uiHandler)
 
             # Get Window
-            self.window = self.builder.get_object("main")
-            self.selectDisplay = self.builder.get_object("selectDisplay")
-            self.selectAudioIn = self.builder.get_object("selectAudioIn")
-            self.selectAudioOut = self.builder.get_object("selectAudioOut")
+            self.window = self.getGtkObject("main")
+            self.selectDisplay = self.getGtkObject("selectDisplay")
+            self.selectAudioIn = self.getGtkObject("selectAudioIn")
+            self.selectAudioOut = self.getGtkObject("selectAudioOut")
 
             # initialize selected devices
             self.selectedDisplay: int = -1
@@ -204,6 +204,9 @@ class MainWindow:
         else:
             self.window.fullscreen()
 
+    def getGtkObject(self, objectId: str):
+        return self.builder.get_object(objectId)
+    
     def exit(self):
         try:
             self.stopVideo()
