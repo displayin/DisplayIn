@@ -78,13 +78,27 @@
           </packing>
         </child>
         <child>
-          <object class="GtkImage" id="display">
+          <object class="GtkScrolledWindow">
             <property name="width-request">640</property>
             <property name="height-request">480</property>
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="stock">gtk-missing-image</property>
-            <signal name="size-allocate" handler="onDisplayResize" swapped="no"/>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
+            <property name="propagate-natural-width">True</property>
+            <property name="propagate-natural-height">True</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkImage" id="display">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="stock">gtk-missing-image</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -200,7 +214,7 @@
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
