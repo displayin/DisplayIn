@@ -1,6 +1,9 @@
 from util.exceptionhandler import ExceptionHandler
 from ui.mainwindow import MainWindow
 
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gdk
 
 class UIHandler:
     def __init__(self) -> None:
@@ -48,6 +51,23 @@ class UIHandler:
         try:
             self.window.videoStream.config.width = allocation.width
             self.window.videoStream.config.height = allocation.height
+        except Exception as e:
+            self.handleException(e)
+    
+    def onWindowKeyPress(self, widget, event):
+        try:
+            # check the event modifiers (can also use SHIFTMASK, etc)
+            ctrl = (event.state & Gdk.ModifierType.CONTROL_MASK)
+
+            if ctrl and event.keyval == Gdk.KEY_f:
+                self.window.fullscreen()
+        except Exception as e:
+            self.handleException(e)
+
+    def onWindowStateEvent(self, widget, ev):
+        try:
+            self.window.isFullscreen = bool(
+                ev.new_window_state & Gdk.WindowState.FULLSCREEN)
         except Exception as e:
             self.handleException(e)
 

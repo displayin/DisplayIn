@@ -25,11 +25,10 @@ def writeDisplay(uiBuilder, frame):
     GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf.copy())
     pass
 
-
-
 class MainWindow:
     def __init__(self, exHandler: ExceptionHandler=None) -> None:
         self.exHandler = exHandler
+        self.isFullscreen: bool = False
 
     def setUiHandler(self, uiHandler):
         try:
@@ -198,6 +197,12 @@ class MainWindow:
             Gtk.main()
         except Exception as e:
             self.handleException(e)
+
+    def fullscreen(self):
+        if self.isFullscreen:
+            self.window.unfullscreen()
+        else:
+            self.window.fullscreen()
 
     def exit(self):
         try:
