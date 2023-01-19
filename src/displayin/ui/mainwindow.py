@@ -119,7 +119,7 @@ class MainWindow:
                     if currentInputDeviceId == -1:
                         currentInputDeviceId = i
                     # Prioritize USB devices in input
-                    if "usb" in device["name"].lower():
+                    if "usb" in device["name"].lower() and "voip" not in device["name"].lower():
                         currentInputDeviceId = i
                     i += 1
 
