@@ -59,6 +59,7 @@ class UIHandler:
             # check the event modifiers (can also use SHIFTMASK, etc)
             ctrl = (event.state & Gdk.ModifierType.CONTROL_MASK)
 
+            # TODO: Have buttons for these
             if ctrl and event.keyval == Gdk.KEY_f:
                 self.window.fullscreen()
             elif ctrl and event.keyval == Gdk.KEY_h:
