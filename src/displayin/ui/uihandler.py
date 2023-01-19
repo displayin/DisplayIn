@@ -4,8 +4,8 @@ from ui.mainwindow import MainWindow
 
 class UIHandler:
     def __init__(self) -> None:
-        self.window: None
-        self.exHandler: None
+        self.window: MainWindow = None
+        self.exHandler: ExceptionHandler = None
 
     def setWindow(self, window: MainWindow) -> None:
         self.window: MainWindow = window
