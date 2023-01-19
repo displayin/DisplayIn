@@ -44,6 +44,13 @@ class UIHandler:
         except Exception as e:
             self.handleException(e)
 
+    def onDisplayResize(self, widget, allocation):
+        try:
+            self.window.videoStream.config.width = allocation.width
+            self.window.videoStream.config.height = allocation.height
+        except Exception as e:
+            self.handleException(e)
+
     def onExit(self, obj):
         try:
             self.window.exit()

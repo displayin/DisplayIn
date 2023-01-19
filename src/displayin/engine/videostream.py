@@ -10,6 +10,10 @@ class VideoStream(object):
         try:
             # Set config
             self.config: VideoStreamConfig = config
+
+            # Set width and height
+            self.width: int = config.width
+            self.height: int = config.height
             
             # Create a VideoCapture object
             self.capture = cv.VideoCapture(config.deviceId, config.api)
@@ -61,13 +65,13 @@ class VideoStream(object):
             while self.running:
                 # Display frames in main program
                 if self.status and self.frame.any():
+                    self.frame = self.setResolution(
+                        self.frame, width=self.config.width, height=self.config.height)
                     if self.config.writeCallback:
                         # Call Write Callback
                         self.config.writeCallback(self.config.uiBuilder, self.frame)
                     else:
                         # Show using OpenCV
-                        self.frame = self.setResolution(
-                            self.frame, width=self.config.width, height=self.config.height)
                         cv.imshow(self.config.name, self.frame)
 
                         # Press Q on keyboard to stop recording
