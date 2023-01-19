@@ -25,54 +25,13 @@ def writeDisplay(uiBuilder, frame):
     GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf.copy())
     pass
 
-class UIHandler:
-    def __init__(self, window) -> None:
-        self.window = window
-        self.exHandler = self.window.exHandler
 
-    def handleException(self, e: Exception):
-        if self.exHandler:
-            self.exHandler.handle(e)
-
-    def onSelectDisplay(self, combo):
-        try:
-            selected = combo.get_active()
-            if selected is not None:
-                self.window.selectedDisplay = selected
-                self.window.startVideo()
-        except Exception as e:
-            self.handleException(e)
-
-    def onSelectAudioIn(self, combo):
-        try:
-            selected = combo.get_active()
-            if selected is not None:
-                model = combo.get_model()
-                self.window.selectedAudioIn = model[selected][1]
-                self.window.startAudio()
-        except Exception as e:
-            self.handleException(e)
-
-    def onSelectAudioOut(self, combo):
-        try:
-            selected = combo.get_active()
-            if selected is not None:
-                model = combo.get_model()
-                self.window.selectedAudioOut = model[selected][1]
-                self.window.startAudio()
-        except Exception as e:
-            self.handleException(e)
-
-    def onExit(self, obj):
-        try:
-            self.window.exit()
-        except Exception as e:
-            self.handleException(e)
 
 class MainWindow:
     def __init__(self, exHandler: ExceptionHandler=None) -> None:
         self.exHandler = exHandler
 
+    def setUiHandler(self, uiHandler):
         try:
             # Set Paths
             self.dirPath = os.path.dirname(os.path.realpath(__file__))
@@ -81,7 +40,7 @@ class MainWindow:
             # Initialize Gtk Builder
             self.builder = Gtk.Builder()
             self.builder.add_from_file(self.gladePath)
-            self.builder.connect_signals(UIHandler(self))
+            self.builder.connect_signals(uiHandler)
 
             # Get Window
             self.window = self.builder.get_object("main")
