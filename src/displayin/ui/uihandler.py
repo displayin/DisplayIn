@@ -49,6 +49,7 @@ class UIHandler:
 
     def onDisplayResize(self, widget, allocation):
         try:
+            # TODO create option to maintain aspect ratio
             self.window.videoStream.config.width = allocation.width
             self.window.videoStream.config.height = allocation.height
         except Exception as e:
