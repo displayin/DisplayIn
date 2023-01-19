@@ -61,6 +61,9 @@ class UIHandler:
 
             if ctrl and event.keyval == Gdk.KEY_f:
                 self.window.fullscreen()
+            elif ctrl and event.keyval == Gdk.KEY_h:
+                actionBar = self.getGtkObject("actionBar")
+                actionBar.set_reveal_child(not actionBar.get_reveal_child())
         except Exception as e:
             self.handleException(e)
 
@@ -70,6 +73,9 @@ class UIHandler:
                 ev.new_window_state & Gdk.WindowState.FULLSCREEN)
         except Exception as e:
             self.handleException(e)
+    
+    def getGtkObject(self, objectId: str):
+        return self.window.builder.get_object(objectId)
 
     def onExit(self, obj):
         try:
