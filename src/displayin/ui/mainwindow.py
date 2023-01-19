@@ -76,9 +76,6 @@ class MainWindow:
                     config = VideoStreamConfig(
                         deviceId=i,
                         name=str("Display " + str(i)),
-                        # TODO: Dynamically set width and height
-                        width=1280, # cap.get(cv.CAP_PROP_FRAME_WIDTH),
-                        height=720, # cap.get(cv.CAP_PROP_FRAME_HEIGHT),
                         uiBuilder=self.builder,
                         writeCallback=writeDisplay
                     )
