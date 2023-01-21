@@ -8,4 +8,4 @@ pip install sounddevice
 pip install pyinstaller
 
 # Install PyGObject
-pip install PyGObject
+# pip install PyGObject
