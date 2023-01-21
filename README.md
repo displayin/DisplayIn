@@ -15,8 +15,9 @@ DisplayIn App for streaming your display input using OpenCV written in Python.
 - [PyObject for Windows](https://sourceforge.net/projects/pygobjectwin32/)
 - [GitHub CLI](https://cli.github.com/)
 
-## Documents
+## Windows Documentation
 - [Install GTK in Windows](https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started)
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)
 - [Create Symlink in Windows](https://www.maketecheasier.com/create-symbolic-links-windows10/)
 - [Install PyGObject in Windows](https://stackoverflow.com/questions/33862049/python-cannot-install-pygobject)
+- [Pip on MinGW64](https://stackoverflow.com/questions/56930492/pip-on-mingw64)
