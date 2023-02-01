@@ -16,6 +16,9 @@ DisplayIn App for streaming your display input using OpenCV written in Python.
 - [GitHub CLI](https://cli.github.com/)
 
 ## Windows Documentation
+- [Install GTK3 using gvsbuild](https://github.com/wingtk/gvsbuild/)
+
+## Windows Misc Documentation
 - [Install GTK in Windows](https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started)
 - [Setting up GTK for Windows](https://www.gtk.org/docs/installations/windows)
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)
@@ -24,4 +27,3 @@ DisplayIn App for streaming your display input using OpenCV written in Python.
 - [Pip on MinGW64](https://stackoverflow.com/questions/56930492/pip-on-mingw64)
 - [Install GCC in MinGW64](https://www.devdungeon.com/content/install-gcc-compiler-windows-msys2-cc)
 - [Setting up Python in Windows](https://stackoverflow.com/questions/51787630/setting-up-developement-environment-pycharm-python-gtk-windows/51959831#51959831)
-- [gvsbuild](https://github.com/wingtk/gvsbuild/)
