@@ -32,13 +32,9 @@ class MainWindow:
 
     def setUiHandler(self, uiHandler):
         try:
-            # Set Paths
-            self.dirPath = os.path.dirname(os.path.realpath(__file__))
-            self.gladePath = os.path.join(self.dirPath, "maingui.glade")
-
             # Initialize Gtk Builder
             self.builder = Gtk.Builder()
-            self.builder.add_from_file(self.gladePath)
+            self.builder.add_from_file("maingui.glade")
             self.builder.connect_signals(uiHandler)
 
             # Get Window
@@ -67,6 +63,7 @@ class MainWindow:
 
     def initVideo(self):
         try:
+            print("Initializing Video...")
             # Find all available video device ids
             self.videoDevices: list[VideoStreamConfig] = []
             for i in range(50):
@@ -81,6 +78,10 @@ class MainWindow:
                     )
                     self.videoDevices.append(config)
                     cap.release()
+                    print(config.name)
+
+                    # TODO Remove break and use cap.isOpened() instead
+                    break
                 else:
                     break
 
@@ -91,17 +92,20 @@ class MainWindow:
             for device in self.videoDevices:
                 deviceListStore.append([device.deviceId, device.name])
                 currentDeviceId = device.deviceId
+                print(str("Current Selected Device: " + str(currentDeviceId)))
 
             if self.videoDevices:
                 self.selectDisplay.set_model(deviceListStore)
                 self.selectDisplay.set_id_column(0)
                 self.selectDisplay.set_entry_text_column(1)
                 self.selectDisplay.set_active(currentDeviceId)
+            print("Video Initialized!")
         except Exception as e:
             self.handleException(e)
 
     def initAudio(self):
         try:
+            print("Initializing Audio...")
             # Get list of all sound devices
             self.audioDevices = sd.query_devices()
 
@@ -139,12 +143,12 @@ class MainWindow:
                 self.selectAudioIn.set_entry_text_column(2)
                 self.selectAudioIn.set_active(currentInputDeviceId)
                 
-
             if len(outputDeviceListStore) > 0:
                 self.selectAudioOut.set_model(outputDeviceListStore)
                 self.selectAudioOut.set_id_column(0)
                 self.selectAudioOut.set_entry_text_column(2)
                 self.selectAudioOut.set_active(currentOutputDeviceId)
+            print("Audio Initialized!")
         except Exception as e:
             self.handleException(e)
 

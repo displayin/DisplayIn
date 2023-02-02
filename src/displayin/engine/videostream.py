@@ -16,7 +16,8 @@ class VideoStream(object):
             self.height: int = config.height
             
             # Create a VideoCapture object
-            self.capture = cv.VideoCapture(config.deviceId, config.api)
+            # self.capture = cv.VideoCapture(config.deviceId, config.api)
+            self.capture = cv.VideoCapture(config.deviceId)
             self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
             self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
             self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
@@ -55,8 +56,9 @@ class VideoStream(object):
             while self.capture.isOpened():
                 self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
+                print("Reading Frames: " + str(self.status))
 
-            time.sleep(self.fps)
+            # time.sleep(self.fps)
         except Exception as e:
             self.handleException(e)
 
