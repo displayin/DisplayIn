@@ -4,7 +4,7 @@
 # https://stackoverflow.com/questions/65683036/delay-lag-in-opencv-videocapture
 # https://stackoverflow.com/questions/37799847/python-playing-a-video-with-audio-with-opencv
 from threading import Thread
-import time, cv2, wave, pyaudio, threading
+import time, cv2, wave, threading
 import sounddevice as sd
 
 class VideoStreamCapture(object):
