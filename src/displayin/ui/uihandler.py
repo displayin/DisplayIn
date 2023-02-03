@@ -1,4 +1,5 @@
 from util.exceptionhandler import ExceptionHandler
+from util.logger import Logger
 from ui.mainwindow import MainWindow
 
 import gi
@@ -9,10 +10,12 @@ class UIHandler:
     def __init__(self) -> None:
         self.window: MainWindow = None
         self.exHandler: ExceptionHandler = None
+        self.logger: Logger = None
 
     def setWindow(self, window: MainWindow) -> None:
         self.window: MainWindow = window
         self.exHandler: ExceptionHandler = self.window.exHandler
+        self.logger: Logger = self.window.logger
 
     def handleException(self, e: Exception):
         if self.exHandler:
@@ -24,7 +27,7 @@ class UIHandler:
             if selected is not None:
                 self.window.selectedDisplay = selected
                 self.window.startVideo()
-                print("Video Started!")
+                self.logger.log("Video Started!")
         except Exception as e:
             self.handleException(e)
 
@@ -35,7 +38,7 @@ class UIHandler:
                 model = combo.get_model()
                 self.window.selectedAudioIn = model[selected][1]
                 self.window.startAudio()
-                print("Audio Started!")
+                self.logger.log("Audio Started!")
         except Exception as e:
             self.handleException(e)
 

@@ -56,7 +56,6 @@ class VideoStream(object):
             while self.capture.isOpened():
                 self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
-                print("Reading Frames: " + str(self.status))
 
             # time.sleep(self.fps)
         except Exception as e:

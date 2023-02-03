@@ -6,6 +6,7 @@ from engine.audiostream import AudioStream
 import sounddevice as sd
 import cv2 as cv
 from util.exceptionhandler import ExceptionHandler
+from util.logger import Logger
 import numpy as np
 
 import os
@@ -29,6 +30,7 @@ class MainWindow:
     def __init__(self, exHandler: ExceptionHandler=None) -> None:
         self.exHandler = exHandler
         self.isFullscreen: bool = False
+        self.logger = Logger()
 
     def setUiHandler(self, uiHandler):
         try:
@@ -63,7 +65,7 @@ class MainWindow:
 
     def initVideo(self):
         try:
-            print("Initializing Video...")
+            self.logger.log("Initializing Video...")
             # Find all available video device ids
             self.videoDevices: list[VideoStreamConfig] = []
             for i in range(50):
@@ -78,7 +80,7 @@ class MainWindow:
                     )
                     self.videoDevices.append(config)
                     cap.release()
-                    print(config.name)
+                    self.logger.log(config.name)
 
                     # TODO Remove break and use cap.isOpened() instead
                     break
@@ -92,20 +94,20 @@ class MainWindow:
             for device in self.videoDevices:
                 deviceListStore.append([device.deviceId, device.name])
                 currentDeviceId = device.deviceId
-                print(str("Current Selected Device: " + str(currentDeviceId)))
+                self.logger.log(str("Current Selected Device: " + str(currentDeviceId)))
 
             if self.videoDevices:
                 self.selectDisplay.set_model(deviceListStore)
                 self.selectDisplay.set_id_column(0)
                 self.selectDisplay.set_entry_text_column(1)
                 self.selectDisplay.set_active(currentDeviceId)
-            print("Video Initialized!")
+            self.logger.log("Video Initialized!")
         except Exception as e:
             self.handleException(e)
 
     def initAudio(self):
         try:
-            print("Initializing Audio...")
+            self.logger.log("Initializing Audio...")
             # Get list of all sound devices
             self.audioDevices = sd.query_devices()
 
@@ -148,7 +150,7 @@ class MainWindow:
                 self.selectAudioOut.set_id_column(0)
                 self.selectAudioOut.set_entry_text_column(2)
                 self.selectAudioOut.set_active(currentOutputDeviceId)
-            print("Audio Initialized!")
+            self.logger.log("Audio Initialized!")
         except Exception as e:
             self.handleException(e)
 
