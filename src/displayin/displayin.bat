@@ -1,1 +1,1 @@
-python -m debugpy --listen 5678 displayin.py --wait-for-client
+python -m debugpy --listen 5678 --wait-for-client displayin.py
