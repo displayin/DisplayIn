@@ -1,1 +1,1 @@
-pyinstaller --onefile --noconsole --resource menugui.glade displayin.py
+pyinstaller --onefile --noconsole --add-data="resource\ui\maingui.glade;resource\ui" displayin.py

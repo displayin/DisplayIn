@@ -3,11 +3,13 @@ from config.videostreamconfig import VideoStreamConfig
 from config.audiostreamconfig import AudioStreamConfig
 from engine.videostream import VideoStream
 from engine.audiostream import AudioStream
+from util.resource import Resource as res
 import sounddevice as sd
 import cv2 as cv
 from util.exceptionhandler import ExceptionHandler
 from util.logger import Logger
 import numpy as np
+import sys
 
 import os
 import gi
@@ -36,7 +38,7 @@ class MainWindow:
         try:
             # Initialize Gtk Builder
             self.builder = Gtk.Builder()
-            self.builder.add_from_file("maingui.glade")
+            self.builder.add_from_file(res.getFilePath("resource/ui/maingui.glade"))
             self.builder.connect_signals(uiHandler)
 
             # Get Window
@@ -83,7 +85,8 @@ class MainWindow:
                     self.logger.log(config.name)
 
                     # TODO Remove break and use cap.isOpened() instead
-                    break
+                    if res.isWindows():
+                        break
                 else:
                     break
 
