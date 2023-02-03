@@ -1,0 +1,1 @@
+python -m debugpy --listen 5678 main.py --wait-for-client
