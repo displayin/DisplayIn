@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --resource menugui.glade displayin.py
