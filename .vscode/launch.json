@@ -6,6 +6,14 @@
             "request": "launch",
             "program": "src/displayin/main.py",
             "justMyCode": true
-        }
+        },
+        {
+            "name": "Python: Attach",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+              "port": 5678
+            }
+          }
     ]
 }
