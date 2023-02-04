@@ -1,5 +1,6 @@
 from config.videostreamconfig import VideoStreamConfig
 from util.exceptionhandler import ExceptionHandler
+from util.resource import Resource as res
 from threading import Thread
 import time
 import cv2 as cv
@@ -17,10 +18,12 @@ class VideoStream(object):
             
             # Create a VideoCapture object
             self.capture = cv.VideoCapture(config.deviceId, config.api)
-            self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
-            self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
-            self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
-            self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
+
+            if not res.isWindows():
+                self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
+                self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+                self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
+                self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
 
             # FPS = 1/X
             # X = desired FPS
