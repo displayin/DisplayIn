@@ -72,7 +72,7 @@ class MainWindow:
             # Select Video API
             videoApi = cv.CAP_V4L2
             if (res.isWindows()):
-                videoApi = cv.CAP_VFW
+                videoApi = cv.CAP_ANY
 
             # Find all available video device ids
             self.videoDevices: list[VideoStreamConfig] = []

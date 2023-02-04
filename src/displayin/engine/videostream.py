@@ -17,7 +17,6 @@ class VideoStream(object):
             
             # Create a VideoCapture object
             self.capture = cv.VideoCapture(config.deviceId, config.api)
-            self.capture = cv.VideoCapture(config.deviceId)
             self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
             self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
             self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
