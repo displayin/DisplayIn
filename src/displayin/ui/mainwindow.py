@@ -111,8 +111,12 @@ class MainWindow:
     def initAudio(self):
         try:
             self.logger.log("Initializing Audio...")
+
+            # Get list of host audio apis
+            self.selectAudioHostApi()
+
             # Get list of all sound devices
-            self.audioDevices = sd.query_devices()
+            self.getAudioDevices()
 
             inputDeviceListStore = Gtk.ListStore(int, int, str)
             outputDeviceListStore = Gtk.ListStore(int, int, str)
@@ -121,6 +125,7 @@ class MainWindow:
             j = 0
             currentInputDeviceId = -1
             currentOutputDeviceId = -1
+
             for device in self.audioDevices:
                 if device["max_input_channels"] > 0:
                     inputDeviceListStore.append([i, device["index"], device["name"]])
@@ -157,6 +162,26 @@ class MainWindow:
         except Exception as e:
             self.handleException(e)
 
+    def selectAudioHostApi(self):
+        # Get list of host audio apis
+        self.hostApiIndex = 0
+        self.audioHostApis = sd.query_hostapis()
+        i = 0
+        for api in self.audioHostApis:
+            # TODO Make Configurable for all OSes
+            if res.isWindows() and api["name"] == "Windows WASAPI":
+                self.hostApiIndex = i
+                break
+            i+=1
+        pass
+
+    def getAudioDevices(self):
+        self.audioDevices = sd.query_devices()
+        if res.isWindows():
+            self.audioDevices = list(filter(lambda audioDevice: audioDevice["hostapi"] == self.hostApiIndex, self.audioDevices))
+
+        pass
+
     def startVideo(self):
         try:
             if self.selectedDisplay != -1:
@@ -172,8 +197,8 @@ class MainWindow:
     def startAudio(self):
         try:
             if self.selectedAudioIn != -1 and self.selectedAudioOut != -1:
-                audioIn = self.audioDevices[self.selectedAudioIn]
-                audioOut = self.audioDevices[self.selectedAudioOut]
+                audioIn = next(filter(lambda device: device["index"] == self.selectedAudioIn, self.audioDevices))
+                audioOut = next(filter(lambda device: device["index"] == self.selectedAudioOut, self.audioDevices))
                 
                 if self.audioStream:
                     self.audioStream.stop()
@@ -182,7 +207,7 @@ class MainWindow:
                     inputDeviceId=audioIn["index"],
                     outputDeviceId=audioOut["index"],
                     sampleRate=audioIn["default_samplerate"], 
-                    channels=(audioIn["max_input_channels"], audioIn["max_input_channels"]),
+                    channels=(1, audioIn["max_input_channels"]),
                     latency=(audioIn["default_low_input_latency"], audioIn["default_high_input_latency"]),
                     dtype=np.int32,
                     blockSize=8192)
