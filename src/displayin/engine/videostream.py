@@ -19,9 +19,10 @@ class VideoStream(object):
             # Create a VideoCapture object
             self.capture = cv.VideoCapture(config.deviceId, config.api)
 
-            if not res.isWindows():
-                self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
-                self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+            self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
+            self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+
+            if res.isLinux():
                 self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
                 self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
 
@@ -52,7 +53,7 @@ class VideoStream(object):
     def read(self):
         try:
             # Read the next frame from the stream in a different thread
-            while self.capture.isOpened():
+            while self.running and self.capture.isOpened():
                 self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
 
@@ -71,7 +72,6 @@ class VideoStream(object):
                         key = cv.waitKey(1)
                         if key == ord('q'):
                             self.stop()
-
 
             # Release the capture
             self.capture.release()
