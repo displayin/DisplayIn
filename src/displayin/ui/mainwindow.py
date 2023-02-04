@@ -176,7 +176,7 @@ class MainWindow:
         i = 0
         for api in self.audioHostApis:
             # TODO Make Configurable for all OSes
-            if res.isWindows() and api["name"] == "Windows WASAPI":
+            if res.isWindows() and api["name"] == "MME":
                 self.hostApiIndex = i
                 break
             i+=1
