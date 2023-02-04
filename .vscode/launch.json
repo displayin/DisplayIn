@@ -4,7 +4,7 @@
             "name": "Python: DisplayIn",
             "type": "python",
             "request": "launch",
-            "program": "src/displayin/main.py",
+            "program": "src/displayin/displayin.py",
             "justMyCode": true
         },
         {
