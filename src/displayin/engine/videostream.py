@@ -43,9 +43,6 @@ class VideoStream(object):
                 self.running: bool = True
                 self.updatethread = Thread(target=self.read, args=())
                 self.updatethread.start()
-
-                self.writethread = Thread(target=self.write, args=())
-                self.writethread.start()
         except Exception as e:
             self.handleException(e)
 
@@ -56,13 +53,6 @@ class VideoStream(object):
                 self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
 
-            # time.sleep(self.fps)
-        except Exception as e:
-            self.handleException(e)
-
-    def write(self):
-        try:
-            while self.running:
                 # Display frames in main program
                 if self.status and self.frame.any():
                     self.frame = self.setResolution(
@@ -87,7 +77,6 @@ class VideoStream(object):
                 exit(0)
         except Exception as e:
             self.handleException(e)
-
 
     def stop(self):
         self.running = False
