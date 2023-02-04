@@ -9,16 +9,28 @@ class AudioStream(object):
         try:
             # Set config
             self.config: AudioStreamConfig = config
-            self.audiostream = sd.Stream(
-                device=(config.inputDeviceId, config.outputDeviceId), 
-                samplerate=config.sampleRate, 
+
+            # Set InputStream
+            self.audioInputStream = sd.InputStream(
+                device=config.inputDeviceId, 
+                samplerate=config.inputSampleRate, 
                 blocksize=config.blockSize, 
-                channels=config.channels,
-                latency=config.latency,
+                channels=config.inputChannels,
+                latency=config.inputLatency,
+                dtype=config.dtype)
+            
+            # Set OutputStream
+            self.audioOutputStream = sd.OutputStream(
+                device=config.outputDeviceId, 
+                samplerate=config.outputSampleRate, 
+                blocksize=config.blockSize, 
+                channels=config.outputChannels,
+                latency=config.outputLatency,
                 dtype=config.dtype)
         except Exception as e:
             self.handleException(e)
-            self.audiostream = None
+            self.audioInputStream = None
+            self.audioOutputStream = None
 
     def handleException(self, e: Exception):
         if self.exHandler:
@@ -28,8 +40,9 @@ class AudioStream(object):
         try:
             # Start the audio stream
             self.running: bool = True
-            if self.audiostream is not None:
-                self.audiostream.start()
+            if self.audioInputStream is not None and self.audioOutputStream is not None:
+                self.audioInputStream.start()
+                self.audioOutputStream.start()
 
                 # Start the thread to read frames from the audio stream
                 self.updatethread = Thread(target=self.read, args=())
@@ -40,12 +53,14 @@ class AudioStream(object):
     def read(self):
         try:
             while self.running:
-                indata, overflowed = self.audiostream.read(self.config.blockSize)
-                self.audiostream.write(indata)
+                indata, overflowed = self.audioInputStream.read(self.config.blockSize)
+                self.audioOutputStream.write(indata)
 
             # When we stop running, stop and close the stream
-            self.audiostream.stop()
-            self.audiostream.close()
+            self.audioInputStream.stop()
+            self.audioInputStream.close()
+            self.audioOutputStream.stop()
+            self.audioOutputStream.close()
 
         except Exception as e:
             self.handleException(e)

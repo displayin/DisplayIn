@@ -1,9 +1,12 @@
 class AudioStreamConfig:
-  def __init__(self, inputDeviceId, outputDeviceId, sampleRate: int=48000.0, blockSize: int=8192, channels=2, latency=None, dtype=None):
+  def __init__(self, inputDeviceId, outputDeviceId, inputSampleRate: int=48000.0, outputSampleRate: int=48000.0, blockSize: int=8192, inputChannels=2, outputChannels=2, inputLatency=None, outputLatency=None, dtype=None):
     self.inputDeviceId = inputDeviceId
     self.outputDeviceId = outputDeviceId
-    self.sampleRate = sampleRate
+    self.inputSampleRate = inputSampleRate
+    self.outputSampleRate = outputSampleRate
     self.blockSize = blockSize
-    self.channels = channels
-    self.latency = latency
+    self.inputChannels = inputChannels
+    self.outputChannels = outputChannels
+    self.inputLatency = inputLatency
+    self.outputLatency = outputLatency
     self.dtype = dtype

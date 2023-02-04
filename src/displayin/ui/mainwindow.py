@@ -68,6 +68,12 @@ class MainWindow:
     def initVideo(self):
         try:
             self.logger.log("Initializing Video...")
+
+            # Select Video API
+            videoApi = cv.CAP_V4L2
+            if (res.isWindows()):
+                videoApi = cv.CAP_VFW
+
             # Find all available video device ids
             self.videoDevices: list[VideoStreamConfig] = []
             for i in range(50):
@@ -78,7 +84,8 @@ class MainWindow:
                         # TODO Localize String
                         name=str("Display " + str(i)),
                         uiBuilder=self.builder,
-                        writeCallback=writeDisplay
+                        writeCallback=writeDisplay,
+                        api=videoApi
                     )
                     self.videoDevices.append(config)
                     cap.release()
@@ -206,9 +213,12 @@ class MainWindow:
                 audioConfig = AudioStreamConfig(
                     inputDeviceId=audioIn["index"],
                     outputDeviceId=audioOut["index"],
-                    sampleRate=audioIn["default_samplerate"], 
-                    channels=(1, audioIn["max_input_channels"]),
-                    latency=(audioIn["default_low_input_latency"], audioIn["default_high_input_latency"]),
+                    inputSampleRate=audioIn["default_samplerate"], 
+                    outputSampleRate=audioOut["default_samplerate"], 
+                    inputChannels=audioIn["max_input_channels"],
+                    outputChannels=audioIn["max_input_channels"], 
+                    inputLatency=audioIn["default_low_input_latency"], 
+                    outputLatency=audioOut["default_low_input_latency"],
                     dtype=np.int32,
                     blockSize=8192)
                 self.audioStream = AudioStream(audioConfig, self.exHandler)
