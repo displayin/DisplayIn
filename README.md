@@ -10,6 +10,32 @@ DisplayIn App for streaming your display input using OpenCV written in Python.
 - [VSCode](https://code.visualstudio.com/)
 - [Glade GTK](https://glade.gnome.org/)
 
+# Setup Windows Dev Environment
+1. Install [Chocolatey](https://chocolatey.org/)
+2. Open Powershell in Administrator Window and run 
+```
+Set-ExecutionPolicy Unrestricted
+```
+3. Then install msys2
+```
+choco install msys2
+```
+4. Add these to the PATH system environment variable
+```
+C:\tools\msys64\mingw64
+```
+5. Open msys2 terminal
+```
+C:\tools\msys64\mingw64.exe
+```
+6. Now run the setup script
+```
+scripts/setup_devenv_windows_msys2.sh
+```
+7. The first run will close the window, repeat steps 5 and 6 again to finish
+
+# Documentation
+
 ## Windows Tools
 - [MSYS2 Pacman](https://www.msys2.org/)
 - [PyObject for Windows](https://sourceforge.net/projects/pygobjectwin32/)
