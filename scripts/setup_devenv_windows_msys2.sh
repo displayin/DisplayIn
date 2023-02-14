@@ -7,3 +7,6 @@ pip install debugpy
 
 # Install PyInstaller
 pip install pyinstaller
+
+# Copy PortAudio DLL as a workaround for python sounddevice import
+cp /mingw64/bin/libportaudio.dll /mingw64/bin/portaudio.dll
