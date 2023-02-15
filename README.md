@@ -34,7 +34,10 @@ scripts/setup_devenv_windows_msys2.sh
 ```
 7. The first run will close the window, repeat steps 5 and 6 again to finish
 
-## GStreamer Includes
+## Compile OpenCV with GStreamer
+1. Download and do a complete install of [Gstreamer for MinGW Development](https://gstreamer.freedesktop.org/download/)
+2. Follow this guide to [Compile OpenCV for MinGW Windows](https://galaktyk.medium.com/how-to-build-opencv-with-gstreamer-b11668fa09c)
+3. For step 5 CmakeGUI & Visual Studio use these for gstreamer
 ```
 F:/gstreamer/1.0/mingw_x86_64/lib/gstapp-1.0.lib
 F:/gstreamer/1.0/mingw_x86_64/lib/gstaudio-1.0.lib
