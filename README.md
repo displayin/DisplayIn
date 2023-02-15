@@ -60,6 +60,13 @@ C:/tools/msys64/mingw64/lib/libpython3.10.dll.a
 C:/tools/msys64/mingw64/lib/python3.10/site-packages
 ```
 
+And from this document, you may need to uncheck the following:
+```
+BUILD_TESTS
+BUILD_opencv_highgui
+ENABLE_SOLUTION_FOLDERS
+```
+
 # Documentation
 
 ## Windows Tools
