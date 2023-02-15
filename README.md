@@ -42,7 +42,7 @@ scripts/setup_devenv_windows_msys2.sh
 F:/gstreamer/1.0/mingw_x86_64/lib/gstapp-1.0.lib
 F:/gstreamer/1.0/mingw_x86_64/lib/gstaudio-1.0.lib
 F:/gstreamer/1.0/mingw_x86_64/lib/gstbase-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0
+F:/gstreamer/1.0/mingw_x86_64/include/glib-2.0
 F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0.lib
 F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0/include
 F:/gstreamer/1.0/mingw_x86_64/lib/gobject-2.0.lib
