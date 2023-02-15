@@ -34,6 +34,22 @@ scripts/setup_devenv_windows_msys2.sh
 ```
 7. The first run will close the window, repeat steps 5 and 6 again to finish
 
+## GStreamer Includes
+```
+F:/gstreamer/1.0/mingw_x86_64/lib/gstapp-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/gstaudio-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/gstbase-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0
+F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0/include
+F:/gstreamer/1.0/mingw_x86_64/lib/gobject-2.0.lib
+F:/gstreamer/1.0/mingw_x86_64/include/gstreamer-1.0
+F:/gstreamer/1.0/mingw_x86_64/lib/gstreamer-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/gstpbutils-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/gstriff-1.0.lib
+F:/gstreamer/1.0/mingw_x86_64/lib/gstvideo-1.0.lib
+```
+
 # Documentation
 
 ## Windows Tools
