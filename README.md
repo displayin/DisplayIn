@@ -53,6 +53,13 @@ F:/gstreamer/1.0/mingw_x86_64/lib/gstriff-1.0.lib
 F:/gstreamer/1.0/mingw_x86_64/lib/gstvideo-1.0.lib
 ```
 
+Also, you may need these paths from the [Official OpenCV Windows Build Guide](https://docs.opencv.org/4.x/d5/de5/tutorial_py_setup_in_windows.html)
+```
+C:/tools/msys64/mingw64/include/python3.10
+C:/tools/msys64/mingw64/lib/libpython3.10.dll.a
+C:/tools/msys64/mingw64/lib/python3.10/site-packages
+```
+
 # Documentation
 
 ## Windows Tools
