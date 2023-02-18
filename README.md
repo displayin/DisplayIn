@@ -34,39 +34,6 @@ scripts/setup_devenv_windows_msys2.sh
 ```
 7. The first run will close the window, repeat steps 5 and 6 again to finish
 
-## Compile OpenCV with GStreamer
-1. Download and do a complete install of [Gstreamer for MinGW Development](https://gstreamer.freedesktop.org/download/)
-2. Follow this guide to [Compile OpenCV for MinGW Windows](https://galaktyk.medium.com/how-to-build-opencv-with-gstreamer-b11668fa09c)
-3. For step 5 CmakeGUI & Visual Studio use these for gstreamer
-```
-F:/gstreamer/1.0/msvc_x86_64/lib/gstapp-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/gstaudio-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/gstbase-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/include/glib-2.0
-F:/gstreamer/1.0/msvc_x86_64/lib/glib-2.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/glib-2.0/include
-F:/gstreamer/1.0/msvc_x86_64/lib/gobject-2.0.lib
-F:/gstreamer/1.0/msvc_x86_64/include/gstreamer-1.0
-F:/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/gstpbutils-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/gstriff-1.0.lib
-F:/gstreamer/1.0/msvc_x86_64/lib/gstvideo-1.0.lib
-```
-
-Also, you may need these paths from the [Official OpenCV Windows Build Guide](https://docs.opencv.org/4.x/d5/de5/tutorial_py_setup_in_windows.html)
-```
-C:/tools/msys64/mingw64/include/python3.10
-C:/tools/msys64/mingw64/lib/libpython3.10.dll.a
-C:/tools/msys64/mingw64/lib/python3.10/site-packages
-```
-
-And from this document, you may need to uncheck the following:
-```
-BUILD_TESTS
-BUILD_opencv_highgui
-ENABLE_SOLUTION_FOLDERS
-```
-
 # Documentation
 
 ## Windows Tools
