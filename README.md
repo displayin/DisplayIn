@@ -39,18 +39,18 @@ scripts/setup_devenv_windows_msys2.sh
 2. Follow this guide to [Compile OpenCV for MinGW Windows](https://galaktyk.medium.com/how-to-build-opencv-with-gstreamer-b11668fa09c)
 3. For step 5 CmakeGUI & Visual Studio use these for gstreamer
 ```
-F:/gstreamer/1.0/mingw_x86_64/lib/gstapp-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/gstaudio-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/gstbase-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/include/glib-2.0
-F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/glib-2.0/include
-F:/gstreamer/1.0/mingw_x86_64/lib/gobject-2.0.lib
-F:/gstreamer/1.0/mingw_x86_64/include/gstreamer-1.0
-F:/gstreamer/1.0/mingw_x86_64/lib/gstreamer-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/gstpbutils-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/gstriff-1.0.lib
-F:/gstreamer/1.0/mingw_x86_64/lib/gstvideo-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstapp-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstaudio-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstbase-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/include/glib-2.0
+F:/gstreamer/1.0/msvc_x86_64/lib/glib-2.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/glib-2.0/include
+F:/gstreamer/1.0/msvc_x86_64/lib/gobject-2.0.lib
+F:/gstreamer/1.0/msvc_x86_64/include/gstreamer-1.0
+F:/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstpbutils-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstriff-1.0.lib
+F:/gstreamer/1.0/msvc_x86_64/lib/gstvideo-1.0.lib
 ```
 
 Also, you may need these paths from the [Official OpenCV Windows Build Guide](https://docs.opencv.org/4.x/d5/de5/tutorial_py_setup_in_windows.html)
