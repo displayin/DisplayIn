@@ -11,8 +11,12 @@
 8. Where is the source code: C:/Users/USER/git/opencv-4.7.0
 9. Where to build the binaries: C:/Users/USER/git/opencv-4.7.0/build
 10. Click Configure and select MSYS2 Makefiles
-11. Select Generate and close cmake-gui
-12. run mingw32-make install [Compile OpenCV with Gstreamer in MinGW](https://medium.com/csmadeeasy/opencv-c-installation-on-windows-with-mingw-c0fc1499f39)
+11. Uncheck the following:
+```
+WITH_OBSENSOR
+```
+12. Select Generate and close cmake-gui
+13. run mingw32-make install [Compile OpenCV with Gstreamer in MinGW](https://medium.com/csmadeeasy/opencv-c-installation-on-windows-with-mingw-c0fc1499f39)
 
 ## MSCV Method - Does not Compile
 1. Download and do a complete install of [Gstreamer for MinGW Development](https://gstreamer.freedesktop.org/download/)
