@@ -16,8 +16,6 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
-import subprocess
-
 def writeDisplay(uiBuilder, frame):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
