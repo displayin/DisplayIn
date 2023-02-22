@@ -21,10 +21,8 @@ class VideoStream(object):
 
             self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
             self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
-
-            if res.isLinux():
-                self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
-                self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
+            self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
+            self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
 
             # FPS = 1/X
             # X = desired FPS
@@ -54,7 +52,8 @@ class VideoStream(object):
         try:
             # Read the next frame from the stream in a different thread
             while self.running and self.capture.isOpened():
-                self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
+                if res.isLinux():
+                    self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
 
                 # Display frames in main program
