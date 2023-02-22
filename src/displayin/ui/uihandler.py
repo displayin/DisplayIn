@@ -24,7 +24,7 @@ class UIHandler:
     def onSelectDisplay(self, combo):
         try:
             selected = combo.get_active()
-            if selected is not None:
+            if selected is not None and selected != -1:
                 self.window.selectedDisplay = selected
                 self.window.startVideo()
                 self.logger.log("Video Started!")
@@ -54,9 +54,10 @@ class UIHandler:
 
     def onDisplayResize(self, widget, allocation):
         try:
-            # TODO create option to maintain aspect ratio
-            self.window.videoStream.config.width = allocation.width
-            self.window.videoStream.config.height = allocation.height
+            if self.window is not None and self.window.videoStream is not None and self.window.videoStream.config is not None:
+                # TODO create option to maintain aspect ratio
+                self.window.videoStream.config.width = allocation.width
+                self.window.videoStream.config.height = allocation.height
         except Exception as e:
             self.handleException(e)
     

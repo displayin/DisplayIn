@@ -16,6 +16,8 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
+import subprocess
+
 def writeDisplay(uiBuilder, frame):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
@@ -70,17 +72,29 @@ class MainWindow:
             self.logger.log("Initializing Video...")
 
             # Select Video API
-            videoApi = cv.CAP_V4L2
-            if (res.isWindows()):
-                videoApi = cv.CAP_ANY
+            videoApi = cv.CAP_ANY
+
+            if res.isLinux():
+                videoApi = cv.CAP_V4L2
+            elif res.isWindows():
+                videoApi = cv.CAP_GSTREAMER
 
             # Find all available video device ids
             self.videoDevices: list[VideoStreamConfig] = []
+
+            deviceListStore = Gtk.ListStore(int, str)
+            currentDeviceId = -1
+
             for i in range(50):
-                cap = cv.VideoCapture(i)
+                deviceId = i
+                if res.isWindows():
+                    deviceId = 'mfvideosrc device-index=' + str(i) + ' ! videoconvert ! videoscale ! appsink'
+
+                cap = cv.VideoCapture(deviceId, videoApi)
                 if cap.read()[0]:
+                    cap.release()
                     config = VideoStreamConfig(
-                        deviceId=i,
+                        deviceId=deviceId,
                         # TODO Localize String
                         name=str("Display " + str(i)),
                         uiBuilder=self.builder,
@@ -88,23 +102,15 @@ class MainWindow:
                         api=videoApi
                     )
                     self.videoDevices.append(config)
-                    cap.release()
                     self.logger.log(config.name)
 
-                    # TODO Remove break and use cap.isOpened() instead
-                    if res.isWindows():
-                        break
+                    # Populate Drop Down
+                    device: VideoStreamConfig = config
+                    deviceListStore.append([i, device.name])
+                    currentDeviceId = i
+                    self.logger.log(str("Current Selected Device: " + str(currentDeviceId)))
                 else:
                     break
-
-            # Populate Drop Down
-            deviceListStore = Gtk.ListStore(int, str)
-            currentDeviceId = -1
-            device: VideoStreamConfig
-            for device in self.videoDevices:
-                deviceListStore.append([device.deviceId, device.name])
-                currentDeviceId = device.deviceId
-                self.logger.log(str("Current Selected Device: " + str(currentDeviceId)))
 
             if self.videoDevices:
                 self.selectDisplay.set_model(deviceListStore)
