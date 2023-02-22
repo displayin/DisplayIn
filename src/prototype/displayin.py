@@ -2,6 +2,7 @@
 # See https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html
 import numpy as np
 import cv2 as cv
+# cap = cv.VideoCapture('mfvideosrc device-index=0 ! videoconvert ! videoscale ! appsink', cv.CAP_GSTREAMER)
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
