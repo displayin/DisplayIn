@@ -25,7 +25,7 @@ def writeDisplay(uiBuilder, frame):
 
     # Display File
     imageDisplay = uiBuilder.get_object("display")
-    GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf.copy())
+    GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf)
     pass
 
 class MainWindow:
