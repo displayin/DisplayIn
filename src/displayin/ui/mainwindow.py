@@ -86,6 +86,7 @@ class MainWindow:
             for i in range(50):
                 deviceId = i
                 if res.isWindows():
+                    # deviceId = 'mfvideosrc device-index=' + str(i) + ' ! mfh264enc max-qp=20 low-latency=true ! openh264dec ! videoconvert ! appsink'
                     deviceId = 'mfvideosrc device-index=' + str(i) + ' ! videoconvert ! videoscale ! appsink'
 
                 cap = cv.VideoCapture(deviceId, videoApi)
