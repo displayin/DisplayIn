@@ -23,14 +23,14 @@ gl_Position =  position;
 class OpenGLRenderer(Gtk.GLArea):
     def __init__(self):
         Gtk.GLArea.__init__(self)
-        self.connect("realize", self.on_realize)
-        self.connect("render", self.on_render)
+        self.connect("realize", self.onRealize)
+        self.connect("render", self.onRender)
 
-    def on_realize(self, area):
+    def onRealize(self, area):
         ctx = self.get_context()
         print("realized", ctx)
 
-    def on_render(self, area, ctx):
+    def onRender(self, area, ctx):
         ctx.make_current()
         glClearColor(0, 0, 0, 1)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)

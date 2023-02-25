@@ -18,7 +18,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
-def writeDisplay(uiBuilder, frame):
+def writeDisplay(uiBuilder, frame, imageDisplay):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     h, w, d = frame.shape
@@ -51,11 +51,9 @@ class MainWindow:
 
             # Replace Viewport Display
             viewport = self.getGtkObject("viewport")
-            glArea = OpenGLRenderer()
-            glArea.set_has_depth_buffer(False)
-            glArea.set_has_stencil_buffer(False)
-            viewport.add(glArea)
-            glArea.show()
+            self.glArea = OpenGLRenderer()
+            viewport.add(self.glArea)
+            self.glArea.show()
 
             # initialize selected devices
             self.selectedDisplay: int = -1
@@ -108,7 +106,8 @@ class MainWindow:
                         name=str("Display " + str(i)),
                         uiBuilder=self.builder,
                         writeCallback=writeDisplay,
-                        api=videoApi
+                        api=videoApi,
+                        displayWidget=self.glArea
                     )
                     self.videoDevices.append(config)
                     self.logger.log(config.name)

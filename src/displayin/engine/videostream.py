@@ -62,7 +62,7 @@ class VideoStream(object):
                         self.frame, width=self.config.width, height=self.config.height)
                     if self.config.writeCallback:
                         # Call Write Callback
-                        self.config.writeCallback(self.config.uiBuilder, self.frame)
+                        self.config.writeCallback(self.config.uiBuilder, self.frame, self.config.displayWidget)
                     else:
                         # Show using OpenCV
                         cv.imshow(self.config.name, self.frame)
