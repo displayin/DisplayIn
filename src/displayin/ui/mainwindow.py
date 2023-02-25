@@ -11,6 +11,8 @@ from util.logger import Logger
 import numpy as np
 import sys
 
+from engine.openglrenderer import OpenGLRenderer
+
 import os
 import gi
 gi.require_version("Gtk", "3.0")
@@ -24,8 +26,8 @@ def writeDisplay(uiBuilder, frame):
         frame.tostring(), GdkPixbuf.Colorspace.RGB, False, 8, w, h, w*d)
 
     # Display File
-    imageDisplay = uiBuilder.get_object("display")
-    GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf)
+    # imageDisplay = uiBuilder.get_object("display")
+    # GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf)
     pass
 
 class MainWindow:
@@ -46,6 +48,14 @@ class MainWindow:
             self.selectDisplay = self.getGtkObject("selectDisplay")
             self.selectAudioIn = self.getGtkObject("selectAudioIn")
             self.selectAudioOut = self.getGtkObject("selectAudioOut")
+
+            # Replace Viewport Display
+            viewport = self.getGtkObject("viewport")
+            glArea = OpenGLRenderer()
+            glArea.set_has_depth_buffer(False)
+            glArea.set_has_stencil_buffer(False)
+            viewport.add(glArea)
+            glArea.show()
 
             # initialize selected devices
             self.selectedDisplay: int = -1

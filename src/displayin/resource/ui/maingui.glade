@@ -88,16 +88,9 @@
             <property name="propagate-natural-height">True</property>
             <signal name="size-allocate" handler="onDisplayResize" swapped="no"/>
             <child>
-              <object class="GtkViewport">
+              <object class="GtkViewport" id="viewport">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <child>
-                  <object class="GtkImage" id="display">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="stock">gtk-missing-image</property>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
