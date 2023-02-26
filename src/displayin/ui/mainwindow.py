@@ -21,13 +21,9 @@ from gi.repository import Gtk, GdkPixbuf, GLib
 def writeDisplay(uiBuilder, frame, imageDisplay):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    h, w, d = frame.shape
-    pixbuf = GdkPixbuf.Pixbuf.new_from_data(
-        frame.tostring(), GdkPixbuf.Colorspace.RGB, False, 8, w, h, w*d)
 
     # Display File
-    # imageDisplay = uiBuilder.get_object("display")
-    # GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf)
+    GLib.idle_add(imageDisplay.updateFrame, frame)
     pass
 
 class MainWindow:

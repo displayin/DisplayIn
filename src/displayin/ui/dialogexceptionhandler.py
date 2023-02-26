@@ -19,10 +19,10 @@ class DialogExceptionHandler(ExceptionHandler):
         if len(ex.args) > 0:
             errorMessage = ex.args[0]
         
-        if len(ex.args) > 1:
-            errorMessage += "\nError Code: " + str(ex.args[1])     
+        if len(ex.args) > 1 and ex.args[1] is not None:
+            errorMessage = errorMessage + "\nError Code: " + str(ex.args[1])     
             
-        dialog.format_secondary_text(errorMessage)
+        dialog.format_secondary_text(str(errorMessage))
         dialog.run()
 
         dialog.destroy()
