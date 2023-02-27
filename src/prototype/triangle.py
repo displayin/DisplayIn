@@ -10,7 +10,8 @@ def on_realize(self, area):
     # call GL API
     area.make_current()
 
-def on_render(area, context):  
+def on_render(area, context):
+    print("%s\n", glGetString(GL_VERSION))
     area.make_current()
 
     w = area.get_allocated_width()
