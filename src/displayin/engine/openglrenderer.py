@@ -41,6 +41,9 @@ indices = np.array([
     1, 2, 3  # Second Triangle
 ])
 
+# Based on examples:
+# https://stackoverflow.com/questions/42153819/how-to-load-and-display-an-image-in-opengl-es-3-0-using-c
+# https://stackoverflow.com/questions/47565884/use-of-the-gtk-glarea-in-pygobject-gtk3
 class OpenGLRenderer(Gtk.GLArea):
     def __init__(self):
         Gtk.GLArea.__init__(self)
