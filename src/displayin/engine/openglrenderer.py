@@ -150,7 +150,7 @@ class OpenGLRenderer(Gtk.GLArea):
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, frame)
             glGenerateMipmap(GL_TEXTURE_2D)
-            glBindTexture(GL_TEXTURE_2D,0) # Unbind 2D textures
+            glBindTexture(GL_TEXTURE_2D, 0) # Unbind 2D textures
 
     def render(self, frame):
 
