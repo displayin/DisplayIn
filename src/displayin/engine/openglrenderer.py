@@ -178,7 +178,7 @@ class OpenGLRenderer(Gtk.GLArea):
             #checkGlError("glBindTexture")
             mlocation = glGetUniformLocation(self.shaderProgram, "ourTexture")
             #checkGlError("glGetUniformLocation")
-            glUniform1i(mlocation,0)
+            glUniform1i(mlocation, 0)
             #checkGlError("glUniform1i")
             self.initBuffers()
             glBindVertexArray(self.vao)
