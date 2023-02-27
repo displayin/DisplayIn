@@ -23,7 +23,7 @@ def writeDisplay(uiBuilder, frame, imageDisplay):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     # Display File
-    GLib.idle_add(imageDisplay.updateFrame, frame)
+    GLib.idle_add(imageDisplay.render, frame)
     pass
 
 class MainWindow:
