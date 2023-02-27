@@ -184,3 +184,7 @@ class OpenGLRenderer(Gtk.GLArea):
             glBindVertexArray(self.vao)
             #checkGlError("glBindVertexArray")
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0)
+            
+            # Queue Draw
+            glFlush()
+            self.queue_draw()
