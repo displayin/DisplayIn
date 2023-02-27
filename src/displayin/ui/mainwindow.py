@@ -18,12 +18,23 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
+USE_OPENGL = False
+
 def writeDisplay(uiBuilder, frame, imageDisplay):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-    # Display File
-    GLib.idle_add(imageDisplay.render, frame)
+    if USE_OPENGL:
+        # Render frame using OpenGL
+        GLib.idle_add(imageDisplay.render, frame)
+    else:
+        h, w, d = frame.shape
+        pixbuf = GdkPixbuf.Pixbuf.new_from_data(
+            frame.tostring(), GdkPixbuf.Colorspace.RGB, False, 8, w, h, w*d)
+
+        # Render frame using Software Renderer
+        imageDisplay = uiBuilder.get_object("display")
+        GLib.idle_add(imageDisplay.set_from_pixbuf, pixbuf)
     pass
 
 class MainWindow:
@@ -31,6 +42,7 @@ class MainWindow:
         self.exHandler = exHandler
         self.isFullscreen: bool = False
         self.logger = Logger()
+        self.glArea = None
 
     def setUiHandler(self, uiHandler):
         try:
@@ -47,9 +59,13 @@ class MainWindow:
 
             # Replace Viewport Display
             viewport = self.getGtkObject("viewport")
-            self.glArea = OpenGLRenderer()
-            viewport.add(self.glArea)
-            self.glArea.show()
+
+            if USE_OPENGL:
+                displayWidget = self.getGtkObject("display")
+                viewport.remove(displayWidget)
+                self.glArea = OpenGLRenderer()
+                viewport.add(self.glArea)
+                self.glArea.show()
 
             # initialize selected devices
             self.selectedDisplay: int = -1
