@@ -5,16 +5,6 @@ from OpenGL.GL import *
 from OpenGL.GL import shaders
 import numpy as np
 
-FRAGMENT_SOURCE ='''
-#version 330
-in vec3 ourColor;
-in vec2 TexCoord;
-out vec4 color;
-uniform sampler2D ourTexture;
-void main(){
-color = texture(ourTexture , TexCoord);
-};'''
-
 VERTEX_SOURCE = '''
 #version 330
 layout (location=0) in vec3 position;
@@ -29,13 +19,24 @@ ourColor = color;
 TexCoord= vec2(texCoord.x,1.0-texCoord.y);
 }'''
 
+FRAGMENT_SOURCE ='''
+#version 330
+in vec3 ourColor;
+in vec2 TexCoord;
+out vec4 color;
+uniform sampler2D ourTexture;
+void main(){
+color = texture(ourTexture , TexCoord);
+};'''
+
 recVertices = np.array([
     # Positions           Colors           Texture Coords
     0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right
     0.5, -0.5, 0.0,   0.0, 1.0, 0.0,    1.0, 0.0,   # Bottom Right
     -0.5, -0.5, 0.0,   0.0, 0.0, 1.0,   0.0, 0.0,   # Bottom Left
     -0.5,  0.5, 0.0,   1.0, 1.0, 0.0,   0.0, 1.0    # Top Left
-                    ], dtype=np.float32)
+], dtype=np.float32)
+
 indices = np.array([
     0, 1, 3, # First Triangle
     1, 2, 3  # Second Triangle
@@ -79,9 +80,18 @@ class OpenGLRenderer(Gtk.GLArea):
 
         if self.shaderProgram is None:
             # Load Shaders, Create program, Setup Graphics
-            VERTEX_SHADER_PROG = shaders.compileShader(VERTEX_SOURCE, GL_VERTEX_SHADER)
-            FRAGMENT_SHADER_PROG = shaders.compileShader(FRAGMENT_SOURCE, GL_FRAGMENT_SHADER)
-            self.shaderProgram = shaders.compileProgram(VERTEX_SHADER_PROG, FRAGMENT_SHADER_PROG)
+            vertexShader = glCreateShader(GL_VERTEX_SHADER)
+            glShaderSource(vertexShader, VERTEX_SOURCE)
+            glCompileShader(vertexShader)
+
+            pixelShader = glCreateShader(GL_FRAGMENT_SHADER)
+            glShaderSource(pixelShader, FRAGMENT_SOURCE)
+            glCompileShader(pixelShader)
+
+            self.shaderProgram = glCreateProgram()
+            glAttachShader(self.shaderProgram, vertexShader)
+            glAttachShader(self.shaderProgram, pixelShader)
+            glLinkProgram(self.shaderProgram)
             self.positionHandle = glGetAttribLocation(self.shaderProgram, "position")
 
         glViewport(0, 0, width, height)
