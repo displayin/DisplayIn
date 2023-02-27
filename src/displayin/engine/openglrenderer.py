@@ -150,7 +150,7 @@ class OpenGLRenderer(Gtk.GLArea):
     def render(self, frame):
 
         # Set OpenGL Render Context
-        if self.ctx is not None:
+        if self.ctx is not None and frame is not None:
             self.ctx.make_current()
 
             # extract array from Image
