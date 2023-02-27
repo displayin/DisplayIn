@@ -154,7 +154,7 @@ class OpenGLRenderer(Gtk.GLArea):
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB , w , h, 0, GL_RGB, GL_UNSIGNED_BYTE, frame)
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, frame)
             glGenerateMipmap(GL_TEXTURE_2D)
             glBindTexture(GL_TEXTURE_2D,0) # Unbind 2D textures
 
