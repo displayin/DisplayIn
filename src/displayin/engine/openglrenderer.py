@@ -42,6 +42,11 @@ indices = np.array([
     1, 2, 3  # Second Triangle
 ])
 
+def checkGlError(op: str):
+    error = glGetError()
+    if error is not None and error != 0:
+        print("after %s() glError (0x%x)", op, error)
+
 # Based on examples:
 # https://stackoverflow.com/questions/42153819/how-to-load-and-display-an-image-in-opengl-es-3-0-using-c
 # https://stackoverflow.com/questions/47565884/use-of-the-gtk-glarea-in-pygobject-gtk3
@@ -183,16 +188,16 @@ class OpenGLRenderer(Gtk.GLArea):
             # glDrawArrays(GL_TRIANGLE_FAN, 0, 4)
             # checkGlError("glDrawArrays")
             glActiveTexture(GL_TEXTURE0)
-            # checkGlError("glActiveTexture")
+            checkGlError("glActiveTexture")
             glBindTexture(GL_TEXTURE_2D, self.textureId)
-            #checkGlError("glBindTexture")
+            checkGlError("glBindTexture")
             mlocation = glGetUniformLocation(self.shaderProgram, "ourTexture")
-            #checkGlError("glGetUniformLocation")
+            checkGlError("glGetUniformLocation")
             glUniform1i(mlocation, 0)
-            #checkGlError("glUniform1i")
+            checkGlError("glUniform1i")
             self.initBuffers()
             glBindVertexArray(self.vao)
-            #checkGlError("glBindVertexArray")
+            checkGlError("glBindVertexArray")
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0)
             
             # Queue Draw
