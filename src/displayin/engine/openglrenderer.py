@@ -127,21 +127,17 @@ class OpenGLRenderer(Gtk.GLArea):
             # extract array from Image
             h, w, d = frame.shape
 
-            #if self.area is not None:
-            #    w = self.area.get_allocated_width()
-            #    h = self.area.get_allocated_height()
-
             # Generate Texture
             self.textureId = glGenTextures(1)
             glBindTexture(GL_TEXTURE_2D, self.textureId) # Bind our 2D texture so that following set up will be applied
 
             # Set texture wrapping parameter
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_MIRRORED_REPEAT)
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_MIRRORED_REPEAT)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT)
 
             # Set texture Filtering parameter
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST)
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB , w , h, 0, GL_RGB, GL_UNSIGNED_BYTE, frame)
             glGenerateMipmap(GL_TEXTURE_2D)
@@ -180,7 +176,7 @@ class OpenGLRenderer(Gtk.GLArea):
             # checkGlError("glActiveTexture")
             glBindTexture(GL_TEXTURE_2D, self.textureId)
             #checkGlError("glBindTexture")
-            mlocation = glGetUniformLocation(self.shaderProgram,"ourTexture")
+            mlocation = glGetUniformLocation(self.shaderProgram, "ourTexture")
             #checkGlError("glGetUniformLocation")
             glUniform1i(mlocation,0)
             #checkGlError("glUniform1i")
