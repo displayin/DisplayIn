@@ -126,12 +126,6 @@ class OpenGLRenderer(Gtk.GLArea):
         glEnableVertexAttribArray(2)
 
         glBindVertexArray(0) # 3. Unbind VAO
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        glUseProgram(self.shaderProgram)
-        glBindVertexArray(self.vao)
-
-        glBindVertexArray(0)
     
     def generateTexture(self, frame):
         # Update Frame
