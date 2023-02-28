@@ -59,8 +59,6 @@ class OpenGLRenderer(Gtk.GLArea):
         self.textureId = None
         self.vao = None
         self.vbos = None
-        self.width = -1
-        self.height = -1
 
     def onRealize(self, area):
 
