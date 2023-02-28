@@ -48,11 +48,11 @@ def on_render(area, context):
     glAttachShader(shaderProgram, pixelShader)
     glLinkProgram(shaderProgram)
     glBindFragDataLocation(shaderProgram, 0, "outColor")
-    positionHandle = glGetAttribLocation(shaderProgram, "position")
 
-    w = area.get_allocated_width()
-    h = area.get_allocated_height()
-    glViewport(0, 0, w, h)
+
+    #w = area.get_allocated_width()
+    #h = area.get_allocated_height()
+    #glViewport(0, 0, w, h)
 
     # Setup Buffers
     vertices = np.array([
@@ -64,6 +64,10 @@ def on_render(area, context):
     glBindBuffer(GL_ARRAY_BUFFER, vbo)
     glBufferData(GL_ARRAY_BUFFER, len(vertices), vertices, GL_STATIC_DRAW)
     vao = glGenVertexArrays(1)
+
+    posAttrib = glGetAttribLocation(shaderProgram, "position")
+    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
+    glEnableVertexAttribArray(posAttrib)
 
     # inside this function it's safe to use GL; the given
     # Gdk.GLContext has been made current to the drawable
@@ -89,8 +93,6 @@ def on_render(area, context):
 
     # draw your object
     glUseProgram(shaderProgram)
-    posAttrib = glGetAttribLocation(shaderProgram, "position")
-    glEnableVertexAttribArray(posAttrib)
     glBindVertexArray(vao)
     glDrawArrays(GL_TRIANGLES, 0, 3)
 
