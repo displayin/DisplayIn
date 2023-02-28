@@ -32,10 +32,11 @@ color = texture(ourTexture, TexCoord);
 
 recVertices = np.array([
     # Positions           Colors           Texture Coords
-    0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right
-    0.5, -0.5, 0.0,   0.0, 1.0, 0.0,    1.0, 0.0,   # Bottom Right
-    -0.5, -0.5, 0.0,   0.0, 0.0, 1.0,   0.0, 0.0,   # Bottom Left
-    -0.5,  0.5, 0.0,   1.0, 1.0, 0.0,   0.0, 1.0    # Top Left
+    0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    0
+    0.5, -0.5, 0.0,   0.0, 1.0, 0.0,    1.0, 0.0,   # Bottom Right 1
+    -0.5, -0.5, 0.0,   0.0, 0.0, 1.0,   0.0, 0.0,   # Bottom Left  2
+    -0.5,  0.5, 0.0,   1.0, 1.0, 0.0,   0.0, 1.0,   # Top Left     3
+    0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    4
 ], dtype=np.float32)
 
 indices = np.array([
@@ -115,10 +116,10 @@ class OpenGLRenderer(Gtk.GLArea):
         glBindVertexArray(self.vao) # Bind the Vertex Array
 
         glBindBuffer(GL_ARRAY_BUFFER, vbos) # Bind verticles array for OpenGL to use
-        glBufferData(GL_ARRAY_BUFFER, len(recVertices), recVertices, GL_DYNAMIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * len(recVertices), recVertices, GL_DYNAMIC_DRAW)
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo) # Bind the indices for information about drawing sequence
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices), indices, GL_DYNAMIC_DRAW)
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) *len(indices), indices, GL_DYNAMIC_DRAW)
         
         # 1. set the vertex attributes pointers
         # Position Attribute
@@ -203,7 +204,8 @@ class OpenGLRenderer(Gtk.GLArea):
             self.initBuffers()
             glBindVertexArray(self.vao)
             checkGlError("glBindVertexArray")
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0)
+            glDrawArrays(GL_TRIANGLES, 0, 3)
+            glDrawArrays(GL_TRIANGLES, 2, 3)
             
             # Queue Draw
             glFlush()
