@@ -32,11 +32,11 @@ color = texture(ourTexture, TexCoord);
 
 recVertices = np.array([
     # Positions           Colors           Texture Coords
-    0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    0
-    0.5, -0.5, 0.0,   0.0, 1.0, 0.0,    1.0, 0.0,   # Bottom Right 1
-    -0.5, -0.5, 0.0,   0.0, 0.0, 1.0,   0.0, 0.0,   # Bottom Left  2
-    -0.5,  0.5, 0.0,   1.0, 1.0, 0.0,   0.0, 1.0,   # Top Left     3
-    0.5,  0.5, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    4
+    1.0,  1.0, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    0
+    1.0, -1.0, 0.0,   0.0, 1.0, 0.0,    1.0, 0.0,   # Bottom Right 1
+    -1.0, -1.0, 0.0,   0.0, 0.0, 1.0,   0.0, 0.0,   # Bottom Left  2
+    -1.0,  1.0, 0.0,   1.0, 1.0, 0.0,   0.0, 1.0,   # Top Left     3
+    1.0,  1.0, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    4
 ], dtype=np.float32)
 
 indices = np.array([
@@ -105,8 +105,6 @@ class OpenGLRenderer(Gtk.GLArea):
             glLinkProgram(self.shaderProgram)
             glBindFragDataLocation(self.shaderProgram, 0, "color")
             self.positionHandle = glGetAttribLocation(self.shaderProgram, "position")
-
-        glViewport(0, 0, width, height)
     
     def initBuffers(self):
         # Initialize an buffer to store all the verticles and transfer them to the GPU
