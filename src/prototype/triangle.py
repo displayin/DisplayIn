@@ -4,21 +4,21 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 import numpy as np
 from OpenGL.GL import *
-VERTEX_SOURCE = '''
-#version 330
-in vec2 position;
-void main()
-{
-    gl_Position = vec4(position, 0.0, 1.0);
-}
-'''
+from OpenGL.GL import shaders
 
 FRAGMENT_SOURCE ='''
 #version 330
-out vec4 outColor;
-void main()
-{
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
+in vec4 inputColor;
+out vec4 outputColor;
+void main(){
+outputColor = vec4(1.0,0.0,0.0,1.0);//constant red. I know it's a poor shader
+};'''
+
+VERTEX_SOURCE = '''
+#version 330
+in vec4 position;
+void main(){
+gl_Position =  position;
 }'''
 
 def on_realize(self, area):        
@@ -30,71 +30,54 @@ def on_render(area, context):
     print("%s\n", glGetString(GL_VERSION))
     area.make_current()
 
-    # Load Shaders, Create program, Setup Graphics
-    vertexShader = glCreateShader(GL_VERTEX_SHADER)
-    glShaderSource(vertexShader, VERTEX_SOURCE)
-    glCompileShader(vertexShader)
-    status = glGetShaderiv(vertexShader, GL_COMPILE_STATUS)
-    print("Compile vertexShader status: " + str(status == GL_TRUE))
+    ############################################
+    # Init Shaders
+    ############################################
+    glClearColor(0, 0, 0, 1)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    VERTEX_SHADER_PROG = shaders.compileShader(VERTEX_SOURCE, GL_VERTEX_SHADER)
+    FRAGMENT_SHADER_PROG = shaders.compileShader(FRAGMENT_SOURCE, GL_FRAGMENT_SHADER)
+    shader_prog = shaders.compileProgram(VERTEX_SHADER_PROG, FRAGMENT_SHADER_PROG)
+    
+    ############################################
+    # Init Buffers
+    ############################################
+    # Create a new VAO (Vertex Array Object) and bind it
+    vertex_array_object = glGenVertexArrays(1)
+    glBindVertexArray(vertex_array_object)
+    # Generate buffers to hold our vertices
+    vertex_buffer = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer)
+    # Get the position of the 'position' in parameter of our shader and bind it.
+    position = glGetAttribLocation(shader_prog, 'position')
+    glEnableVertexAttribArray(position)
+    # Describe the position data layout in the buffer
+    glVertexAttribPointer(position, 3, GL_FLOAT, False, 0, ctypes.c_void_p(0))
+    # Send the data over to the buffer
+    vertices = np.array([-0.6, -0.6, 0.0,
+                            0.0, 0.6, 0.0,
+                            0.6, -0.6, 0.0,
+                            0.7, -0.1, 0.0,
+                            0.8, 0.1, 0.0,
+                            0.9, -0.1, 0.0
+                            ], dtype=np.float32)
+    glBufferData(GL_ARRAY_BUFFER, 96, vertices, GL_STATIC_DRAW)
+    # Unbind the VAO first (Important)
+    glBindVertexArray(0)
+    # Unbind other stuff
+    glDisableVertexAttribArray(position)
 
-    pixelShader = glCreateShader(GL_FRAGMENT_SHADER)
-    glShaderSource(pixelShader, FRAGMENT_SOURCE)
-    glCompileShader(pixelShader)
-    status = glGetShaderiv(pixelShader, GL_COMPILE_STATUS)
-    print("Compile vertexShader status: " + str(status == GL_TRUE))
-
-    shaderProgram = glCreateProgram()
-    glAttachShader(shaderProgram, vertexShader)
-    glAttachShader(shaderProgram, pixelShader)
-    glLinkProgram(shaderProgram)
-    glBindFragDataLocation(shaderProgram, 0, "outColor")
-
-
-    #w = area.get_allocated_width()
-    #h = area.get_allocated_height()
-    #glViewport(0, 0, w, h)
-
-    # Setup Buffers
-    vertices = np.array([
-     0.0,  0.0, # Vertex 1 (X, Y)
-     0.0, -0.0, # Vertex 2 (X, Y)
-    -0.0, -0.0 # Vertex 3 (X, Y)
-    ], dtype=np.float32) 
-    vbo = glGenBuffers(1)
-    glBindBuffer(GL_ARRAY_BUFFER, vbo)
-    glBufferData(GL_ARRAY_BUFFER, len(vertices), vertices, GL_STATIC_DRAW)
-    vao = glGenVertexArrays(1)
-
-    posAttrib = glGetAttribLocation(shaderProgram, "position")
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, ctypes.c_void_p(0))
-    glEnableVertexAttribArray(posAttrib)
-
-    # inside this function it's safe to use GL; the given
-    # Gdk.GLContext has been made current to the drawable
-    # surface used by the Gtk.GLArea and the viewport has
-    # already been set to be the size of the allocation
-    # we can start by clearing the buffer        
-    # glClearColor(0, 1, 1, 0)
-    # glClear(GL_COLOR_BUFFER_BIT)
-
-    # Setup Texture
-    tex = glGenTextures(1)
-    glBindTexture(GL_TEXTURE_2D, tex)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
-    pixels = [
-        0.0, 0.0, 0.0,   1.0, 1.0, 1.0,
-        1.0, 1.0, 1.0,   0.0, 0.0, 0.0]
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels)
-    glGenerateMipmap(GL_TEXTURE_2D)
-
-    # draw your object
-    glUseProgram(shaderProgram)
-    glBindVertexArray(vao)
+    ############################################
+    # Render
+    ############################################
+    glBindBuffer(GL_ARRAY_BUFFER, 0)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glUseProgram(shader_prog)
+    glBindVertexArray(vertex_array_object)
     glDrawArrays(GL_TRIANGLES, 0, 3)
+    glDrawArrays(GL_TRIANGLES, 4, 3)
+    glBindVertexArray(0)
+    glUseProgram(0)
 
     # we completed our drawing; the draw commands will be
     # flushed at the end of the signal emission chain, and
