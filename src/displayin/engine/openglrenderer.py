@@ -142,6 +142,11 @@ class OpenGLRenderer(Gtk.GLArea):
             # extract array from Image
             h, w, d = frame.shape
 
+            # Frame is a 3 dimentional array where shape eg. (1920, 1080, 3)
+            # Where it is w, h, and 3 values for color
+            # https://www.educba.com/numpy-flatten/
+            pixels = frame.flatten(order = 'C')
+
             # Generate Texture
             self.textureId = glGenTextures(1)
             glBindTexture(GL_TEXTURE_2D, self.textureId) # Bind our 2D texture so that following set up will be applied
@@ -154,7 +159,7 @@ class OpenGLRenderer(Gtk.GLArea):
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, frame)
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels)
             glGenerateMipmap(GL_TEXTURE_2D)
             glBindTexture(GL_TEXTURE_2D, 0) # Unbind 2D textures
 
