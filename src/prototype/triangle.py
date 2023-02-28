@@ -54,14 +54,14 @@ def on_render(area, context):
     # Describe the position data layout in the buffer
     glVertexAttribPointer(position, 3, GL_FLOAT, False, 0, ctypes.c_void_p(0))
     # Send the data over to the buffer
-    vertices = np.array([-0.6, -0.6, 0.0,
-                            0.0, 0.6, 0.0,
-                            0.6, -0.6, 0.0,
-                            0.7, -0.1, 0.0,
-                            0.8, 0.1, 0.0,
-                            0.9, -0.1, 0.0
+    vertices = np.array([
+        # Positions        
+        1.0,  1.0, 0.0,   # Top Right
+        1.0, -1.0, 0.0,   # Bottom Right
+        -1.0, -1.0, 0.0   # Bottom Left
+        -1.0,  1.0, 0.0,  # Top Left
                             ], dtype=np.float32)
-    glBufferData(GL_ARRAY_BUFFER, 96, vertices, GL_STATIC_DRAW)
+    glBufferData(GL_ARRAY_BUFFER, 64, vertices, GL_STATIC_DRAW)
     # Unbind the VAO first (Important)
     glBindVertexArray(0)
     # Unbind other stuff
@@ -75,7 +75,6 @@ def on_render(area, context):
     glUseProgram(shader_prog)
     glBindVertexArray(vertex_array_object)
     glDrawArrays(GL_TRIANGLES, 0, 3)
-    glDrawArrays(GL_TRIANGLES, 4, 3)
     glBindVertexArray(0)
     glUseProgram(0)
 
