@@ -18,7 +18,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
-USE_OPENGL = False
+USE_OPENGL = True
 
 def writeDisplay(uiBuilder, frame, imageDisplay):
     # Write Frame
