@@ -104,16 +104,16 @@ def on_render(area, context):
 
     # Black/white checkerboard
     pixels = [
-        0,   0,   0,     255, 255, 255,
-        255, 255, 255,   0,   0,   0
+        0.0, 0.0, 0.0,   1.0, 1.0, 1.0,
+        1.0, 1.0, 1.0,   0.0, 0.0, 0.0
     ]
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels)
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_FLOAT, pixels)
     glUniform1i(glGetUniformLocation(shaderProgram, "imageTexture"), 0)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
     glDrawArrays(GL_TRIANGLES, 0, 3)
     glDrawArrays(GL_TRIANGLES, 2, 3)
