@@ -66,14 +66,6 @@ def on_render(area, context):
     size = sizeof(GLfloat) * len(vertices)
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW)
 
-    ebo = glGenBuffers(1) # Generate EBO
-    indices = np.array([
-        0, 1, 3, # First Triangle
-        1, 2, 3  # Second Triangle
-    ])
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo) # Bind the indices for information about drawing sequence
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint64) * len(indices), indices, GL_STATIC_DRAW)
-
     # Unbind the VAO first (Important)
     glBindVertexArray(0)
     # Unbind other stuff
@@ -88,7 +80,6 @@ def on_render(area, context):
     glBindVertexArray(vertex_array_object)
     glDrawArrays(GL_TRIANGLES, 0, 3)
     glDrawArrays(GL_TRIANGLES, 2, 3)
-    #glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0)
     glBindVertexArray(0)
     glUseProgram(0)
 
