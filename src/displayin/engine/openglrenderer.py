@@ -26,7 +26,8 @@ in vec2 TexCoord;
 out vec4 color;
 uniform sampler2D ourTexture;
 void main(){
-color = texture(ourTexture , TexCoord);
+color = texture(ourTexture, TexCoord);
+//color = vec4(1.0,0.0,0.0,1.0);//constant red. I know it's a poor shader
 };'''
 
 recVertices = np.array([
@@ -88,15 +89,20 @@ class OpenGLRenderer(Gtk.GLArea):
             vertexShader = glCreateShader(GL_VERTEX_SHADER)
             glShaderSource(vertexShader, VERTEX_SOURCE)
             glCompileShader(vertexShader)
+            status = glGetShaderiv(vertexShader, GL_COMPILE_STATUS)
+            print("Compile vertexShader status: " + str(status == GL_TRUE))
 
             pixelShader = glCreateShader(GL_FRAGMENT_SHADER)
             glShaderSource(pixelShader, FRAGMENT_SOURCE)
             glCompileShader(pixelShader)
+            status = glGetShaderiv(pixelShader, GL_COMPILE_STATUS)
+            print("Compile vertexShader status: " + str(status == GL_TRUE))
 
             self.shaderProgram = glCreateProgram()
             glAttachShader(self.shaderProgram, vertexShader)
             glAttachShader(self.shaderProgram, pixelShader)
             glLinkProgram(self.shaderProgram)
+            glBindFragDataLocation(self.shaderProgram, 0, "color")
             self.positionHandle = glGetAttribLocation(self.shaderProgram, "position")
 
         glViewport(0, 0, width, height)
@@ -109,10 +115,10 @@ class OpenGLRenderer(Gtk.GLArea):
         glBindVertexArray(self.vao) # Bind the Vertex Array
 
         glBindBuffer(GL_ARRAY_BUFFER, vbos) # Bind verticles array for OpenGL to use
-        glBufferData(GL_ARRAY_BUFFER, len(recVertices), recVertices, GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, len(recVertices), recVertices, GL_DYNAMIC_DRAW)
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo) # Bind the indices for information about drawing sequence
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices), indices, GL_STATIC_DRAW)
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, len(indices), indices, GL_DYNAMIC_DRAW)
         
         # 1. set the vertex attributes pointers
         # Position Attribute
@@ -173,7 +179,7 @@ class OpenGLRenderer(Gtk.GLArea):
 
             # Render Frame
             glUseProgram(self.shaderProgram)
-            # checkGlError("glUseProgram")
+            checkGlError("glUseProgram")
 
             # glVertexAttribPointer(self.positionHandle, 2, GL_FLOAT, GL_FALSE, 0, recVertices)
             # checkGlError("glVertexAttribPointer")
