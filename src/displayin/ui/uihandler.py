@@ -54,7 +54,7 @@ class UIHandler:
 
     def onDisplayResize(self, widget, allocation):
         try:
-            if self.window is not None and self.window.videoStream is not None and self.window.videoStream.config is not None:
+            if self.window is not None and self.window.videoStream is not None and self.window.videoStream.config is not None and self.window.glArea is None:
                 # TODO create option to maintain aspect ratio
                 self.window.videoStream.config.width = allocation.width
                 self.window.videoStream.config.height = allocation.height
