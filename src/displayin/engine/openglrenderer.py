@@ -39,11 +39,6 @@ recVertices = np.array([
     1.0,  1.0, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    4
 ], dtype=np.float32)
 
-indices = np.array([
-    0, 1, 3, # First Triangle
-    1, 2, 3  # Second Triangle
-])
-
 def checkGlError(op: str):
     error = glGetError()
     if error is not None and error != 0:
@@ -105,19 +100,18 @@ class OpenGLRenderer(Gtk.GLArea):
             glLinkProgram(self.shaderProgram)
             glBindFragDataLocation(self.shaderProgram, 0, "color")
             self.positionHandle = glGetAttribLocation(self.shaderProgram, "position")
+
+            # Initalize Vertex Buffers
+            self.initBuffers()
     
     def initBuffers(self):
         # Initialize an buffer to store all the verticles and transfer them to the GPU
         self.vao = glGenVertexArrays(1) # Generate VAO
         vbos = glGenBuffers(1) # Generate VBO
-        ebo = glGenBuffers(1) # Generate EPBO
         glBindVertexArray(self.vao) # Bind the Vertex Array
 
         glBindBuffer(GL_ARRAY_BUFFER, vbos) # Bind verticles array for OpenGL to use
         glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * len(recVertices), recVertices, GL_DYNAMIC_DRAW)
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo) # Bind the indices for information about drawing sequence
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) *len(indices), indices, GL_DYNAMIC_DRAW)
         
         # 1. set the vertex attributes pointers
         # Position Attribute
@@ -181,16 +175,9 @@ class OpenGLRenderer(Gtk.GLArea):
             glClearColor(0, 0, 1, 1)
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-            # Render Frame
+            # Use Shader Program, Bind Vertex Array and Texture
             glUseProgram(self.shaderProgram)
             checkGlError("glUseProgram")
-
-            # glVertexAttribPointer(self.positionHandle, 2, GL_FLOAT, GL_FALSE, 0, recVertices)
-            # checkGlError("glVertexAttribPointer")
-            # glEnableVertexAttribArray(self.positionHandle)
-            # checkGlError("glEnableVertexAttribArray")
-            # glDrawArrays(GL_TRIANGLE_FAN, 0, 4)
-            # checkGlError("glDrawArrays")
             glActiveTexture(GL_TEXTURE0)
             checkGlError("glActiveTexture")
             glBindTexture(GL_TEXTURE_2D, self.textureId)
@@ -199,9 +186,10 @@ class OpenGLRenderer(Gtk.GLArea):
             checkGlError("glGetUniformLocation")
             glUniform1i(mlocation, 0)
             checkGlError("glUniform1i")
-            self.initBuffers()
             glBindVertexArray(self.vao)
             checkGlError("glBindVertexArray")
+
+            # Render Frame
             glDrawArrays(GL_TRIANGLES, 0, 3)
             glDrawArrays(GL_TRIANGLES, 2, 3)
             
