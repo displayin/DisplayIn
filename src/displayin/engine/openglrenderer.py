@@ -162,9 +162,6 @@ class OpenGLRenderer(Gtk.GLArea):
         if self.ctx is not None and frame is not None:
             self.ctx.make_current()
 
-            # extract array from Image
-            h, w, d = frame.shape
-
             # Initialize Graphics
             self.setupGraphics()
 
