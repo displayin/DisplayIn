@@ -78,7 +78,7 @@ class OpenGLRenderer(Gtk.GLArea):
         self.render(self.frame)
         return True
 
-    def setupGraphics(self, width, height):
+    def setupGraphics(self):
 
         if self.shaderProgram is None:
             # Load Shaders, Create program, Setup Graphics
@@ -111,7 +111,7 @@ class OpenGLRenderer(Gtk.GLArea):
         glBindVertexArray(self.vao) # Bind the Vertex Array
 
         glBindBuffer(GL_ARRAY_BUFFER, vbos) # Bind verticles array for OpenGL to use
-        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * len(recVertices), recVertices, GL_DYNAMIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * len(recVertices), recVertices, GL_STATIC_DRAW)
         
         # 1. set the vertex attributes pointers
         # Position Attribute
@@ -166,7 +166,7 @@ class OpenGLRenderer(Gtk.GLArea):
             h, w, d = frame.shape
 
             # Initialize Graphics
-            self.setupGraphics(w, h)
+            self.setupGraphics()
 
             # Generate Texture
             self.generateTexture(frame)
