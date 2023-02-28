@@ -56,12 +56,15 @@ def on_render(area, context):
     # Send the data over to the buffer
     vertices = np.array([
         # Positions        
-        1.0,  1.0, 0.0,   # Top Right
-        1.0, -1.0, 0.0,   # Bottom Right
-        -1.0, -1.0, 0.0   # Bottom Left
-        -1.0,  1.0, 0.0,  # Top Left
+        1.0,  1.0, 0.0,   # Top Right       0
+        1.0, -1.0, 0.0,   # Bottom Right    1
+        -1.0, -1.0, 0.0,  # Bottom Left     2
+        -1.0,  1.0, 0.0,  # Top Left        3
                             ], dtype=np.float32)
-    glBufferData(GL_ARRAY_BUFFER, 64, vertices, GL_STATIC_DRAW)
+    
+    size = sizeof(GLfloat) * len(vertices)
+    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW)
+
     # Unbind the VAO first (Important)
     glBindVertexArray(0)
     # Unbind other stuff
