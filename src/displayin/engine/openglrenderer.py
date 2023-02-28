@@ -58,6 +58,9 @@ class OpenGLRenderer(Gtk.GLArea):
         self.positionHandle = None
         self.textureId = None
         self.vao = None
+        self.vbos = None
+        self.width = -1
+        self.height = -1
 
     def onRealize(self, area):
 
@@ -106,10 +109,10 @@ class OpenGLRenderer(Gtk.GLArea):
     def initBuffers(self):
         # Initialize an buffer to store all the verticles and transfer them to the GPU
         self.vao = glGenVertexArrays(1) # Generate VAO
-        vbos = glGenBuffers(1) # Generate VBO
+        self.vbos = glGenBuffers(1) # Generate VBO
         glBindVertexArray(self.vao) # Bind the Vertex Array
 
-        glBindBuffer(GL_ARRAY_BUFFER, vbos) # Bind verticles array for OpenGL to use
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbos) # Bind verticles array for OpenGL to use
         glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * len(recVertices), recVertices, GL_STATIC_DRAW)
         
         # 1. set the vertex attributes pointers
