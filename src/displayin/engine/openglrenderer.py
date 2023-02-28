@@ -130,6 +130,10 @@ class OpenGLRenderer(Gtk.GLArea):
         # Update Frame
         self.frame = frame
 
+        # Delete previous textures to avoid memory leak
+        if self.textureId is not None:
+            glDeleteTextures(1, [self.textureId])
+
         # If we have a frame to display
         if frame is not None:
             # extract array from Image
