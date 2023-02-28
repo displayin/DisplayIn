@@ -2,7 +2,6 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from OpenGL.GL import *
-from OpenGL.GL import shaders
 import numpy as np
 
 VERTEX_SOURCE = '''
