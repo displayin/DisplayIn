@@ -9,3 +9,6 @@ sudo pip install pyinstaller
 
 # Install sounddevice
 sudo pip install sounddevice
+
+# Install PyOpenGL
+sudo pip install pyopengl
