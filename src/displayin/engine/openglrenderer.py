@@ -58,6 +58,14 @@ class OpenGLRenderer(Gtk.GLArea):
         self.textureId = None
         self.vao = None
         self.vbos = None
+        self.version = None
+
+    def getVersion(self):
+        major = glGetIntegerv(GL_MAJOR_VERSION)
+        minor = glGetIntegerv(GL_MINOR_VERSION)
+        version = glGetString(GL_VERSION)
+
+        return major, minor, version
 
     def onRealize(self, area):
 
@@ -70,7 +78,9 @@ class OpenGLRenderer(Gtk.GLArea):
         self.ctx = self.get_context()
         self.ctx.make_current()
 
+        major, minor, self.version = self.getVersion()
         print("OpenGL realized", self.ctx)
+        print("%s\n", self.version)
 
     def onRender(self, area, ctx):
         
