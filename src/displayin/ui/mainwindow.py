@@ -283,6 +283,6 @@ class MainWindow:
             self.stopAudio()
 
             self.window.close()
-            exit(0)
+            sys.exit(0)
         except Exception as e:
             self.handleException(e)
