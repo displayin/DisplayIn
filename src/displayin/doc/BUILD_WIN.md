@@ -17,6 +17,12 @@
 14. run `mingw32-make install` 
 15. Instructions based on [Compile OpenCV with Gstreamer in MinGW](https://medium.com/csmadeeasy/opencv-c-installation-on-windows-with-mingw-c0fc1499f39)
 
+### Post Install - Binplace OpenCV binaries and OpenCV Python Module
+1. Copy `C:\Users\cley\git\opencv-4.7.0\build\install\x64\mingw\bin` to `C:\tools\msys64\mingw64\bin`
+2. Copy `C:\Users\cley\git\opencv-4.7.0\build\install\x64\mingw\lib` to `C:\tools\msys64\mingw64\lib`
+3. Copy `C:\Users\cley\git\opencv-4.7.0\build\lib\python3\cv2.cp310-mingw_x86_64.pyd` to `C:\tools\msys64\mingw64\lib\python3.10\site-packages\cv2`
+4. Move `C:\tools\msys64\mingw64\lib\python3.10\site-packages\cv2` to `C:\tools\msys64\temp`
+
 ## MSCV Method - Does not Compile
 1. Download and do a complete install of [Gstreamer for MinGW Development](https://gstreamer.freedesktop.org/download/)
 2. Follow this guide to [Compile OpenCV for MinGW Windows](https://galaktyk.medium.com/how-to-build-opencv-with-gstreamer-b11668fa09c)
