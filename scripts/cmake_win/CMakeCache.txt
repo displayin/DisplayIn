@@ -47,6 +47,10 @@ BUILD_DOCS:BOOL=OFF
 //Build all examples
 BUILD_EXAMPLES:BOOL=OFF
 
+//Create Java wrapper exporting all functions of OpenCV library
+// (requires static build of OpenCV modules)
+BUILD_FAT_JAVA_LIB:BOOL=OFF
+
 //Build IPP IW from source
 BUILD_IPP_IW:BOOL=OFF
 
@@ -84,7 +88,7 @@ BUILD_PNG:BOOL=ON
 BUILD_PROTOBUF:BOOL=ON
 
 //Build shared libraries (.dll/.so) instead of static ones (.lib/.a)
-BUILD_SHARED_LIBS:BOOL=ON
+BUILD_SHARED_LIBS:BOOL=OFF
 
 //Download and build TBB from source
 BUILD_TBB:BOOL=OFF
@@ -3734,7 +3738,7 @@ OpenBLAS_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenBLAS_LIB
 OpenBLAS_LIB-ADVANCED:INTERNAL=1
 //List of OpenCVModules targets
-OpenCVModules_TARGETS:INTERNAL=opencv_core;opencv_flann;opencv_imgproc;opencv_ml;opencv_photo;opencv_dnn;opencv_features2d;opencv_imgcodecs;opencv_videoio;opencv_calib3d;opencv_highgui;opencv_objdetect;opencv_stitching;opencv_video;opencv_gapi
+OpenCVModules_TARGETS:INTERNAL=zlib;libjpeg-turbo;libtiff;libwebp;libopenjp2;libpng;libprotobuf;quirc;ade;opencv_core;opencv_flann;opencv_imgproc;opencv_ml;opencv_photo;opencv_dnn;opencv_features2d;opencv_imgcodecs;opencv_videoio;opencv_calib3d;opencv_highgui;opencv_objdetect;opencv_stitching;opencv_video;opencv_gapi
 //Result of TRY_COMPILE
 OpenMP_COMPILE_RESULT_CXX_fopenmp:INTERNAL=TRUE
 //Result of TRY_COMPILE
