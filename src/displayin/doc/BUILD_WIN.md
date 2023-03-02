@@ -11,7 +11,7 @@
 8. Where is the source code: `C:/Users/USER/git/opencv-4.7.0`
 9. Where to build the binaries: `C:/Users/USER/git/opencv-4.7.0/build`
 10. Click Configure and select MSYS2 Makefiles
-11. Uncheck the following: `WITH_OBSENSOR`
+11. Uncheck the following: `WITH_OBSENSOR` and `BUILD_SHARED_LIBS`
 12. Set `PYTHON3_PACKAGES_PATH` to `C:/tools/msys64/mingw64/lib/python3.10/site-packages`
 13. Select Generate and close cmake-gui
 14. run `mingw32-make install` 
@@ -22,6 +22,14 @@
 2. Copy `C:\Users\cley\git\opencv-4.7.0\build\install\x64\mingw\lib` to `C:\tools\msys64\mingw64\lib`
 3. Copy `C:\Users\cley\git\opencv-4.7.0\build\lib\python3\cv2.cp310-mingw_x86_64.pyd` to `C:\tools\msys64\mingw64\lib\python3.10\site-packages\cv2`
 4. Move `C:\tools\msys64\mingw64\lib\python3.10\site-packages\cv2` to `C:\tools\msys64\temp`
+
+### Fix PyInstaller
+Instructions taken from the [PyInstaller GitHub Page](https://github.com/pyinstaller/pyinstaller/issues/6964#issuecomment-1193942832)
+```
+python -m pip uninstall pyinstaller
+python -m pip install --no-cache-dir git+https://github.com/pyinstaller/pyinstaller.git@83193a1
+python -m pip install --no-cache-dir git+https://github.com/pyinstaller/pyinstaller-hooks-contrib.git@master
+```
 
 ## MSCV Method - Does not Compile
 1. Download and do a complete install of [Gstreamer for MinGW Development](https://gstreamer.freedesktop.org/download/)
