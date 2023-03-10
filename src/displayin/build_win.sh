@@ -28,6 +28,9 @@ cp /mingw64/bin/libImath-3_1.dll dist/displayin/lib/opencv/bin/
 cp /mingw64/bin/libOpenEXR-3_1.dll dist/displayin/lib/opencv/bin/
 
 # Copy gstreamer dependencies
+cp /f/gstreamer/1.0/msvc_x86_64/bin/gstapp-1.0-0.dll dist/displayin/lib/opencv/bin/
+cp /f/gstreamer/1.0/msvc_x86_64/bin/gstaudio-1.0-0.dll dist/displayin/lib/opencv/bin/
+cp /f/gstreamer/1.0/msvc_x86_64/bin/gstbase-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gstpbutils-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gstreamer-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gstriff-1.0-0.dll dist/displayin/lib/opencv/bin/
