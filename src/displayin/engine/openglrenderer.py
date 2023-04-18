@@ -51,7 +51,7 @@ class OpenGLRenderer(Gtk.GLArea):
         self.connect("realize", self.onRealize)
         self.connect("render", self.onRender)
         self.ctx = None
-        self.frame = None
+        self.frame = self.createBlankScreenFrame()
         self.area = None
         self.shaderProgram = None
         self.positionHandle = None
@@ -66,6 +66,10 @@ class OpenGLRenderer(Gtk.GLArea):
         version = glGetString(GL_VERSION)
 
         return major, minor, version
+    
+    def createBlankScreenFrame(self):
+        frame = np.array([[[0, 0, 0]] * 640] * 480, dtype=np.uint8)
+        return frame
 
     def onRealize(self, area):
 
