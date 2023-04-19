@@ -18,6 +18,8 @@ cp ../../../opencv-4.7.0/build/lib/python3/cv2*.pyd dist/displayin/cv2/python-3.
 # Make Binary Path
 mkdir dist/displayin/lib/opencv/
 mkdir dist/displayin/lib/opencv/bin/
+mkdir dist/displayin/lib/opencv/lib/
+mkdir dist/displayin/lib/opencv/lib/gstreamer-1.0/
 
 # Copy mingw64 dependencies
 cp /mingw64/bin/libEGL.dll dist/displayin/lib/opencv/bin/
@@ -39,6 +41,6 @@ cp /f/gstreamer/1.0/msvc_x86_64/bin/gstvideo-1.0-0.dll dist/displayin/lib/opencv
 cp /f/gstreamer/1.0/msvc_x86_64/bin/orc-0.4-0.dll dist/displayin/lib/opencv/bin/
 
 # Copy gstreamer lib dependencies
-cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstapp.dll dist/displayin/lib/opencv/bin/
-cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstmediafoundation.dll dist/displayin/lib/opencv/bin/
-cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstvideoconvertscale.dll dist/displayin/lib/opencv/bin/
+cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstapp.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
+cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstmediafoundation.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
+cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstvideoconvertscale.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
