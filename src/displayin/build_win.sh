@@ -38,10 +38,10 @@ cp /f/gstreamer/1.0/msvc_x86_64/bin/gstreamer-1.0-0.dll dist/displayin/lib/openc
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gstriff-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gsttag-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/gstvideo-1.0-0.dll dist/displayin/lib/opencv/bin/
+cp /f/gstreamer/1.0/msvc_x86_64/bin/gstd3d11-1.0-0.dll dist/displayin/lib/opencv/bin/
 cp /f/gstreamer/1.0/msvc_x86_64/bin/orc-0.4-0.dll dist/displayin/lib/opencv/bin/
 
 # Copy gstreamer lib dependencies
 cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstapp.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
 cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstmediafoundation.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
 cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstvideoconvertscale.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
-cp /f/gstreamer/1.0/msvc_x86_64/lib/gstreamer-1.0/gstd3d11-1.0-0.dll dist/displayin/lib/opencv/lib/gstreamer-1.0/
