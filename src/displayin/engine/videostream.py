@@ -72,6 +72,9 @@ class VideoStream(object):
                         if key == ord('q'):
                             self.stop()
 
+                # Limit Capture to FPS
+                time.sleep(self.fps)
+
             # Release the capture
             self.capture.release()
             if not self.config.writeCallback:
