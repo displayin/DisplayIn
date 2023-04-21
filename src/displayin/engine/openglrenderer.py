@@ -89,7 +89,8 @@ class OpenGLRenderer(Gtk.GLArea):
 
     def onRender(self, area, ctx):
         
-        self.render(self.frame)
+        # Render will be invoked separately
+        # self.render(self.frame)
         return True
 
     def setupGraphics(self):
