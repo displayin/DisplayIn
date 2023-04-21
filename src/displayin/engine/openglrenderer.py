@@ -68,7 +68,7 @@ class OpenGLRenderer(Gtk.GLArea):
         return major, minor, version
     
     def createBlankScreenFrame(self):
-        frame = np.array([[[0, 0, 0]] * 640] * 480, dtype=np.uint8)
+        frame = np.array([[[0, 0, 0]]], dtype=np.uint8)
         return frame
 
     def onRealize(self, area):
