@@ -3,6 +3,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from OpenGL.GL import *
 import numpy as np
+import gc
 
 VERTEX_SOURCE = '''
 #version 330
@@ -140,6 +141,11 @@ class OpenGLRenderer(Gtk.GLArea):
         glBindVertexArray(0) # 3. Unbind VAO
     
     def generateTexture(self, frame):
+
+        # Delete previous frame
+        # del self.frame
+        # gc.collect()
+
         # Update Frame
         self.frame = frame
 
