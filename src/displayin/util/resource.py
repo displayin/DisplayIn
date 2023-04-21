@@ -1,5 +1,10 @@
 import sys, os, platform
 
+IS_WINDOWS = platform.system() == "Windows"
+IS_LINUX = platform.system() == "Linux"
+IS_MAC = platform.system() == "Darwin"
+USE_OPENGL = IS_WINDOWS
+
 class Resource:
     @staticmethod
     def getFilePath(fileName: str) -> str:
@@ -12,12 +17,16 @@ class Resource:
 
     @staticmethod
     def isWindows() -> bool:
-        return platform.system() == "Windows"
+        return IS_WINDOWS
 
     @staticmethod
     def isLinux() -> bool:
-        return platform.system() == "Linux"
+        return IS_LINUX
 
     @staticmethod
     def isMac() -> bool:
-        return platform.system() == "Darwin"
+        return IS_MAC
+    
+    @staticmethod
+    def useOpenGL() -> bool:
+        return USE_OPENGL

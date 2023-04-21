@@ -18,13 +18,11 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
 
-USE_OPENGL = res.isWindows()
-
 def writeDisplay(uiBuilder, frame, imageDisplay):
     # Write Frame
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
-    if USE_OPENGL:
+    if res.useOpenGL():
         # Render frame using OpenGL
         GLib.idle_add(imageDisplay.render, frame)
     else:
@@ -60,7 +58,7 @@ class MainWindow:
             # Replace Viewport Display
             viewport = self.getGtkObject("viewport")
 
-            if USE_OPENGL:
+            if res.useOpenGL():
                 displayWidget = self.getGtkObject("display")
                 viewport.remove(displayWidget)
                 self.glArea = OpenGLRenderer()
