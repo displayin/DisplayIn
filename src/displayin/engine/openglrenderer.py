@@ -155,7 +155,7 @@ class OpenGLRenderer(Gtk.GLArea):
             # Frame is a 3 dimentional array where shape eg. (1920, 1080, 3)
             # Where it is w, h, and 3 values for color
             # https://www.educba.com/numpy-flatten/
-            pixels = frame.flatten(order = 'C')
+            pixels = frame.ravel(order = 'C')
 
             # Generate Texture
             self.textureId = glGenTextures(1)
