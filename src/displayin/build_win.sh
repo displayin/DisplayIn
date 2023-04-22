@@ -12,7 +12,7 @@ GSTREAMER_ROOT=/c/gstreamer
 [ -d "/f/gstreamer" ] && GSTREAMER_ROOT=/f/gstreamer
 
 # Run Pyinstaller
-pyinstaller --noconsole --add-data="resource/ui/maingui.glade;resource/ui" --onedir displayin.py
+pyinstaller --noconsole --add-data="resource/ui/maingui.glade;resource/ui" --splash "resource/images/DisplayInSplash.png" --icon="resource/images/DisplayInIcon.ico" --onedir displayin.py
 
 # Workaround to manually copy cv2 standalone python and module config files to library modules output
 mkdir dist/displayin/cv2/python-3.10/

@@ -1,4 +1,6 @@
 import sys, os, platform
+import importlib
+import os
 
 IS_WINDOWS = platform.system() == "Windows"
 IS_LINUX = platform.system() == "Linux"
@@ -30,3 +32,10 @@ class Resource:
     @staticmethod
     def useOpenGL() -> bool:
         return USE_OPENGL
+    
+    @staticmethod
+    def closeSpash():
+        if '_PYIBoot_SPLASH' in os.environ and importlib.util.find_spec("pyi_splash"):
+            import pyi_splash
+            pyi_splash.update_text('UI Loaded ...')
+            pyi_splash.close()

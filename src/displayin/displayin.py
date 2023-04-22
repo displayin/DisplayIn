@@ -2,10 +2,14 @@
 from ui.mainwindow import MainWindow
 from ui.uihandler import UIHandler
 from ui.dialogexceptionhandler import DialogExceptionHandler
+from util.resource import Resource as res
 
 if __name__ == '__main__':
     exHandler = DialogExceptionHandler()
     try:
+        # Close Splash Window
+        res.closeSpash()
+
         # Show Main Program Window
         ui = MainWindow(exHandler)
         uiHandler = UIHandler()
