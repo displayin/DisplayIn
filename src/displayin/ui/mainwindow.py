@@ -11,8 +11,6 @@ from util.logger import Logger
 import numpy as np
 import sys
 
-from engine.openglrenderer import OpenGLRenderer
-
 import os
 import gi
 gi.require_version("Gtk", "3.0")
@@ -59,6 +57,7 @@ class MainWindow:
             viewport = self.getGtkObject("viewport")
 
             if res.useOpenGL():
+                from engine.openglrenderer import OpenGLRenderer
                 displayWidget = self.getGtkObject("display")
                 viewport.remove(displayWidget)
                 self.glArea = OpenGLRenderer()
