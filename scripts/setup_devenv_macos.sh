@@ -35,3 +35,6 @@ python3 -m pip install debugpy
 
 # Install sounddevice
 python3 -m pip install sounddevice
+
+# Install Pillow
+python3 -m pip install pillow
