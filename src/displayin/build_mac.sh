@@ -12,3 +12,6 @@ plistPatch="	<key>NSCameraUsageDescription</key>\n	<string>DisplayIn uses Camera
 dictString="</dict>"
 sed -i '' "s|$dictString|$plistPatch|gi" "dist/displayin.app/Contents/Info.plist"
 echo "Patched NSCameraUsageDescription into Info.plist"
+
+# Rename app
+mv dist/displayin.app dist/DisplayIn.app
