@@ -41,3 +41,6 @@ python3 -m pip install pillow
 
 # Install PyObj AVFoundation
 python3 -m pip install pyobjc-framework-AVFoundation
+
+# Install PyOpenGL
+python3 -m pip install PyOpenGL
