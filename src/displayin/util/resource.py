@@ -39,3 +39,10 @@ class Resource:
             import pyi_splash
             pyi_splash.update_text('UI Loaded ...')
             pyi_splash.close()
+
+    @staticmethod
+    def macAuthorizeCamera():
+        if Resource.isMac():
+            # WIP Does not work yet
+            from AVFoundation import AVCaptureDevice
+            video = AVCaptureDevice

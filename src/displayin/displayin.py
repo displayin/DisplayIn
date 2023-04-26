@@ -10,6 +10,9 @@ if __name__ == '__main__':
         # Close Splash Window
         res.closeSpash()
 
+        # Request Camera Authorization for MacOS
+        res.macAuthorizeCamera()
+
         # Show Main Program Window
         ui = MainWindow(exHandler)
         uiHandler = UIHandler()
