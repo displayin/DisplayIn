@@ -38,3 +38,6 @@ python3 -m pip install sounddevice
 
 # Install Pillow
 python3 -m pip install pillow
+
+# Install PyObj AVFoundation
+python3 -m pip install pyobjc-framework-AVFoundation
