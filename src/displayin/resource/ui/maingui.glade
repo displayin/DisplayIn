@@ -231,6 +231,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Record Video</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -249,6 +250,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Settings</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -267,6 +269,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Fullscreen (ctrl + f)</property>
                     <signal name="clicked" handler="onFullscreen" swapped="no"/>
                     <child>
                       <object class="GtkImage">
@@ -286,6 +289,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Hide Taskbar (ctrl + h)</property>
                     <signal name="clicked" handler="onHideTaskbar" swapped="no"/>
                     <child>
                       <object class="GtkImage">
