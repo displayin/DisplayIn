@@ -159,6 +159,7 @@
                   <object class="GtkComboBox" id="selectDisplay">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-end">10</property>
                     <property name="has-entry">True</property>
                     <signal name="changed" handler="onSelectDisplay" swapped="no"/>
                     <child internal-child="entry">
@@ -178,6 +179,7 @@
                   <object class="GtkComboBox" id="selectAudioIn">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-end">10</property>
                     <property name="has-entry">True</property>
                     <signal name="changed" handler="onSelectAudioIn" swapped="no"/>
                     <child internal-child="entry">
