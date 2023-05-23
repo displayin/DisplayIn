@@ -86,6 +86,13 @@ class UIHandler:
 
         pass
 
+    def onHideTaskbar(self, widget):
+        actionBar = self.getGtkObject("actionBar")
+        actionBar.set_reveal_child(False)
+
+    def onFullscreen(self, widget):
+        self.window.fullscreen()
+
     def onWindowStateEvent(self, widget, ev):
         try:
             self.window.isFullscreen = bool(
