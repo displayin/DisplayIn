@@ -75,6 +75,17 @@ class UIHandler:
         except Exception as e:
             self.handleException(e)
 
+    def onDisplayHover(self, widget, event):
+
+        allocation = widget.get_allocation()
+        revealHeight = allocation.height - 5
+
+        if event.y >= revealHeight:
+            actionBar = self.getGtkObject("actionBar")
+            actionBar.set_reveal_child(True)
+
+        pass
+
     def onWindowStateEvent(self, widget, ev):
         try:
             self.window.isFullscreen = bool(

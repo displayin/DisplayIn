@@ -86,6 +86,7 @@
             <property name="shadow-type">in</property>
             <property name="propagate-natural-width">True</property>
             <property name="propagate-natural-height">True</property>
+            <signal name="motion-notify-event" handler="onDisplayHover" swapped="no"/>
             <signal name="size-allocate" handler="onDisplayResize" swapped="no"/>
             <child>
               <object class="GtkViewport" id="viewport">
@@ -337,6 +338,11 @@
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <child internal-child="entry">
+                          <object class="GtkEntry">
+                            <property name="can-focus">False</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -365,6 +371,11 @@
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <child internal-child="entry">
+                          <object class="GtkEntry">
+                            <property name="can-focus">False</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -393,6 +404,11 @@
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <child internal-child="entry">
+                          <object class="GtkEntry">
+                            <property name="can-focus">False</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
