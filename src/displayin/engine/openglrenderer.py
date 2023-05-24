@@ -3,7 +3,6 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from OpenGL.GL import *
 import numpy as np
-import gc
 
 VERTEX_SOURCE = '''
 #version 330
@@ -27,7 +26,7 @@ out vec4 color;
 uniform sampler2D ourTexture;
 void main(){
 color = texture(ourTexture, TexCoord);
-};'''
+}'''
 
 recVertices = np.array([
     # Positions           Colors           Texture Coords
@@ -108,6 +107,7 @@ class OpenGLRenderer(Gtk.GLArea):
             glCompileShader(pixelShader)
             status = glGetShaderiv(pixelShader, GL_COMPILE_STATUS)
             print("Compile pixelShader status: " + str(status == GL_TRUE))
+            # err = glGetShaderInfoLog(pixelShader)
 
             self.shaderProgram = glCreateProgram()
             glAttachShader(self.shaderProgram, vertexShader)
@@ -131,13 +131,16 @@ class OpenGLRenderer(Gtk.GLArea):
         # 1. set the vertex attributes pointers
         # Position Attribute
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), ctypes.c_void_p(0))
-        glEnableVertexAttribArray(0)
+        positionLocation = glGetAttribLocation(self.shaderProgram, "position")
+        glEnableVertexAttribArray(positionLocation)
         # Color Attribute
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), ctypes.c_void_p(3 * sizeof(GLfloat)))
-        glEnableVertexAttribArray(1)
+        colorLocation = glGetAttribLocation(self.shaderProgram, "color")
+        glEnableVertexAttribArray(colorLocation)
         # Texture Coordinate Attribute
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), ctypes.c_void_p(6 * sizeof(GLfloat)))
-        glEnableVertexAttribArray(2)
+        textCoordLocation = glGetAttribLocation(self.shaderProgram, "texCoord")
+        glEnableVertexAttribArray(textCoordLocation)
 
         glBindVertexArray(0) # 3. Unbind VAO
     
