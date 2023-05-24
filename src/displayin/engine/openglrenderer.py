@@ -142,10 +142,6 @@ class OpenGLRenderer(Gtk.GLArea):
     
     def generateTexture(self, frame):
 
-        # Delete previous frame
-        # del self.frame
-        # gc.collect()
-
         # Update Frame
         self.frame = frame
 
