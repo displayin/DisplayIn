@@ -107,7 +107,7 @@ class OpenGLRenderer(Gtk.GLArea):
             glShaderSource(pixelShader, FRAGMENT_SOURCE)
             glCompileShader(pixelShader)
             status = glGetShaderiv(pixelShader, GL_COMPILE_STATUS)
-            print("Compile vertexShader status: " + str(status == GL_TRUE))
+            print("Compile pixelShader status: " + str(status == GL_TRUE))
 
             self.shaderProgram = glCreateProgram()
             glAttachShader(self.shaderProgram, vertexShader)
