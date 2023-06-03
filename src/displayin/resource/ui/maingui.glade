@@ -15,7 +15,8 @@
         <property name="orientation">vertical</property>
         <property name="baseline-position">bottom</property>
         <child>
-          <object class="GtkMenuBar">
+          <object class="GtkMenuBar" id="menuBar">
+            <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
               <object class="GtkMenuItem" id="menuFile">
@@ -29,11 +30,22 @@
                     <property name="can-focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem">
+                        <property name="label">gtk-preferences</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="use-underline">True</property>
+                        <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
                         <signal name="activate" handler="onExit" swapped="no"/>
                       </object>
                     </child>
@@ -50,6 +62,7 @@
             </child>
             <child>
               <object class="GtkMenuItem" id="menuHelp">
+                <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">_Help</property>
                 <property name="use-underline">True</property>
@@ -59,11 +72,22 @@
                     <property name="can-focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem">
+                        <property name="label">gtk-help</property>
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="use-underline">True</property>
+                        <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
+                        <property name="always-show-image">True</property>
                       </object>
                     </child>
                   </object>
