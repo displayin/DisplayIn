@@ -598,6 +598,7 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <signal name="changed" handler="onSelectDisplay" swapped="no"/>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>
@@ -631,6 +632,7 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <signal name="changed" handler="onSelectAudioIn" swapped="no"/>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>
@@ -664,6 +666,7 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="has-entry">True</property>
+                        <signal name="changed" handler="onSelectAudioOut" swapped="no"/>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>

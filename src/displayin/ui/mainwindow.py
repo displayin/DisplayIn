@@ -149,9 +149,14 @@ class MainWindow:
         selectDisplay.set_active(currentDeviceId)
     
     def setDisplay(self, deviceId):
-        self.selectedDisplay = deviceId
+        
         self.setActive(self.selectDisplay, deviceId)
         self.setActive(self.selectDisplay1, deviceId)
+
+        if self.selectedDisplay != deviceId:
+            self.selectedDisplay = deviceId
+            self.startVideo()
+            self.logger.log("Video Started!")
 
     def setActive(self, selection, id):
         active = selection.get_active()
@@ -218,15 +223,23 @@ class MainWindow:
         selectAudio.set_active(currentDeviceId)
 
     def setAudioIn(self, deviceId, selected):
-        self.selectedAudioIn = deviceId
         self.setActive(self.selectAudioIn, selected)
         self.setActive(self.selectAudioIn1, selected)
 
+        if self.selectAudioIn != deviceId:
+            self.selectedAudioIn = deviceId
+            self.startAudio()
+            self.logger.log("Audio Started!")
+
 
     def setAudioOut(self, deviceId, selected):
-        self.selectedAudioOut = deviceId
         self.setActive(self.selectAudioOut, selected)
         self.setActive(self.selectAudioOut1, selected)
+
+        if self.selectedAudioOut != deviceId:
+            self.selectedAudioOut = deviceId
+            self.startAudio()
+            self.logger.log("Audio Started!")
 
     def selectAudioHostApi(self):
         # Get list of host audio apis
