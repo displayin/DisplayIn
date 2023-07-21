@@ -276,6 +276,7 @@
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Settings</property>
+                    <signal name="clicked" handler="onPreferences" swapped="no"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -337,6 +338,7 @@
                     <property name="receives-default">True</property>
                     <property name="relief">none</property>
                     <property name="orientation">vertical</property>
+                    <property name="value">1</property>
                     <property name="icons">audio-volume-muted-symbolic
 audio-volume-high-symbolic
 audio-volume-low-symbolic
