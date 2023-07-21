@@ -25,7 +25,7 @@ class UIHandler:
         try:
             selected = combo.get_active()
             if selected is not None and selected != -1:
-                self.window.selectedDisplay = selected
+                self.window.setDisplay(selected)
                 self.window.startVideo()
                 self.logger.log("Video Started!")
         except Exception as e:
@@ -36,7 +36,7 @@ class UIHandler:
             selected = combo.get_active()
             if selected is not None:
                 model = combo.get_model()
-                self.window.selectedAudioIn = model[selected][1]
+                self.window.setAudioIn(model[selected][1], selected)
                 self.window.startAudio()
                 self.logger.log("Audio Started!")
         except Exception as e:
@@ -47,7 +47,7 @@ class UIHandler:
             selected = combo.get_active()
             if selected is not None:
                 model = combo.get_model()
-                self.window.selectedAudioOut = model[selected][1]
+                self.window.setAudioOut(model[selected][1], selected)
                 self.window.startAudio()
         except Exception as e:
             self.handleException(e)

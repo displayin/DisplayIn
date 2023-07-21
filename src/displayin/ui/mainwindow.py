@@ -53,6 +53,11 @@ class MainWindow:
             self.selectAudioIn = self.getGtkObject("selectAudioIn")
             self.selectAudioOut = self.getGtkObject("selectAudioOut")
 
+            # Get Settings Objects
+            self.selectDisplay1 = self.getGtkObject("selectDisplay1")
+            self.selectAudioIn1 = self.getGtkObject("selectAudioIn1")
+            self.selectAudioOut1 = self.getGtkObject("selectAudioOut1")
+
             # Replace Viewport Display
             viewport = self.getGtkObject("viewport")
 
@@ -130,13 +135,29 @@ class MainWindow:
                     break
 
             if self.videoDevices:
-                self.selectDisplay.set_model(deviceListStore)
-                self.selectDisplay.set_id_column(0)
-                self.selectDisplay.set_entry_text_column(1)
-                self.selectDisplay.set_active(currentDeviceId)
+                self.initSelectDisplay(self.selectDisplay, deviceListStore, currentDeviceId)
+                self.initSelectDisplay(self.selectDisplay1, deviceListStore, currentDeviceId)
+
             self.logger.log("Video Initialized!")
         except Exception as e:
             self.handleException(e)
+
+    def initSelectDisplay(self, selectDisplay, deviceListStore, currentDeviceId):
+        selectDisplay.set_model(deviceListStore)
+        selectDisplay.set_id_column(0)
+        selectDisplay.set_entry_text_column(1)
+        selectDisplay.set_active(currentDeviceId)
+    
+    def setDisplay(self, deviceId):
+        self.selectedDisplay = deviceId
+        self.setActive(self.selectDisplay, deviceId)
+        self.setActive(self.selectDisplay1, deviceId)
+
+    def setActive(self, selection, id):
+        active = selection.get_active()
+
+        if (id != active):
+            selection.set_active(id)
 
     def initAudio(self):
         try:
@@ -178,19 +199,34 @@ class MainWindow:
                     j += 1
 
             if len(inputDeviceListStore) > 0:
-                self.selectAudioIn.set_model(inputDeviceListStore)
-                self.selectAudioIn.set_id_column(0)
-                self.selectAudioIn.set_entry_text_column(2)
-                self.selectAudioIn.set_active(currentInputDeviceId)
+                self.initSelectAudio(self.selectAudioIn, inputDeviceListStore, currentInputDeviceId)
+                self.initSelectAudio(self.selectAudioIn1, inputDeviceListStore, currentInputDeviceId)
+
                 
             if len(outputDeviceListStore) > 0:
-                self.selectAudioOut.set_model(outputDeviceListStore)
-                self.selectAudioOut.set_id_column(0)
-                self.selectAudioOut.set_entry_text_column(2)
-                self.selectAudioOut.set_active(currentOutputDeviceId)
+                self.initSelectAudio(self.selectAudioOut, outputDeviceListStore, currentOutputDeviceId)
+                self.initSelectAudio(self.selectAudioOut1, outputDeviceListStore, currentOutputDeviceId)
+
             self.logger.log("Audio Initialized!")
         except Exception as e:
             self.handleException(e)
+    
+    def initSelectAudio(self, selectAudio, deviceListStore, currentDeviceId):
+        selectAudio.set_model(deviceListStore)
+        selectAudio.set_id_column(0)
+        selectAudio.set_entry_text_column(2)
+        selectAudio.set_active(currentDeviceId)
+
+    def setAudioIn(self, deviceId, selected):
+        self.selectedAudioIn = deviceId
+        self.setActive(self.selectAudioIn, selected)
+        self.setActive(self.selectAudioIn1, selected)
+
+
+    def setAudioOut(self, deviceId, selected):
+        self.selectedAudioOut = deviceId
+        self.setActive(self.selectAudioOut, selected)
+        self.setActive(self.selectAudioOut1, selected)
 
     def selectAudioHostApi(self):
         # Get list of host audio apis
