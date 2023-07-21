@@ -93,6 +93,10 @@ class UIHandler:
     def onFullscreen(self, widget):
         self.window.fullscreen()
 
+    def onPreferences(self, widget):
+        settingsWindow = self.getGtkObject('settings')
+        settingsWindow.show()
+
     def onWindowStateEvent(self, widget, ev):
         try:
             self.window.isFullscreen = bool(
