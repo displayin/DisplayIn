@@ -146,6 +146,7 @@ class MainWindow:
         selectDisplay.set_model(deviceListStore)
         selectDisplay.set_id_column(0)
         selectDisplay.set_entry_text_column(1)
+        selectDisplay.set_active(-1)
         selectDisplay.set_active(currentDeviceId)
     
     def setDisplay(self, deviceId):
@@ -220,6 +221,7 @@ class MainWindow:
         selectAudio.set_model(deviceListStore)
         selectAudio.set_id_column(0)
         selectAudio.set_entry_text_column(2)
+        selectAudio.set_active(-1)
         selectAudio.set_active(currentDeviceId)
 
     def setAudioIn(self, deviceId, selected):
