@@ -58,6 +58,9 @@ class MainWindow:
             self.selectAudioIn1 = self.getGtkObject("selectAudioIn1")
             self.selectAudioOut1 = self.getGtkObject("selectAudioOut1")
 
+            # Get Menubar
+            self.menuBar = self.getGtkObject("menuBar")
+
             # Replace Viewport Display
             viewport = self.getGtkObject("viewport")
 
@@ -319,8 +322,10 @@ class MainWindow:
     def fullscreen(self):
         if self.isFullscreen:
             self.window.unfullscreen()
+            self.menuBar.show()
         else:
             self.window.fullscreen()
+            self.menuBar.hide()
 
     def getGtkObject(self, objectId: str):
         return self.builder.get_object(objectId)
