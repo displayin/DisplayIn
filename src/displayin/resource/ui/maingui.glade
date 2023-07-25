@@ -411,6 +411,7 @@
 audio-volume-high-symbolic
 audio-volume-low-symbolic
 audio-volume-medium-symbolic</property>
+                    <signal name="value-changed" handler="onSelectVolume" swapped="no"/>
                     <child internal-child="plus_button">
                       <object class="GtkButton">
                         <property name="can-focus">False</property>
@@ -570,6 +571,7 @@ audio-volume-medium-symbolic</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkFrame">
+                <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="margin-start">8</property>
                 <property name="margin-end">8</property>
@@ -605,6 +607,7 @@ audio-volume-medium-symbolic</property>
                       <object class="GtkSwitch">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <signal name="activate" handler="onHideToolBarOnStart" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -775,6 +778,7 @@ audio-volume-medium-symbolic</property>
                         <property name="fill-level">100</property>
                         <property name="round-digits">0</property>
                         <property name="draw-value">False</property>
+                        <signal name="value-changed" handler="onSelectVolume" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>
@@ -863,6 +867,7 @@ audio-volume-medium-symbolic</property>
                         <property name="entry-text-column">0</property>
                         <property name="id-column">0</property>
                         <property name="active-id">30</property>
+                        <signal name="changed" handler="onSelectFps" swapped="no"/>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>
@@ -889,6 +894,7 @@ audio-volume-medium-symbolic</property>
                         <property name="entry-text-column">0</property>
                         <property name="id-column">0</property>
                         <property name="active-id">1920x1080</property>
+                        <signal name="changed" handler="onSelectResolution" swapped="no"/>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>

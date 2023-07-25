@@ -1,6 +1,7 @@
 
 from config.videostreamconfig import VideoStreamConfig
 from config.audiostreamconfig import AudioStreamConfig
+from config.settings import Settings
 from engine.videostream import VideoStream
 from engine.audiostream import AudioStream
 from util.resource import Resource as res
@@ -80,6 +81,10 @@ class MainWindow:
             self.videoStream: VideoStream = None
             self.audioStream: AudioStream = None
 
+            # initialize settings
+            self.settings = Settings()
+            self.settings.open()
+
             # Initialize Devices Lists
             self.initVideo()
             self.initAudio()
@@ -136,6 +141,12 @@ class MainWindow:
                     self.logger.log(str("Current Selected Device: " + str(currentDeviceId)))
                 else:
                     break
+
+            # load from settings
+            itemCount = len(deviceListStore)
+            settingDisplayDevice = self.settings.get('displayDevice')
+            if settingDisplayDevice != None and settingDisplayDevice < itemCount:
+                currentDeviceId = settingDisplayDevice
 
             if self.videoDevices:
                 self.initSelectDisplay(self.selectDisplay, deviceListStore, currentDeviceId)
@@ -206,6 +217,17 @@ class MainWindow:
                     if "default" in device["name"].lower():
                         currentOutputDeviceId = j
                     j += 1
+
+            # Load Audio Devices from Settings
+            itemCount = len(inputDeviceListStore)
+            settingAudioIn = self.settings.get('audioIn')
+            if settingAudioIn != None and settingAudioIn < itemCount:
+                currentInputDeviceId = settingAudioIn
+
+            itemCount = len(outputDeviceListStore)
+            settingAudioOut = self.settings.get('audioOut')
+            if settingAudioOut != None and settingAudioOut < itemCount:
+                currentOutputDeviceId = settingAudioOut
 
             if len(inputDeviceListStore) > 0:
                 self.initSelectAudio(self.selectAudioIn, inputDeviceListStore, currentInputDeviceId)

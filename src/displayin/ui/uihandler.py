@@ -26,6 +26,7 @@ class UIHandler:
             selected = combo.get_active()
             if selected is not None and selected != -1:
                 self.window.setDisplay(selected)
+                self.window.settings.set('displayDevice', selected)
         except Exception as e:
             self.handleException(e)
 
@@ -35,6 +36,7 @@ class UIHandler:
             if selected is not None:
                 model = combo.get_model()
                 self.window.setAudioIn(model[selected][1], selected)
+                self.window.settings.set('audioIn', selected)
 
         except Exception as e:
             self.handleException(e)
@@ -45,9 +47,22 @@ class UIHandler:
             if selected is not None:
                 model = combo.get_model()
                 self.window.setAudioOut(model[selected][1], selected)
+                self.window.settings.set('audioOut', selected)
 
         except Exception as e:
             self.handleException(e)
+
+    def onSelectResolution(self, combo):
+        pass
+
+    def onSelectFps(self, combo):
+        pass
+
+    def onSelectVolume(self, widget):
+        pass
+
+    def onHideToolBarOnStart(self, widget):
+        pass
 
     def onDisplayResize(self, widget, allocation):
         try:

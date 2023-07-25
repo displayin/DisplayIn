@@ -17,7 +17,7 @@ class Settings:
     # Opens the settings file if it exists
     def open(self):
 
-        if os.path.isFile(SETTINGS_FILE):
+        if os.path.isfile(SETTINGS_FILE):
             settingsFile = open(SETTINGS_FILE, 'r')
             self.settings = json.loads(settingsFile.read())
             settingsFile.close()
