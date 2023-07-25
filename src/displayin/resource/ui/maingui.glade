@@ -2,6 +2,73 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAboutDialog" id="about">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">About</property>
+    <property name="type-hint">dialog</property>
+    <property name="program-name">DisplayIn</property>
+    <property name="version">0.1.0</property>
+    <property name="copyright" translatable="yes">Tekst LLC</property>
+    <property name="logo">../images/DisplayInIcon.ico</property>
+    <property name="license-type">gpl-3-0</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="fps">
+    <columns>
+      <!-- column-name Label -->
+      <column type="gchararray"/>
+      <!-- column-name FPS -->
+      <column type="guint"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">15</col>
+        <col id="1">15</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">25</col>
+        <col id="1">25</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">30</col>
+        <col id="1">30</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">45</col>
+        <col id="1">45</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">60</col>
+        <col id="1">60</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkWindow" id="main">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">DisplayIn</property>
@@ -74,7 +141,6 @@
                     <child>
                       <object class="GtkImageMenuItem">
                         <property name="label">gtk-help</property>
-                        <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
@@ -89,6 +155,7 @@
                         <property name="use-underline">True</property>
                         <property name="use-stock">True</property>
                         <property name="always-show-image">True</property>
+                        <signal name="activate" handler="onAbout" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -494,6 +561,7 @@ audio-volume-medium-symbolic</property>
         <property name="name">Settings</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
+        <signal name="delete-event" handler="onCloseHide" swapped="no"/>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
@@ -789,7 +857,11 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-end">3</property>
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
+                        <property name="model">fps</property>
                         <property name="has-entry">True</property>
+                        <property name="entry-text-column">0</property>
+                        <property name="id-column">0</property>
+                        <property name="active-id">30</property>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>
@@ -812,10 +884,10 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-top">3</property>
                         <property name="margin-bottom">3</property>
                         <property name="model">resolutions</property>
-                        <property name="active">0</property>
                         <property name="has-entry">True</property>
                         <property name="entry-text-column">0</property>
                         <property name="id-column">0</property>
+                        <property name="active-id">1920x1080</property>
                         <child internal-child="entry">
                           <object class="GtkEntry">
                             <property name="can-focus">False</property>

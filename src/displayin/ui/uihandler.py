@@ -92,7 +92,11 @@ class UIHandler:
 
     def onPreferences(self, widget):
         settingsWindow = self.getGtkObject('settings')
-        settingsWindow.show()
+        settingsWindow.show_all()
+
+    def onAbout(self, widget):
+        aboutWindow = self.getGtkObject('about')
+        aboutWindow.show()
 
     def onWindowStateEvent(self, widget, ev):
         try:
