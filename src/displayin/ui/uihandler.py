@@ -98,6 +98,10 @@ class UIHandler:
         aboutWindow = self.getGtkObject('about')
         aboutWindow.show()
 
+    def onCloseHide(self, widget, ev):
+        widget.hide()
+        return True
+
     def onWindowStateEvent(self, widget, ev):
         try:
             self.window.isFullscreen = bool(
