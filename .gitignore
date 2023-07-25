@@ -7,3 +7,4 @@ build/
 *.spec
 display.jpg
 .DS_Store
+settings.json
