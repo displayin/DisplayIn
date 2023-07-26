@@ -53,9 +53,22 @@ class UIHandler:
             self.handleException(e)
 
     def onSelectResolution(self, combo):
+        selected = combo.get_active()
+        if selected is not None and selected != -1:
+            model = combo.get_model()
+            self.window.settings.set('resolution', model[selected][0])
+            self.window.startVideo()
         pass
 
     def onSelectFps(self, combo):
+        selected = combo.get_active()
+        if selected is not None and selected != -1:
+            model = combo.get_model()
+            self.window.settings.set('fps', model[selected][1])
+            self.window.startVideo()
+        pass
+
+    def onSettingsReset(self, widget, ev=None):
         pass
 
     def onSelectVolume(self, widget, ev=None):

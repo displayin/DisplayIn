@@ -143,6 +143,7 @@ class MainWindow:
                     break
 
             # load from settings
+            self.defaultDisplayDevice = currentDeviceId
             itemCount = len(deviceListStore)
             settingDisplayDevice = self.settings.get('displayDevice')
             if settingDisplayDevice != None and settingDisplayDevice < itemCount:
@@ -219,11 +220,13 @@ class MainWindow:
                     j += 1
 
             # Load Audio Devices from Settings
+            self.defaultAudioIn = currentInputDeviceId
             itemCount = len(inputDeviceListStore)
             settingAudioIn = self.settings.get('audioIn')
             if settingAudioIn != None and settingAudioIn < itemCount:
                 currentInputDeviceId = settingAudioIn
 
+            self.defaultAudioOut = currentOutputDeviceId
             itemCount = len(outputDeviceListStore)
             settingAudioOut = self.settings.get('audioOut')
             if settingAudioOut != None and settingAudioOut < itemCount:
@@ -294,6 +297,14 @@ class MainWindow:
                 videoConfig = self.videoDevices[self.selectedDisplay]
                 if self.videoStream:
                     self.videoStream.stop()
+
+                # Set Resolution
+                resolution = self.settings.get('resolution').split('x')
+                videoConfig.width = int(resolution[0].strip())
+                videoConfig.height = int(resolution[1].strip())
+
+                # Set FPS
+                videoConfig.fps = self.settings.get('fps')
 
                 self.videoStream = VideoStream(videoConfig, self.exHandler)
                 self.videoStream.start()
