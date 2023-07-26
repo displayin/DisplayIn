@@ -3,7 +3,7 @@ import json, os
 SETTINGS_FILE = "settings.json"
 
 class Settings:
-    def __init__(self, hideTaskbar: bool = False, displayDevice: str = None, audioIn: str = None, audioOut: str = None, volume: int = 100, resolution: str = "1920x1080", fps: int = 60):
+    def __init__(self, hideTaskbar: bool = False, displayDevice: str = None, audioIn: str = None, audioOut: str = None, volume: int = 50, resolution: str = "1920x1080", fps: int = 60):
         self.settings = {}
         
         self.settings['hideTaskbar'] = hideTaskbar

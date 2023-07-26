@@ -58,8 +58,14 @@ class UIHandler:
     def onSelectFps(self, combo):
         pass
 
-    def onSelectVolume(self, widget):
-        pass
+    def onSelectVolume(self, widget, ev=None):
+        try:
+            volume = widget.get_value()
+            self.window.audioStream.setVolume(volume)
+            self.window.settings.set('volume', volume)
+        except Exception as e:
+            self.handleException(e)
+
 
     def onHideToolBarOnStart(self, widget):
         pass

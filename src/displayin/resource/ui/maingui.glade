@@ -70,6 +70,119 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="resolutions">
+    <columns>
+      <!-- column-name Resolution -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">3840x2160</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2048x1536</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1920x1440</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1600x1200</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1440x1080</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1400x1050</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1280x1024</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1280x960</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1152x864</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1024x768</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">800x600</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">640x480</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">320x240</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2560x1600</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1920x1200</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1680x1050</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1440x900</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1280x800</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">720x480</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">640x400</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">320x200</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">3200x1800</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2880x1620</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2560x1440</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">2048x1152</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1920x1080</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1600x900</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1368x768</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1280x720</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">1024x576</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">864x486</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">720x400</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">640x350</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="volumeScale">
+    <property name="upper">100</property>
+    <property name="value">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
   <object class="GtkWindow" id="main">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">DisplayIn</property>
@@ -406,7 +519,8 @@
                     <property name="receives-default">True</property>
                     <property name="relief">none</property>
                     <property name="orientation">vertical</property>
-                    <property name="value">1</property>
+                    <property name="value">50</property>
+                    <property name="adjustment">volumeScale</property>
                     <property name="icons">audio-volume-muted-symbolic
 audio-volume-high-symbolic
 audio-volume-low-symbolic
@@ -441,119 +555,6 @@ audio-volume-medium-symbolic</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="resolutions">
-    <columns>
-      <!-- column-name Resolution -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">3840x2160</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">2048x1536</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1920x1440</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1600x1200</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1440x1080</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1400x1050</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1280x1024</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1280x960</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1152x864</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1024x768</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">800x600</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">640x480</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">320x240</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">2560x1600</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1920x1200</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1680x1050</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1440x900</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1280x800</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">720x480</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">640x400</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">320x200</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">3200x1800</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">2880x1620</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">2560x1440</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">2048x1152</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1920x1080</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1600x900</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1368x768</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1280x720</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">1024x576</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">864x486</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">720x400</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">640x350</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkAdjustment" id="volumeScale">
-    <property name="upper">100</property>
-    <property name="value">100</property>
-    <property name="step-increment">1</property>
-    <property name="page-increment">10</property>
   </object>
   <object class="GtkWindow" id="settings">
     <property name="can-focus">False</property>

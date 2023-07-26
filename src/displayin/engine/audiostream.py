@@ -6,6 +6,7 @@ import sounddevice as sd
 class AudioStream(object):
     def __init__(self, config: AudioStreamConfig, exHandler: ExceptionHandler = None):
         self.exHandler = exHandler
+        self.volume: int = 2
         try:
             # Set config
             self.config: AudioStreamConfig = config
@@ -54,7 +55,7 @@ class AudioStream(object):
         try:
             while self.running:
                 indata, overflowed = self.audioInputStream.read(self.config.blockSize)
-                self.audioOutputStream.write(indata)
+                self.audioOutputStream.write(indata * self.volume)
 
             # When we stop running, stop and close the stream
             self.audioInputStream.stop()
@@ -67,3 +68,11 @@ class AudioStream(object):
 
     def stop(self):
         self.running = False
+
+    def setVolume(self, volume: float):
+        if volume < 0:
+            self.volume = 0
+        elif volume > 100:
+            self.volume = 3
+
+        self.volume = int(round((volume / 100) * 3))
