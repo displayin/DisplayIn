@@ -51,13 +51,13 @@ class VideoStream(object):
     def read(self):
         try:
             # Read the next frame from the stream in a different thread
-            while self.running and self.capture.isOpened():
+            while self.running:
                 if res.isLinux():
                     self.capture.set(cv.CAP_PROP_POS_FRAMES, 0)
                 (self.status, self.frame) = self.capture.read()
 
                 # Display frames in main program
-                if self.status and self.frame.any():
+                if self.capture.isOpened() and self.status and self.frame.any():
                     self.frame = self.setResolution(
                         self.frame, width=self.config.width, height=self.config.height)
                     if self.config.writeCallback:
@@ -84,6 +84,8 @@ class VideoStream(object):
             self.handleException(e)
 
     def stop(self):
+        # Release the capture
+        self.capture.release()
         self.running = False
 
     # Resizes a image and maintains aspect ratio
