@@ -58,6 +58,8 @@ class MainWindow:
             self.selectDisplay1 = self.getGtkObject("selectDisplay1")
             self.selectAudioIn1 = self.getGtkObject("selectAudioIn1")
             self.selectAudioOut1 = self.getGtkObject("selectAudioOut1")
+            self.selectResolution = self.getGtkObject("selectResolution")
+            self.selectFPS = self.getGtkObject("selectFPS")
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -95,9 +97,29 @@ class MainWindow:
         if self.exHandler:
             self.exHandler.handle(e)
 
+    def initVideoSettings(self):
+        self.setComboValue(self.selectResolution, self.settings.get('resolution'), 0)
+        self.setComboValue(self.selectFPS, self.settings.get('fps'), 1)
+        pass
+
+    def setComboValue(self, combo, value, index):
+        model = combo.get_model()
+
+        i = 0
+        for selection in model:
+            if selection[index] == value:
+                combo.set_active(-1)
+                combo.set_active(i)
+                break
+            i += 1
+        pass
+
     def initVideo(self):
         try:
             self.logger.log("Initializing Video...")
+
+            # Init Video Settings
+            self.initVideoSettings()
 
             # Select Video API
             videoApi = cv.CAP_ANY
