@@ -83,15 +83,25 @@ class MainWindow:
             self.videoStream: VideoStream = None
             self.audioStream: AudioStream = None
 
-            # initialize settings
-            self.settings = Settings()
-            self.settings.open()
+            # initialize audio and vidoe
+            self.initialize()
 
-            # Initialize Devices Lists
-            self.initVideo()
-            self.initAudio()
         except Exception as e:
             self.handleException(e)
+
+    def initialize(self, resetSettings = False):
+        # initialize settings
+        self.settings = Settings()
+
+        # save default settings
+        if resetSettings:
+            self.settings.save()
+
+        self.settings.open()
+
+        # Initialize Devices Lists
+        self.initVideo()
+        self.initAudio()
 
     def handleException(self, e: Exception):
         if self.exHandler:
@@ -315,7 +325,7 @@ class MainWindow:
 
     def startVideo(self):
         try:
-            if self.selectedDisplay != -1:
+            if self.selectedDisplay != -1 and len(self.videoDevices) > 0:
                 videoConfig = self.videoDevices[self.selectedDisplay]
                 if self.videoStream:
                     self.videoStream.stop()

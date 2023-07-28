@@ -69,6 +69,9 @@ class UIHandler:
         pass
 
     def onSettingsReset(self, widget, ev=None):
+        self.window.stopVideo()
+        self.window.stopAudio()
+        self.window.initialize(True)
         pass
 
     def onSelectVolume(self, widget, ev=None):
