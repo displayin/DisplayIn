@@ -512,7 +512,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVolumeButton">
+                  <object class="GtkVolumeButton" id="selectVolume">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="focus-on-click">False</property>
@@ -767,7 +767,7 @@ audio-volume-medium-symbolic</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScale">
+                      <object class="GtkScale" id="selectVolume1">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="margin-start">3</property>
@@ -776,7 +776,7 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-bottom">3</property>
                         <property name="adjustment">volumeScale</property>
                         <property name="show-fill-level">True</property>
-                        <property name="fill-level">50</property>
+                        <property name="fill-level">100</property>
                         <property name="round-digits">0</property>
                         <property name="draw-value">False</property>
                         <signal name="value-changed" handler="onSelectVolume" swapped="no"/>

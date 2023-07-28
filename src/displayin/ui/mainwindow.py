@@ -60,6 +60,8 @@ class MainWindow:
             self.selectAudioOut1 = self.getGtkObject("selectAudioOut1")
             self.selectResolution = self.getGtkObject("selectResolution")
             self.selectFPS = self.getGtkObject("selectFPS")
+            self.selectVolume = self.getGtkObject("selectVolume")
+            self.selectVolume1 = self.getGtkObject("selectVolume1")
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -272,6 +274,10 @@ class MainWindow:
             if len(outputDeviceListStore) > 0:
                 self.initSelectAudio(self.selectAudioOut, outputDeviceListStore, currentOutputDeviceId)
                 self.initSelectAudio(self.selectAudioOut1, outputDeviceListStore, currentOutputDeviceId)
+
+            # Load Volume from settings
+            self.selectVolume.set_value(self.settings.get('volume'))
+            self.selectVolume1.set_value(self.settings.get('volume'))
 
             self.logger.log("Audio Initialized!")
         except Exception as e:
