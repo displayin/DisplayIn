@@ -776,7 +776,7 @@ audio-volume-medium-symbolic</property>
                         <property name="margin-bottom">3</property>
                         <property name="adjustment">volumeScale</property>
                         <property name="show-fill-level">True</property>
-                        <property name="fill-level">100</property>
+                        <property name="fill-level">50</property>
                         <property name="round-digits">0</property>
                         <property name="draw-value">False</property>
                         <signal name="value-changed" handler="onSelectVolume" swapped="no"/>
