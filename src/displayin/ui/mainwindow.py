@@ -40,6 +40,7 @@ class MainWindow:
         self.isFullscreen: bool = False
         self.logger = Logger()
         self.glArea = None
+        self.videoDevices = None
 
     def setUiHandler(self, uiHandler):
         try:
@@ -142,7 +143,10 @@ class MainWindow:
                 videoApi = cv.CAP_GSTREAMER
 
             # Find all available video device ids
-            self.videoDevices: list[VideoStreamConfig] = []
+            videoDevices: list[VideoStreamConfig] = []
+
+            if self.videoDevices == None:
+                self.videoDevices = videoDevices
 
             deviceListStore = Gtk.ListStore(int, str)
             currentDeviceId = -1
@@ -165,7 +169,7 @@ class MainWindow:
                         api=videoApi,
                         displayWidget=self.glArea
                     )
-                    self.videoDevices.append(config)
+                    videoDevices.append(config)
                     self.logger.log(config.name)
 
                     # Populate Drop Down
@@ -175,6 +179,9 @@ class MainWindow:
                     self.logger.log(str("Current Selected Device: " + str(currentDeviceId)))
                 else:
                     break
+
+            if len(videoDevices) > 0:
+                self.videoDevices = videoDevices
 
             # load from settings
             self.defaultDisplayDevice = currentDeviceId
