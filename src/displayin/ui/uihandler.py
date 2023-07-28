@@ -129,6 +129,17 @@ class UIHandler:
         actionBar = self.getGtkObject("actionBar")
         actionBar.set_reveal_child(False)
 
+    def onRecord(self, widget):
+        try:
+            if self.window.recording:
+                self.window.recording = False
+                self.window.stopRecording()
+            else:
+                self.window.recording = True
+                self.window.startRecording()
+        except Exception as e:
+            self.handleException(e)
+
     def onFullscreen(self, widget):
         self.window.fullscreen()
 

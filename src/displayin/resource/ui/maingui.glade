@@ -433,11 +433,12 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="buttonRecord">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="tooltip-text" translatable="yes">Record Video</property>
+                    <signal name="clicked" handler="onRecord" swapped="no"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>

@@ -41,6 +41,7 @@ class MainWindow:
         self.logger = Logger()
         self.glArea = None
         self.videoDevices = None
+        self.recording = False
 
     def setUiHandler(self, uiHandler):
         try:
@@ -63,6 +64,7 @@ class MainWindow:
             self.selectFPS = self.getGtkObject("selectFPS")
             self.selectVolume = self.getGtkObject("selectVolume")
             self.selectVolume1 = self.getGtkObject("selectVolume1")
+            self.buttonRecord = self.getGtkObject("buttonRecord")
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -395,6 +397,16 @@ class MainWindow:
     def stopAudio(self):
         if self.audioStream:
             self.audioStream.stop()
+
+    def startRecording(self):
+        icon = Gtk.Image.new_from_icon_name("gtk-media-stop", size=Gtk.IconSize.BUTTON)
+        self.buttonRecord.set_image(icon)
+        pass
+
+    def stopRecording(self):
+        icon = Gtk.Image.new_from_icon_name("gtk-media-record", size=Gtk.IconSize.BUTTON)
+        self.buttonRecord.set_image(icon)
+        pass
 
     def show(self):
         try:
