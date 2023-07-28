@@ -85,8 +85,11 @@ class UIHandler:
             self.handleException(e)
 
 
-    def onHideToolBarOnStart(self, widget):
-        pass
+    def onHideToolBarOnStart(self, widget, ev=None):
+        try:
+            self.window.settings.set('hideTaskbar', ev)
+        except Exception as e:
+            self.handleException(e)
 
     def onDisplayResize(self, widget, allocation):
         try:

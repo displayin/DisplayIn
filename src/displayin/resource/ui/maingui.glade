@@ -605,10 +605,10 @@ audio-volume-medium-symbolic</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch">
+                      <object class="GtkSwitch" id="selectHideTaskbar">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
-                        <signal name="activate" handler="onHideToolBarOnStart" swapped="no"/>
+                        <signal name="state-set" handler="onHideToolBarOnStart" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left-attach">1</property>

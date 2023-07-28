@@ -102,6 +102,13 @@ class MainWindow:
 
         self.settings.open()
 
+        # Display or hide action bar
+        self.actionBar = self.getGtkObject("actionBar")
+        self.selectHideTaskbar = self.getGtkObject("selectHideTaskbar")
+        hideTaskbar = self.settings.get('hideTaskbar')
+        self.selectHideTaskbar.set_state(hideTaskbar)
+        self.actionBar.set_reveal_child(not hideTaskbar)
+
         # Initialize Devices Lists
         self.initVideo()
         self.initAudio()
