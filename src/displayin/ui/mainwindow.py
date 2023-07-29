@@ -65,6 +65,7 @@ class MainWindow:
             self.selectVolume = self.getGtkObject("selectVolume")
             self.selectVolume1 = self.getGtkObject("selectVolume1")
             self.buttonRecord = self.getGtkObject("buttonRecord")
+            self.buttonFullscreen = self.getGtkObject("buttonFullscreen")
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -418,9 +419,13 @@ class MainWindow:
 
     def fullscreen(self):
         if self.isFullscreen:
+            icon = Gtk.Image.new_from_icon_name("gtk-fullscreen", size=Gtk.IconSize.BUTTON)
+            self.buttonFullscreen.set_image(icon)
             self.window.unfullscreen()
             self.menuBar.show()
         else:
+            icon = Gtk.Image.new_from_icon_name("gtk-leave-fullscreen", size=Gtk.IconSize.BUTTON)
+            self.buttonFullscreen.set_image(icon)
             self.window.fullscreen()
             self.menuBar.hide()
 
