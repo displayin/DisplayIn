@@ -8,8 +8,8 @@ IS_MAC = platform.system() == "Darwin"
 USE_OPENGL = IS_WINDOWS or IS_LINUX
 
 # Needed for Wayland Support for OpenGL in Linux
-if IS_LINUX and 'WAYLAND_DISPLAY' in os.environ and 'PYOPENGL_PLATFORM' not in os.environ:
-    os.environ['PYOPENGL_PLATFORM'] = 'x11'
+#if IS_LINUX and 'WAYLAND_DISPLAY' in os.environ and 'PYOPENGL_PLATFORM' not in os.environ:
+#    os.environ['PYOPENGL_PLATFORM'] = 'x11'
 
 class Resource:
     @staticmethod
