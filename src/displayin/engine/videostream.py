@@ -18,11 +18,15 @@ class VideoStream(object):
             
             # Create a VideoCapture object
             self.capture = cv.VideoCapture(config.deviceId, config.api)
-
+            self.fourcc = cv.VideoWriter_fourcc('M', 'J', 'P', 'G')
             self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
-            self.capture.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+            self.capture.set(cv.CAP_PROP_FOURCC, self.fourcc)
             self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
             self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
+
+            # Create Video Writer
+            self.writer = None
+            self.recording = False
 
             # FPS = 1/X
             # X = desired FPS
@@ -60,6 +64,10 @@ class VideoStream(object):
                 if self.capture.isOpened() and self.status and self.frame.any():
                     self.frame = self.setResolution(
                         self.frame, width=self.config.width, height=self.config.height)
+                    
+                    if self.recording:
+                        self.writer.write(self.frame)
+
                     if self.config.writeCallback:
                         # Call Write Callback
                         self.config.writeCallback(self.config.uiBuilder, self.frame, self.config.displayWidget)
@@ -84,6 +92,11 @@ class VideoStream(object):
             self.handleException(e)
 
     def stop(self):
+        # Stop Recording
+        if self.writer != None:
+            self.writer.release()
+            self.writer = None
+
         # Release the capture
         self.capture.release()
         self.running = False
@@ -95,4 +108,15 @@ class VideoStream(object):
 
         # Return the resized image
         return cv.resize(image, dim, interpolation=inter)
+    
+    def startRecording(self):
+        self.writer = cv.VideoWriter(
+            "temp.avi", self.fourcc, self.config.fps, (self.config.width, self.config.height))
+        self.recording = True
+
+    def stopRecording(self):
+        if self.writer != None:
+            self.writer.release()
+            self.writer = None
+        self.recording = False
 
