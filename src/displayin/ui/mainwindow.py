@@ -402,11 +402,13 @@ class MainWindow:
     def startRecording(self):
         icon = Gtk.Image.new_from_icon_name("gtk-media-stop", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
+        self.videoStream.startRecording()
         pass
 
     def stopRecording(self):
         icon = Gtk.Image.new_from_icon_name("gtk-media-record", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
+        self.videoStream.stopRecording()
         pass
 
     def show(self):
