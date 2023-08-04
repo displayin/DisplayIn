@@ -12,3 +12,6 @@ sudo pip install sounddevice
 
 # Install PyOpenGL
 sudo pip install pyopengl
+
+# Install FFmpeg
+sudo pip install ffmpeg-python
