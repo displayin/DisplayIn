@@ -130,8 +130,10 @@ class VideoStream(object):
         self.recording = True
 
     def stopRecording(self):
+        self.recording = False
+        time.sleep(0.1)
         if self.writer != None:
             self.writer.release()
             self.writer = None
-        self.recording = False
+        
 
