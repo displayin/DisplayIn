@@ -91,7 +91,7 @@ class AudioStream(object):
         self.recording = False
         waveFile = wave.open("temp.wav", 'wb')
         waveFile.setnchannels(self.config.outputChannels)
-        waveFile.setsampwidth(2)
+        waveFile.setsampwidth(4)
         waveFile.setframerate(self.config.outputSampleRate)
         waveFile.writeframes(b''.join(self.audioFrames))
         waveFile.close()
