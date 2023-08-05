@@ -414,6 +414,8 @@ class MainWindow:
         self.videoStream.stopRecording()
         self.audioStream.stopRecording()
         videoFile = ffmpeg.input("temp.avi")
+        videoFile = videoFile.filter(
+            'fps', fps=self.settings.get('fps'), round='up')
         audioFile = ffmpeg.input("temp.wav")
         outFileName = res.saveFileDialog()
         if outFileName != None:
