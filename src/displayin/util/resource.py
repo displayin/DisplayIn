@@ -66,11 +66,14 @@ class Resource:
                                        Gtk.FileChooserAction.SAVE,
                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
                                         Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+        # Set File Filter
         filter = Gtk.FileFilter()
         filter.set_name(fileFilterName)
         filter.add_pattern(fileFilter)
-
         dialog.add_filter(filter)
+
+        # Ask for Overwrite Confirmation
+        dialog.set_do_overwrite_confirmation(True)
 
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
