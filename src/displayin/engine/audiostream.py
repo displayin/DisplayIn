@@ -1,5 +1,6 @@
 from config.audiostreamconfig import AudioStreamConfig
 from util.exceptionhandler import ExceptionHandler
+from util.resource import Resource as res
 from threading import Thread
 import sounddevice as sd
 import wave
@@ -85,13 +86,17 @@ class AudioStream(object):
         self.volume = int(round((volume / 100) * 3))
 
     def startRecording(self):
+        res.deleteFileIfExists("temp.wav")
         self.recording = True
 
     def stopRecording(self):
         self.recording = False
         waveFile = wave.open("temp.wav", 'wb')
         waveFile.setnchannels(self.config.outputChannels)
-        waveFile.setsampwidth(4)
+        waveFile.setsampwidth(self.getSampleWidth())
         waveFile.setframerate(self.config.outputSampleRate)
         waveFile.writeframes(b''.join(self.audioFrames))
         waveFile.close()
+
+    def getSampleWidth(self):
+        return int(self.config.blockSize / 2048)

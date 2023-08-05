@@ -110,6 +110,7 @@ class VideoStream(object):
         return cv.resize(image, dim, interpolation=inter)
     
     def startRecording(self):
+        res.deleteFileIfExists("temp.avi")
         self.writer = cv.VideoWriter(
             "temp.avi", self.fourcc, self.config.fps, (self.config.width, self.config.height))
         self.recording = True

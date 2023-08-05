@@ -50,3 +50,8 @@ class Resource:
             # WIP Does not work yet
             from AVFoundation import AVCaptureDevice
             video = AVCaptureDevice
+    
+    @staticmethod
+    def deleteFileIfExists(file):
+        if os.path.exists(file):
+            os.remove(file)
