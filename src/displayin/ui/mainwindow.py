@@ -11,6 +11,8 @@ from util.exceptionhandler import ExceptionHandler
 from util.logger import Logger
 import numpy as np
 import sys
+import ffmpeg
+import time
 
 import os
 import gi
@@ -412,6 +414,13 @@ class MainWindow:
         self.videoStream.stopRecording()
         self.audioStream.stopRecording()
         pass
+        time.sleep(1)
+        videoFile = ffmpeg.input("temp.avi")
+        audioFile = ffmpeg.input("temp.wav")
+        ffmpeg.output(videoFile, audioFile, "out.mp4").run(overwrite_output=True)
+        res.deleteFileIfExists("temp.avi")
+        res.deleteFileIfExists("temp.wav")
+        #pass
 
     def show(self):
         try:
