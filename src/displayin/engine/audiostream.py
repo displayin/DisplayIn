@@ -2,6 +2,7 @@ from config.audiostreamconfig import AudioStreamConfig
 from util.exceptionhandler import ExceptionHandler
 from threading import Thread
 import sounddevice as sd
+import wave
 
 class AudioStream(object):
     def __init__(self, config: AudioStreamConfig, exHandler: ExceptionHandler = None):
@@ -28,6 +29,9 @@ class AudioStream(object):
                 channels=config.outputChannels,
                 latency=config.outputLatency,
                 dtype=config.dtype)
+            
+            self.audioFrames = []
+            self.recording = False
         except Exception as e:
             self.handleException(e)
             self.audioInputStream = None
@@ -57,6 +61,9 @@ class AudioStream(object):
                 indata, overflowed = self.audioInputStream.read(self.config.blockSize)
                 self.audioOutputStream.write(indata * self.volume)
 
+                if self.recording:
+                    self.audioFrames.append(indata)
+
             # When we stop running, stop and close the stream
             self.audioInputStream.stop()
             self.audioInputStream.close()
@@ -76,3 +83,15 @@ class AudioStream(object):
             self.volume = 3
 
         self.volume = int(round((volume / 100) * 3))
+
+    def startRecording(self):
+        self.recording = True
+
+    def stopRecording(self):
+        self.recording = False
+        waveFile = wave.open("temp.wav", 'wb')
+        waveFile.setnchannels(self.config.outputChannels)
+        waveFile.setsampwidth(2)
+        waveFile.setframerate(self.config.outputSampleRate)
+        waveFile.writeframes(b''.join(self.audioFrames))
+        waveFile.close()
