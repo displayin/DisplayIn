@@ -1,6 +1,9 @@
 import sys, os, platform
 import importlib
 import os
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, GdkPixbuf, GLib
 
 IS_WINDOWS = platform.system() == "Windows"
 IS_LINUX = platform.system() == "Linux"
@@ -55,3 +58,24 @@ class Resource:
     def deleteFileIfExists(file):
         if os.path.exists(file):
             os.remove(file)
+
+    @staticmethod
+    def saveFileDialog(message: str="Save video file as", fileFilterName="MP4 Video", fileFilter="*.mp4"):
+        filePath = None
+        dialog = Gtk.FileChooserDialog(message, None,
+                                       Gtk.FileChooserAction.SAVE,
+                                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                        Gtk.STOCK_SAVE, Gtk.ResponseType.OK))
+        filter = Gtk.FileFilter()
+        filter.set_name(fileFilterName)
+        filter.add_pattern(fileFilter)
+
+        dialog.add_filter(filter)
+
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            filePath = dialog.get_filename()
+
+        dialog.destroy()
+
+        return filePath
