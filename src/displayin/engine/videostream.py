@@ -49,6 +49,8 @@ class VideoStream(object):
                 self.running: bool = True
                 self.updatethread = Thread(target=self.read, args=())
                 self.updatethread.start()
+                self.writethread = Thread(target=self.write, args=())
+                self.writethread.start()
         except Exception as e:
             self.handleException(e)
 
@@ -64,9 +66,6 @@ class VideoStream(object):
                 if self.capture.isOpened() and self.status and self.frame.any():
                     self.frame = self.setResolution(
                         self.frame, width=self.config.width, height=self.config.height)
-                    
-                    if self.recording:
-                        self.writer.write(self.frame)
 
                     if self.config.writeCallback:
                         # Call Write Callback
@@ -88,6 +87,21 @@ class VideoStream(object):
             if not self.config.writeCallback:
                 cv.destroyAllWindows()
                 exit(0)
+        except Exception as e:
+            self.handleException(e)
+
+    def write(self):
+        try:
+            # Read the next frame from the stream in a different thread
+            while self.running:
+
+                # Display frames in main program
+                if self.capture.isOpened() and self.status and self.frame.any():
+                    if self.recording:
+                        self.writer.write(self.frame)
+
+                # Limit Capture to FPS
+                #time.sleep(self.fps)
         except Exception as e:
             self.handleException(e)
 
