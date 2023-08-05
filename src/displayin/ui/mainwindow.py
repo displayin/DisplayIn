@@ -413,13 +413,13 @@ class MainWindow:
         self.buttonRecord.set_image(icon)
         self.videoStream.stopRecording()
         self.audioStream.stopRecording()
-        pass
-        time.sleep(1)
-        videoFile = ffmpeg.input("temp.avi")
-        audioFile = ffmpeg.input("temp.wav")
-        ffmpeg.output(videoFile, audioFile, "out.mp4").run(overwrite_output=True)
-        res.deleteFileIfExists("temp.avi")
-        res.deleteFileIfExists("temp.wav")
+        #pass
+        #time.sleep(1)
+        #videoFile = ffmpeg.input("temp.avi")
+        #audioFile = ffmpeg.input("temp.wav")
+        #ffmpeg.output(videoFile, audioFile, "out.mp4").run(overwrite_output=True)
+        #res.deleteFileIfExists("temp.avi")
+        #res.deleteFileIfExists("temp.wav")
         #pass
 
     def show(self):
