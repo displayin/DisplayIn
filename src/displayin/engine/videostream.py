@@ -27,6 +27,8 @@ class VideoStream(object):
             # Create Video Writer
             self.writer = None
             self.recording = False
+            self.recordingStartTime = None
+            self.recordingFrameCount = 0
 
             # FPS = 1/X
             # X = desired FPS
@@ -99,9 +101,10 @@ class VideoStream(object):
                 if self.capture.isOpened() and self.status and self.frame.any():
                     if self.recording:
                         self.writer.write(self.frame)
+                        self.recordingFrameCount = self.recordingFrameCount + 1
 
                 # Limit Capture to FPS
-                #time.sleep(self.fps)
+                time.sleep(self.fps / 2)
         except Exception as e:
             self.handleException(e)
 
@@ -128,6 +131,8 @@ class VideoStream(object):
         self.writer = cv.VideoWriter(
             "temp.avi", self.fourcc, self.config.fps, (self.config.width, self.config.height))
         self.recording = True
+        self.recordingStartTime = time.time()
+        self.recordingFrameCount = 0
 
     def stopRecording(self):
         self.recording = False
@@ -135,5 +140,9 @@ class VideoStream(object):
         if self.writer != None:
             self.writer.release()
             self.writer = None
+
+        elapsedTime = time.time() - self.recordingStartTime
+        recordedFps = self.recordingFrameCount / elapsedTime
+        return recordedFps
         
 

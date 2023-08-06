@@ -411,11 +411,9 @@ class MainWindow:
     def stopRecording(self):
         icon = Gtk.Image.new_from_icon_name("gtk-media-record", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
-        self.videoStream.stopRecording()
+        recordedFps = self.videoStream.stopRecording()
         self.audioStream.stopRecording()
-        videoFile = ffmpeg.input("temp.avi")
-        videoFile = videoFile.filter(
-            'fps', fps=self.settings.get('fps'), round='up')
+        videoFile = ffmpeg.input("temp.avi", r=recordedFps)
         audioFile = ffmpeg.input("temp.wav")
         outFileName = res.saveFileDialog()
         if outFileName != None:
