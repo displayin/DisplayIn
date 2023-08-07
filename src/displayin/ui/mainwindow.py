@@ -68,6 +68,19 @@ class MainWindow:
             self.selectVolume1 = self.getGtkObject("selectVolume1")
             self.buttonRecord = self.getGtkObject("buttonRecord")
             self.buttonFullscreen = self.getGtkObject("buttonFullscreen")
+            self.buttonReset = self.getGtkObject("buttonReset")
+
+            self.controls = [
+                self.selectDisplay,
+                self.selectAudioIn,
+                self.selectAudioOut,
+                self.selectDisplay1,
+                self.selectAudioIn1,
+                self.selectAudioOut1,
+                self.selectResolution,
+                self.selectFPS,
+                self.buttonReset
+            ]
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -402,15 +415,19 @@ class MainWindow:
             self.audioStream.stop()
 
     def startRecording(self):
+        self.setControlsEnabled(False)
         icon = Gtk.Image.new_from_icon_name("gtk-media-stop", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
+        self.buttonRecord.set_tooltip_text("Stop recording")
         self.videoStream.startRecording()
         self.audioStream.startRecording()
         pass
 
     def stopRecording(self):
+        self.setControlsEnabled(True)
         icon = Gtk.Image.new_from_icon_name("gtk-media-record", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
+        self.buttonRecord.set_tooltip_text("Record")
         recordedFps = self.videoStream.stopRecording()
         self.audioStream.stopRecording()
         videoFile = ffmpeg.input("temp.avi", r=recordedFps)
@@ -421,6 +438,10 @@ class MainWindow:
         res.deleteFileIfExists("temp.avi")
         res.deleteFileIfExists("temp.wav")
         pass
+
+    def setControlsEnabled(self, enabled):
+        for widget in self.controls:
+            widget.set_sensitive(enabled)
 
     def show(self):
         try:
