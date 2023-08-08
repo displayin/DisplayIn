@@ -12,6 +12,17 @@ class VideoExporter:
     def __init__(self, window):
         self.window = window
         self.running = False
+
+        progressWindow = Gtk.Window(title="Exporting Video File...")
+        progressWindow.set_border_width(10)
+        progressWindow.set_deletable(False)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        progressWindow.add(vbox)
+        progressBar = Gtk.ProgressBar()
+        vbox.pack_start(progressBar, True, True, 0)
+
+        self.progressWindow = progressWindow
+        self.progressBar = progressBar
         pass
 
     def exportVideo(self, recordedFps, videoFileName="temp.avi", audioFileName="temp.wav"):
@@ -22,13 +33,8 @@ class VideoExporter:
         totalFrames = int(videoInfo['streams'][0]['nb_frames'])
 
         # Create Progress Window
-        progressWindow = Gtk.Window(title="Exporting Video File...")
-        progressWindow.set_border_width(10)
-        progressWindow.set_deletable(False)
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        progressWindow.add(vbox)
-        progressBar = Gtk.ProgressBar()
-        vbox.pack_start(progressBar, True, True, 0)
+        progressWindow = self.progressWindow
+        progressBar = self.progressBar
         progressWindow.show_all()
 
         outFileName = res.saveFileDialog()
@@ -80,6 +86,6 @@ class VideoExporter:
                         progressBar.set_fraction(progressPercent)
                         break
 
-        progressWindow.close()
+        progressWindow.hide()
 
         pass
