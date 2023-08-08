@@ -10,6 +10,10 @@ class VideoExporter:
     def exportVideo(self, recordedFps, videoFileName="temp.avi", audioFileName="temp.wav"):
         videoFile = ffmpeg.input(videoFileName , r=recordedFps)
         audioFile = ffmpeg.input(audioFileName)
+        
+        videoInfo = ffmpeg.probe(videoFileName)
+        totalFrames = int(videoInfo['streams'][0]['nb_frames'])
+
         outFileName = res.saveFileDialog()
         if outFileName != None:
             saveThread = Thread(target=self.ffmpegExport, args=(
@@ -20,8 +24,10 @@ class VideoExporter:
 
     def ffmpegExport(self, videoFileName, audioFileName, videoFile, audioFile, outFileName):
         self.window.buttonRecord.set_sensitive(False)
-        ffmpeg.output(videoFile, audioFile, outFileName).run(
-            overwrite_output=True)
+        (ffmpeg
+            .output(videoFile, audioFile, outFileName)
+            .global_args('-progress', 'progress.txt')
+            .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
         
         res.deleteFileIfExists(videoFileName)
         res.deleteFileIfExists(audioFileName)
