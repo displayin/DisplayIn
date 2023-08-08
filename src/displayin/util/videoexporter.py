@@ -1,4 +1,5 @@
 from util.resource import Resource as res
+from threading import Thread
 import ffmpeg
 
 class VideoExporter:
@@ -11,8 +12,17 @@ class VideoExporter:
         audioFile = ffmpeg.input(audioFileName)
         outFileName = res.saveFileDialog()
         if outFileName != None:
-            ffmpeg.output(videoFile, audioFile, outFileName).run(
-                overwrite_output=True)
+            saveThread = Thread(target=self.ffmpegExport, args=(
+                videoFileName, audioFileName, videoFile, audioFile, outFileName))
+            saveThread.start()
+        
+        pass
+
+    def ffmpegExport(self, videoFileName, audioFileName, videoFile, audioFile, outFileName):
+        self.window.buttonRecord.set_sensitive(False)
+        ffmpeg.output(videoFile, audioFile, outFileName).run(
+            overwrite_output=True)
+        
         res.deleteFileIfExists(videoFileName)
         res.deleteFileIfExists(audioFileName)
-        pass
+        self.window.buttonRecord.set_sensitive(True)
