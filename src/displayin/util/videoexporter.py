@@ -24,6 +24,7 @@ class VideoExporter:
         # Create Progress Window
         progressWindow = Gtk.Window(title="Exporting Video File...")
         progressWindow.set_border_width(10)
+        progressWindow.set_deletable(False)
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         progressWindow.add(vbox)
         progressBar = Gtk.ProgressBar()
@@ -32,9 +33,13 @@ class VideoExporter:
 
         outFileName = res.saveFileDialog()
         if outFileName != None:
+
+            # FFmpeg video saving thread
             saveThread = Thread(target=self.ffmpegExport, args=(
                 videoFileName, audioFileName, videoFile, audioFile, outFileName))
             saveThread.start()
+
+            # Progress bar thread
             progressThread = Thread(target=self.displayProgress, args=(totalFrames, progressWindow, progressBar))
             progressThread.start()
         
@@ -58,9 +63,23 @@ class VideoExporter:
         while self.running:
             time.sleep(0.1)
             if os.path.exists("progress.txt"):
+
+                # Read current progress
                 progressfile = open("progress.txt", "r")
                 data = progressfile.read()
                 progressfile.close()
+
+                # Parse out current frame
+                lines = data.splitlines()
+                indicies = reversed(range(len(lines) - 1))
+                for i in indicies:
+                    currentLine = lines[i]
+                    if currentLine.startswith("frame="):
+                        frame = int(currentLine.partition('=')[-1])
+                        progressPercent = frame / totalFrames
+                        progressBar.set_fraction(progressPercent)
+                        break
+
 
         progressWindow.destroy()
 
