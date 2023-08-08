@@ -6,7 +6,7 @@ class VideoExporter:
         self.window = window
         pass
 
-    def exportVideo(recordedFps, videoFileName="temp.avi", audioFileName="temp.wav"):
+    def exportVideo(self, recordedFps, videoFileName="temp.avi", audioFileName="temp.wav"):
         videoFile = ffmpeg.input(videoFileName , r=recordedFps)
         audioFile = ffmpeg.input(audioFileName)
         outFileName = res.saveFileDialog()

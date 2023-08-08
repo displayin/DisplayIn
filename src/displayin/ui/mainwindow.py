@@ -12,7 +12,6 @@ from util.logger import Logger
 import numpy as np
 import sys
 from util.videoexporter import VideoExporter
-import ffmpeg
 
 import os
 import gi
@@ -432,13 +431,7 @@ class MainWindow:
         self.buttonRecord.set_tooltip_text("Record")
         recordedFps = self.videoStream.stopRecording()
         self.audioStream.stopRecording()
-        videoFile = ffmpeg.input("temp.avi", r=recordedFps)
-        audioFile = ffmpeg.input("temp.wav")
-        outFileName = res.saveFileDialog()
-        if outFileName != None:
-            ffmpeg.output(videoFile, audioFile, outFileName).run(overwrite_output=True)
-        res.deleteFileIfExists("temp.avi")
-        res.deleteFileIfExists("temp.wav")
+        self.videExporter.exportVideo(recordedFps)
         pass
 
     def setControlsEnabled(self, enabled):
