@@ -80,7 +80,6 @@ class VideoExporter:
                         progressBar.set_fraction(progressPercent)
                         break
 
-
-        progressWindow.destroy()
+        progressWindow.close()
 
         pass
