@@ -11,8 +11,8 @@ from util.exceptionhandler import ExceptionHandler
 from util.logger import Logger
 import numpy as np
 import sys
+from util.videoexporter import VideoExporter
 import ffmpeg
-import time
 
 import os
 import gi
@@ -81,6 +81,8 @@ class MainWindow:
                 self.selectFPS,
                 self.buttonReset
             ]
+
+            self.videExporter = VideoExporter(self)
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
