@@ -11,7 +11,7 @@
 8. Where is the source code: `C:/Users/USER/git/opencv-4.7.0`
 9. Where to build the binaries: `C:/Users/USER/git/opencv-4.7.0/build`
 10. Click Configure and select MSYS2 Makefiles
-11. Uncheck the following: `WITH_OBSENSOR` and `BUILD_SHARED_LIBS`
+11. Uncheck the following: `WITH_OBSENSOR`, `BUILD_SHARED_LIBS`, `BUILD_TESTS`, `BUILD_PERF_TESTS`
 12. Set `PYTHON3_PACKAGES_PATH` to `C:/tools/msys64/mingw64/lib/python3.10/site-packages`
 13. Select Generate and close cmake-gui
 14. run `mingw32-make install` 
