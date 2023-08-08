@@ -87,6 +87,7 @@ class AudioStream(object):
 
     def startRecording(self):
         res.deleteFileIfExists("temp.wav")
+        self.audioFrames = []
         self.recording = True
 
     def stopRecording(self):
