@@ -60,7 +60,7 @@ class Resource:
             os.remove(file)
 
     @staticmethod
-    def saveFileDialog(message: str="Save video file as", fileFilterName="MP4 Video", fileFilter="*.mp4"):
+    def saveFileDialog(message: str="Save video file as", fileFilterName="MP4 Video", fileFilter="*.mp4", defaultFileName="recording.mp4"):
         filePath = None
         dialog = Gtk.FileChooserDialog(message, None,
                                        Gtk.FileChooserAction.SAVE,
@@ -71,6 +71,7 @@ class Resource:
         filter.set_name(fileFilterName)
         filter.add_pattern(fileFilter)
         dialog.add_filter(filter)
+        dialog.set_current_name(defaultFileName)
 
         # Ask for Overwrite Confirmation
         dialog.set_do_overwrite_confirmation(True)
