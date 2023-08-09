@@ -33,9 +33,6 @@ cp /mingw64/bin/libIlmThread-3_1.dll dist/displayin/lib/opencv/bin/
 cp /mingw64/bin/libImath-3_1.dll dist/displayin/lib/opencv/bin/
 cp /mingw64/bin/libOpenEXR-3_1.dll dist/displayin/lib/opencv/bin/
 
-# Remove any gstreamer dependencies copied into the build directory (they may be the wrong version)
-rm dist/displayin/gst*.dll
-
 # Copy gstreamer dependencies
 cp $GSTREAMER_ROOT/1.0/msvc_x86_64/bin/*.dll dist/displayin/lib/opencv/bin/
 # cp $GSTREAMER_ROOT/1.0/msvc_x86_64/bin/gstapp-1.0-0.dll dist/displayin/lib/opencv/bin/
@@ -59,3 +56,6 @@ cp $GSTREAMER_ROOT/1.0/msvc_x86_64/lib/gstreamer-1.0/*.dll dist/displayin/lib/op
 # https://aka.ms/vs/17/release/vc_redist.x64.exe 
 # https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 cp /c/Windows/System32/vcruntime140_1.dll dist/displayin/lib/opencv/bin/
+
+# Remove any gstreamer dependencies copied into the build directory (they may be the wrong version)
+rm dist/displayin/gst*.dll
