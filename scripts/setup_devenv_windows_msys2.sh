@@ -7,6 +7,8 @@ pacman -Suy mingw-w64-x86_64-gtk3 mingw-w64-x86_64-python3 mingw-w64-x86_64-pyth
 
 # Remove opencv
 # pacman -R mingw-w64-x86_64-x264 mingw-w64-x86_64-ffms2 mingw-w64-x86_64-ffmpeg mingw-w64-x86_64-frei0r-plugins mingw-w64-x86_64-opencv
+# pacman -R mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-bad-libs mingw-w64-x86_64-gst-plugins-bad mingw-w64-x86_64-gst-plugins-good
+# pacman -R  mingw-w64-x86_64-opencv mingw-w64-x86_64-python-opencv
 
 # Install Debugpy
 pip install debugpy
