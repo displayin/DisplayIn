@@ -21,8 +21,9 @@ class VideoStream(object):
             self.fourcc = cv.VideoWriter_fourcc('M', 'J', 'P', 'G')
             self.capture.set(cv.CAP_PROP_BUFFERSIZE, config.bufferSize)
             self.capture.set(cv.CAP_PROP_FOURCC, self.fourcc)
-            self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
-            self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
+            if not res.isWindows():
+                self.capture.set(cv.CAP_PROP_FRAME_WIDTH, config.width)
+                self.capture.set(cv.CAP_PROP_FRAME_HEIGHT, config.height)
 
             # Create Video Writer
             self.writer = None
