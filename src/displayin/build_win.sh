@@ -6,6 +6,7 @@
 # Clean Build Folders
 [ -d "build" ] && rm -rf build/*
 [ -d "dist" ] && rm -rf dist/*
+[ -f "displayin.spec" ] && rm displayin.spec
 
 # Set GSTREAMER ROOT
 GSTREAMER_ROOT=/c/gstreamer
