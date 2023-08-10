@@ -4,8 +4,8 @@
 #  --paths "../../../opencv-4.7.0/build/install/x64/mingw/bin/" --paths "../../../opencv-4.7.0/build/install/x64/mingw/lib/" --paths "/mingw64/lib/python3.11/site-packages/cv2/python-3.11/"
 
 # Clean Build Folders
-[ -d "build" ] && rm -rf build/*
-[ -d "dist" ] && rm -rf dist/*
+[ -d "build" ] && rm -rf build
+[ -d "dist" ] && rm -rf dist
 [ -f "displayin.spec" ] && rm displayin.spec
 
 # Set GSTREAMER ROOT
