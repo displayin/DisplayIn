@@ -417,7 +417,7 @@ class MainWindow:
 
     def startRecording(self):
         self.setControlsEnabled(False)
-        icon = Gtk.Image.new_from_icon_name("gtk-media-stop", size=Gtk.IconSize.BUTTON)
+        icon = Gtk.Image.new_from_icon_name("media-playback-stop", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
         self.buttonRecord.set_tooltip_text("Stop recording")
         self.videoStream.startRecording()
@@ -426,7 +426,7 @@ class MainWindow:
 
     def stopRecording(self):
         self.setControlsEnabled(True)
-        icon = Gtk.Image.new_from_icon_name("gtk-media-record", size=Gtk.IconSize.BUTTON)
+        icon = Gtk.Image.new_from_icon_name("media-record", size=Gtk.IconSize.BUTTON)
         self.buttonRecord.set_image(icon)
         self.buttonRecord.set_tooltip_text("Record")
         recordedFps = self.videoStream.stopRecording()
@@ -448,12 +448,12 @@ class MainWindow:
 
     def fullscreen(self):
         if self.isFullscreen:
-            icon = Gtk.Image.new_from_icon_name("gtk-fullscreen", size=Gtk.IconSize.BUTTON)
+            icon = Gtk.Image.new_from_icon_name("view-fullscreen", size=Gtk.IconSize.BUTTON)
             self.buttonFullscreen.set_image(icon)
             self.window.unfullscreen()
             self.menuBar.show()
         else:
-            icon = Gtk.Image.new_from_icon_name("gtk-leave-fullscreen", size=Gtk.IconSize.BUTTON)
+            icon = Gtk.Image.new_from_icon_name("view-restore", size=Gtk.IconSize.BUTTON)
             self.buttonFullscreen.set_image(icon)
             self.window.fullscreen()
             self.menuBar.hide()
