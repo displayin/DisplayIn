@@ -83,3 +83,7 @@ class Resource:
         dialog.destroy()
 
         return filePath
+    
+    @staticmethod
+    def getIconButton(name: str):
+        return Gtk.Image.new_from_icon_name(name, size=Gtk.IconSize.BUTTON)
