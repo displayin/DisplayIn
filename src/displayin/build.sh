@@ -6,4 +6,4 @@
 [ -f "displayin.spec" ] && rm displayin.spec
 
 # Run Pyinstaller
-pyinstaller --noconsole --add-data="resource/ui/maingui.glade:resource/ui" --splash "resource/images/DisplayInSplash.png" --icon="resource/images/DisplayInIcon.ico" --onedir displayin.py
+pyinstaller --noconsole --add-data="resource/ui/maingui.glade:resource/ui" --add-data "resource/images:resource/images" --splash "resource/images/DisplayInSplash.png" --icon="resource/images/DisplayInIcon.ico" --hidden-import "OpenGL.platform.egl" --onedir displayin.py
