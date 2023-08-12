@@ -13,7 +13,7 @@ GSTREAMER_ROOT=/c/gstreamer
 [ -d "/f/gstreamer" ] && GSTREAMER_ROOT=/f/gstreamer
 
 # Run Pyinstaller
-pyinstaller --add-data="resource/ui/maingui.glade;resource/ui" --splash "resource/images/DisplayInSplash.png" --icon="resource/images/DisplayInIcon.ico" --onedir displayin.py \
+pyinstaller --add-data="resource/ui/maingui.glade;resource/ui" --add-data "resource/images;resource/images" --splash "resource/images/DisplayInSplash.png" --icon="resource/images/DisplayInIcon.ico" --onedir displayin.py \
 --add-binary "C:\tools\msys64\mingw64\bin\libGLESv2.dll;lib\opencv\bin" \
 --add-binary "C:\tools\msys64\mingw64\bin\libEGL.dll;lib\opencv\bin" \
 --add-binary "C:\tools\msys64\mingw64\bin\libIex-3_1.dll;lib\opencv\bin" \
