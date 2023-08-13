@@ -56,7 +56,7 @@ class VideoExporter:
         self.running = True
         (ffmpeg
             .output(videoFile, audioFile, outFileName)
-            .global_args('-progress', 'progress.txt')
+            .global_args('-progress', 'progress.txt', '-async', '1')
             .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
         
         res.deleteFileIfExists(videoFileName)
