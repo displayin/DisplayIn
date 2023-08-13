@@ -33,6 +33,13 @@ pyinstaller --add-data="resource/ui/maingui.glade;resource/ui" --add-data "resou
 --add-binary "F:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstapp.dll;lib\opencv\lib\gstreamer-1.0" \
 --add-binary "F:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstmediafoundation.dll;lib\opencv\lib\gstreamer-1.0" \
 --add-binary "F:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0\gstvideoconvertscale.dll;lib\opencv\lib\gstreamer-1.0" \
+--add-binary "C:\tools\msys64\mingw64\bin\ffmpeg.exe;." \
+--add-binary "C:\tools\msys64\mingw64\bin\ffprobe.exe;." \
+--add-binary "C:\tools\msys64\mingw64\bin\avfilter-9.dll;." \
+--add-binary "C:\tools\msys64\mingw64\bin\avformat-60.dll;." \
+--add-binary "C:\tools\msys64\mingw64\bin\avfilter-9.dll;." \
+--add-binary "C:\tools\msys64\mingw64\bin\libbluray-2.dll;." \
+--add-binary "C:\tools\msys64\mingw64\bin\avdevice-60.dll;." \
 --add-binary "C:\Windows\System32\vcruntime140_1.dll;lib\opencv\bin"
 
 
