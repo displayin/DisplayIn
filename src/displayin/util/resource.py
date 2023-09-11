@@ -1,6 +1,7 @@
 import sys, os, platform
 import importlib
 import os
+import time
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
@@ -87,3 +88,11 @@ class Resource:
     @staticmethod
     def getIconButton(name: str):
         return Gtk.Image.new_from_icon_name(name, size=Gtk.IconSize.BUTTON)
+    
+    @staticmethod
+    def getFileTimestamp():
+        return int(time.time())
+
+    @staticmethod
+    def getScreenshotFileName():
+        return str("screenshot_" + str(Resource.getFileTimestamp()) + ".png")

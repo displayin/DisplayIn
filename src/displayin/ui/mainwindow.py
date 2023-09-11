@@ -105,7 +105,7 @@ class MainWindow:
             self.videoStream: VideoStream = None
             self.audioStream: AudioStream = None
 
-            # initialize audio and vidoe
+            # initialize audio and video
             self.initialize()
 
         except Exception as e:
@@ -127,6 +127,13 @@ class MainWindow:
         hideTaskbar = self.settings.get('hideTaskbar')
         self.selectHideTaskbar.set_state(hideTaskbar)
         self.actionBar.set_reveal_child(not hideTaskbar)
+
+        # Initialize screenshot directory
+        self.screenshotDir = self.settings.get('screenshotDir')
+        if self.screenshotDir == None:
+            self.screenshotDir = "screenshots"
+            if not os.path.exists(self.screenshotDir):
+                os.makedirs(self.screenshotDir)
 
         # Initialize Devices Lists
         self.initVideo()
@@ -431,6 +438,10 @@ class MainWindow:
         self.audioStream.stopRecording()
         self.videExporter.exportVideo(recordedFps)
         pass
+
+    def screenshot(self):
+        screenshotPath = os.path.join(self.screenshotDir, res.getScreenshotFileName())
+        self.videoStream.screenshot(screenshotPath)
 
     def setControlsEnabled(self, enabled):
         for widget in self.controls:

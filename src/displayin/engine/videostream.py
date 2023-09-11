@@ -38,6 +38,8 @@ class VideoStream(object):
             # Initialize Status
             self.status = False
             self.frame = []
+            self.screenshotPath = None
+            self.takeScreenshot = False
         except Exception as e:
             self.handleException(e)
 
@@ -100,6 +102,10 @@ class VideoStream(object):
 
                 # Display frames in main program
                 if self.capture.isOpened() and self.status and self.frame.any():
+                    if self.takeScreenshot:
+                        cv.imwrite(self.screenshotPath, self.frame)
+                        self.takeScreenshot = False
+
                     if self.recording:
                         self.writer.write(self.frame)
                         self.recordingFrameCount = self.recordingFrameCount + 1
@@ -126,6 +132,11 @@ class VideoStream(object):
 
         # Return the resized image
         return cv.resize(image, dim, interpolation=inter)
+    
+    def screenshot(self, filename):
+        self.screenshotPath = filename
+        self.takeScreenshot = True
+        pass
     
     def startRecording(self):
         res.deleteFileIfExists("temp.avi")

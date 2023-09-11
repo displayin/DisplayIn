@@ -321,7 +321,7 @@
             <property name="transition-type">none</property>
             <property name="reveal-child">True</property>
             <child>
-              <!-- n-columns=12 n-rows=1 -->
+              <!-- n-columns=13 n-rows=1 -->
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -468,7 +468,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="left-attach">8</property>
+                    <property name="left-attach">9</property>
                     <property name="top-attach">0</property>
                   </packing>
                 </child>
@@ -488,7 +488,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="left-attach">10</property>
+                    <property name="left-attach">11</property>
                     <property name="top-attach">0</property>
                   </packing>
                 </child>
@@ -508,7 +508,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="left-attach">11</property>
+                    <property name="left-attach">12</property>
                     <property name="top-attach">0</property>
                   </packing>
                 </child>
@@ -541,7 +541,27 @@ audio-volume-medium-symbolic</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="left-attach">9</property>
+                    <property name="left-attach">10</property>
+                    <property name="top-attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="buttonScreenshot">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Screenshot</property>
+                    <signal name="clicked" handler="onScreenshot" swapped="no"/>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="icon-name">camera-photo</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left-attach">8</property>
                     <property name="top-attach">0</property>
                   </packing>
                 </child>

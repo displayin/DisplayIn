@@ -1,7 +1,6 @@
 from util.exceptionhandler import ExceptionHandler
 from util.logger import Logger
 from ui.mainwindow import MainWindow
-
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk
@@ -139,6 +138,9 @@ class UIHandler:
                 self.window.startRecording()
         except Exception as e:
             self.handleException(e)
+
+    def onScreenshot(self, widget):
+        self.window.screenshot()
 
     def onFullscreen(self, widget):
         self.window.fullscreen()
