@@ -142,6 +142,9 @@ class UIHandler:
     def onScreenshot(self, widget):
         self.window.screenshot()
 
+    def onScreenshotHide(self, widget):
+        self.window.screenshotNotificationHide()
+
     def onFullscreen(self, widget):
         self.window.fullscreen()
 

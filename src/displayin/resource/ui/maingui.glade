@@ -546,11 +546,12 @@ audio-volume-medium-symbolic</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="buttonScreenshot">
+                  <object class="GtkMenuButton" id="buttonScreenshot">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="focus-on-click">False</property>
                     <property name="receives-default">True</property>
-                    <property name="tooltip-text" translatable="yes">Screenshot</property>
+                    <property name="direction">up</property>
                     <signal name="clicked" handler="onScreenshot" swapped="no"/>
                     <child>
                       <object class="GtkImage">

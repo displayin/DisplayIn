@@ -2,6 +2,7 @@ import sys, os, platform
 import importlib
 import os
 import time
+from threading import Timer
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GdkPixbuf, GLib
@@ -96,3 +97,8 @@ class Resource:
     @staticmethod
     def getScreenshotFileName():
         return str("screenshot_" + str(Resource.getFileTimestamp()) + ".png")
+    
+    @staticmethod
+    def delayCall(delayInSeconds: int, function):
+        timer = Timer(delayInSeconds, function)
+        timer.start()

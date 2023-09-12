@@ -68,6 +68,7 @@ class MainWindow:
             self.buttonRecord = self.getGtkObject("buttonRecord")
             self.buttonFullscreen = self.getGtkObject("buttonFullscreen")
             self.buttonReset = self.getGtkObject("buttonReset")
+            self.buttonScreenshot = self.getGtkObject("buttonScreenshot")
 
             self.controls = [
                 self.selectDisplay,
@@ -82,6 +83,9 @@ class MainWindow:
             ]
 
             self.videExporter = VideoExporter(self)
+
+            # Init Screenshot popover
+            self.initScreenshotPopover()
 
             # Get Menubar
             self.menuBar = self.getGtkObject("menuBar")
@@ -442,6 +446,23 @@ class MainWindow:
     def screenshot(self):
         screenshotPath = os.path.join(self.screenshotDir, res.getScreenshotFileName())
         self.videoStream.screenshot(screenshotPath)
+
+        # Show Screenshot Popover
+        self.screenshotLabel.set_text(str("Saved screenshot to " + screenshotPath))
+        res.delayCall(1, self.closeScreenshotPopup)
+
+    def initScreenshotPopover(self):
+        self.screenshotPopover = Gtk.Popover()
+        self.screenshotLabel = Gtk.Label(label="")
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        vbox.pack_start(self.screenshotLabel, False, True, 10)
+        vbox.show_all()
+        self.screenshotPopover.add(vbox)
+        self.screenshotPopover.set_position(Gtk.PositionType.TOP)
+        self.buttonScreenshot.set_popover(self.screenshotPopover)
+
+    def closeScreenshotPopup(self):
+        self.buttonScreenshot.set_active(False)
 
     def setControlsEnabled(self, enabled):
         for widget in self.controls:
