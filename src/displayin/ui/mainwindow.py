@@ -43,6 +43,8 @@ class MainWindow:
         self.glArea = None
         self.videoDevices = None
         self.recording = False
+        if self.exHandler:
+            self.exHandler.logger = self.logger
 
     def setUiHandler(self, uiHandler):
         try:
