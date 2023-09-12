@@ -552,7 +552,7 @@ audio-volume-medium-symbolic</property>
                     <property name="focus-on-click">False</property>
                     <property name="receives-default">True</property>
                     <property name="direction">up</property>
-                    <signal name="clicked" handler="onScreenshot" swapped="no"/>
+                    <signal name="pressed" handler="onScreenshot" swapped="no"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>

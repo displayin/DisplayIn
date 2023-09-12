@@ -449,7 +449,10 @@ class MainWindow:
 
         # Show Screenshot Popover
         self.screenshotLabel.set_text(str("Saved screenshot to " + screenshotPath))
-        res.delayCall(1, self.closeScreenshotPopup)
+        res.delayCall(0.5, self.openScreenshotPopup)
+        if self.screenshotPopupTimer != None and self.screenshotPopupTimer.is_alive():
+            self.screenshotPopupTimer.cancel()
+        self.screenshotPopupTimer = res.delayCall(1, self.closeScreenshotPopup)
 
     def initScreenshotPopover(self):
         self.screenshotPopover = Gtk.Popover()
@@ -460,6 +463,10 @@ class MainWindow:
         self.screenshotPopover.add(vbox)
         self.screenshotPopover.set_position(Gtk.PositionType.TOP)
         self.buttonScreenshot.set_popover(self.screenshotPopover)
+        self.screenshotPopupTimer = None
+
+    def openScreenshotPopup(self):
+        self.buttonScreenshot.set_active(True)
 
     def closeScreenshotPopup(self):
         self.buttonScreenshot.set_active(False)

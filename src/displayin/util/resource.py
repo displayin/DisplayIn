@@ -99,6 +99,7 @@ class Resource:
         return str("screenshot_" + str(Resource.getFileTimestamp()) + ".png")
     
     @staticmethod
-    def delayCall(delayInSeconds: int, function):
+    def delayCall(delayInSeconds: float, function):
         timer = Timer(delayInSeconds, function)
         timer.start()
+        return timer
