@@ -62,7 +62,7 @@ class Resource:
             os.remove(file)
 
     @staticmethod
-    def saveFileDialog(message: str="Save video file as", fileFilterName="MP4 Video", fileFilter="*.mp4", defaultFileName="recording.mp4"):
+    def saveFileDialog(defaultFileName = "recording.mp4", currentFolder = ".", message: str = "Save video file as", fileFilterName="MP4 Video", fileFilter="*.mp4"):
         filePath = None
         dialog = Gtk.FileChooserDialog(message, None,
                                        Gtk.FileChooserAction.SAVE,
@@ -74,6 +74,7 @@ class Resource:
         filter.add_pattern(fileFilter)
         dialog.add_filter(filter)
         dialog.set_current_name(defaultFileName)
+        dialog.set_current_folder(currentFolder)
 
         # Ask for Overwrite Confirmation
         dialog.set_do_overwrite_confirmation(True)
@@ -99,7 +100,20 @@ class Resource:
         return str("screenshot_" + str(Resource.getFileTimestamp()) + ".png")
     
     @staticmethod
+    def getRecordingFileName():
+        return str("recording_" + str(Resource.getFileTimestamp()) + ".mp4")
+    
+    @staticmethod
+    def getLogFileName():
+        return str("log_" + str(Resource.getFileTimestamp()) + ".txt")
+    
+    @staticmethod
     def delayCall(delayInSeconds: float, function):
         timer = Timer(delayInSeconds, function)
         timer.start()
         return timer
+    
+    @staticmethod
+    def makeDir(directory: str):
+        if not os.path.exists(directory):
+            os.makedirs(directory)

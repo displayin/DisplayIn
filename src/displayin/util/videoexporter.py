@@ -37,7 +37,8 @@ class VideoExporter:
         progressBar = self.progressBar
         progressWindow.show_all()
 
-        outFileName = res.saveFileDialog()
+        outFileName = res.saveFileDialog(
+            res.getRecordingFileName(), self.window.videoDir)
         if outFileName != None:
 
             # FFmpeg video saving thread

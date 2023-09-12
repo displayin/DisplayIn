@@ -3,7 +3,7 @@ import json, os
 SETTINGS_FILE = "settings.json"
 
 class Settings:
-    def __init__(self, hideTaskbar: bool = False, displayDevice: str = None, audioIn: str = None, audioOut: str = None, volume: int = 50, resolution: str = "1920x1080", fps: int = 60, screenshotDir: str = None, videoDir: str = None):
+    def __init__(self, hideTaskbar: bool = False, displayDevice: str = None, audioIn: str = None, audioOut: str = None, volume: int = 50, resolution: str = "1920x1080", fps: int = 60, screenshotDir: str = 'screenshots', videoDir: str = 'recordings', logDir: str = 'logs'):
         self.settings = {}
         
         self.settings['hideTaskbar'] = hideTaskbar
@@ -15,6 +15,7 @@ class Settings:
         self.settings['fps'] = fps
         self.settings['screenshotDir'] = screenshotDir
         self.settings['videoDir'] = videoDir
+        self.settings['logDir'] = logDir
 
     # Opens the settings file if it exists
     def open(self):
@@ -38,3 +39,9 @@ class Settings:
 
     def get(self, key):
         return self.settings.get(key)
+    
+    def getOrDefault(self, key, default):
+        value = self.get(key)
+        if value == None:
+            value = default
+        return value

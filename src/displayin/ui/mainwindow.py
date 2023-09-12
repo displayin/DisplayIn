@@ -132,12 +132,17 @@ class MainWindow:
         self.selectHideTaskbar.set_state(hideTaskbar)
         self.actionBar.set_reveal_child(not hideTaskbar)
 
-        # Initialize screenshot directory
-        self.screenshotDir = self.settings.get('screenshotDir')
-        if self.screenshotDir == None:
-            self.screenshotDir = "screenshots"
-            if not os.path.exists(self.screenshotDir):
-                os.makedirs(self.screenshotDir)
+        # Initialize screenshots directory
+        self.screenshotDir = self.settings.getOrDefault('screenshotDir', 'screenshots')
+        res.makeDir(self.screenshotDir)
+
+        # Initialize recordings directory
+        self.videoDir = self.settings.getOrDefault('videoDir', 'recordings')
+        res.makeDir(self.videoDir)
+
+        # Initialize logs directory
+        self.logDir = self.settings.getOrDefault('logDir', 'logs')
+        res.makeDir(self.logDir)
 
         # Initialize Devices Lists
         self.initVideo()

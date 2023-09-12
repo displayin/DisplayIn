@@ -11,6 +11,8 @@ settings.json
 temp.avi
 temp.wav
 out.mp4
-recording.mp4
+recording*.mp4
 progress.txt
 screenshots/
+recordings/
+logs/
