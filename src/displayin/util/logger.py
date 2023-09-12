@@ -13,5 +13,5 @@ class Logger:
     
     def log(self, message: str) -> None:
         print(message)
-        with open(os.path.join(self.logDir, self.logFile), 'w') as file:
-            file.write(str(datetime.utcnow()) + ' - ' + message)
+        with open(os.path.join(self.logDir, self.logFile), 'a') as file:
+            file.write(str(datetime.utcnow()) + ' - ' + message + '\n')
