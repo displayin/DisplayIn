@@ -11,6 +11,7 @@ IS_WINDOWS = platform.system() == "Windows"
 IS_LINUX = platform.system() == "Linux"
 IS_MAC = platform.system() == "Darwin"
 USE_OPENGL = IS_WINDOWS or IS_LINUX
+LOG_FILENAME = str("log_" + str(int(time.time())) + ".txt")
 
 # Needed for Wayland Support for OpenGL in Linux
 #if IS_LINUX and 'WAYLAND_DISPLAY' in os.environ and 'PYOPENGL_PLATFORM' not in os.environ:
@@ -105,7 +106,7 @@ class Resource:
     
     @staticmethod
     def getLogFileName():
-        return str("log_" + str(Resource.getFileTimestamp()) + ".txt")
+        return LOG_FILENAME
     
     @staticmethod
     def delayCall(delayInSeconds: float, function):
