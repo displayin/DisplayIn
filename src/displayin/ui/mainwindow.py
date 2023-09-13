@@ -51,6 +51,7 @@ class MainWindow:
     def setUiHandler(self, uiHandler):
         try:
             # Initialize Gtk Builder
+            self.logger.log("[Program Started]")
             self.builder = Gtk.Builder()
             self.builder.add_from_file(res.getFilePath("resource/ui/maingui.glade"))
             self.builder.connect_signals(uiHandler)
@@ -542,6 +543,7 @@ class MainWindow:
             self.stopAudio()
 
             self.window.close()
+            self.logger.log("[Program Exited]")
             sys.exit(0)
         except Exception as e:
             self.handleException(e)
