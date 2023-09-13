@@ -23,6 +23,7 @@ class VideoExporter:
 
         self.progressWindow = progressWindow
         self.progressBar = progressBar
+        self.logger = self.window.logger
         pass
 
     def exportVideo(self, recordedFps, videoFileName="temp.avi", audioFileName="temp.wav"):
@@ -63,9 +64,12 @@ class VideoExporter:
             .output(videoFile, audioFile, overlayFile, outFileName)
             .global_args('-filter_complex', 'overlay=30:30', '-progress', 'progress.txt', '-async', '1')
             .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
-        
+        self.logger.log("Saved recording to " + outFileName)
+
         res.deleteFileIfExists(videoFileName)
+        self.logger.log("Deleted " + videoFileName)
         res.deleteFileIfExists(audioFileName)
+        self.logger.log("Deleted " + audioFileName)
         self.running = False
         self.window.buttonRecord.set_sensitive(True)
 

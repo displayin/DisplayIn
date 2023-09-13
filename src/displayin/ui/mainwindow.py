@@ -164,7 +164,9 @@ class MainWindow:
         if len(files) > 10:
             indexOfLatestFiles = len(files) - 10
             filesToDelete = files[:indexOfLatestFiles]
-            [res.deleteFileIfExists(file) for file in filesToDelete]
+            for file in filesToDelete:
+                res.deleteFileIfExists(file)
+                self.logger.log("Deleted logfile " + file)
         pass
 
     def initVideoSettings(self):
@@ -452,6 +454,7 @@ class MainWindow:
         self.buttonRecord.set_tooltip_text("Stop recording")
         self.videoStream.startRecording()
         self.audioStream.startRecording()
+        self.logger.log("Started Recording")
         pass
 
     def stopRecording(self):
@@ -460,6 +463,7 @@ class MainWindow:
         self.buttonRecord.set_tooltip_text("Record")
         recordedFps = self.videoStream.stopRecording()
         self.audioStream.stopRecording()
+        self.logger.log("Stopped Recording")
         self.videExporter.exportVideo(recordedFps)
         pass
 
@@ -468,7 +472,9 @@ class MainWindow:
         self.videoStream.screenshot(screenshotPath)
 
         # Show Screenshot Popover
-        self.screenshotLabel.set_text(str("Saved screenshot to " + screenshotPath))
+        saveMessage = str("Saved screenshot to " + screenshotPath)
+        self.screenshotLabel.set_text(saveMessage)
+        self.logger.log(saveMessage)
         res.delayCall(0.5, self.openScreenshotPopup)
         if self.screenshotPopupTimer != None and self.screenshotPopupTimer.is_alive():
             self.screenshotPopupTimer.cancel()
