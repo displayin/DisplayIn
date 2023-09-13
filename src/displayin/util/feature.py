@@ -22,7 +22,7 @@ class Feature:
     def integrityCheck(self, filename: str, md5Hash: str):
         fileMd5Hash = self.getFileHash(filename)
         if fileMd5Hash != md5Hash:
-            raise Exception("File integrity compromised! " + filename)
+            raise Exception("File integrity compromised! Program will not work as expected!\n" + filename)
         
     def featureEnabled(self, featureName: str, md5Hash: str):
         enabled = False
