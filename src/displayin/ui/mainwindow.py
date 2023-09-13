@@ -9,6 +9,7 @@ import sounddevice as sd
 import cv2 as cv
 from util.exceptionhandler import ExceptionHandler
 from util.logger import Logger
+from util.feature import Feature
 import numpy as np
 import sys
 from util.videoexporter import VideoExporter
@@ -85,6 +86,8 @@ class MainWindow:
                 self.buttonReset
             ]
 
+            self.feature = Feature()
+            self.feature.initializeFeatures()
             self.videExporter = VideoExporter(self)
 
             # Init Screenshot popover
@@ -147,6 +150,10 @@ class MainWindow:
         self.logDir = self.settings.getOrDefault('logDir', 'logs')
         res.makeDir(self.logDir)
         self.cleanLogFiles()
+
+        # Set watermark
+        self.overlayFileName = os.path.join('resource', 'images', "DisplayInLogoWatermark.png")
+        self.feature.integrityCheck(self.overlayFileName, '28230820f8d97b36a4375ddbed084fdb')
 
         # Initialize Devices Lists
         self.initVideo()
@@ -411,8 +418,7 @@ class MainWindow:
                 videoConfig.fps = self.settings.get('fps')
 
                 self.videoStream = VideoStream(videoConfig, self.exHandler)
-                overlayFileName = os.path.join('resource', 'images', "DisplayInLogoWatermark.png")
-                self.videoStream.setWatermark(overlayFileName)
+                self.videoStream.setWatermark(self.overlayFileName)
                 self.videoStream.start()
         except Exception as e:
             self.handleException(e)
