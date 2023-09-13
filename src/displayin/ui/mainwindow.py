@@ -153,7 +153,7 @@ class MainWindow:
 
         # Set watermark
         self.overlayFileName = os.path.join('resource', 'images', "DisplayInLogoWatermark.png")
-        self.feature.integrityCheck(self.overlayFileName, '28230820f8d97b36a4375ddbed084fdb')
+        self.integrityChecks()
 
         # Initialize Devices Lists
         self.initVideo()
@@ -162,6 +162,11 @@ class MainWindow:
     def handleException(self, e: Exception):
         if self.exHandler:
             self.exHandler.handle(e)
+
+    def integrityChecks(self):
+        self.feature.integrityCheck(self.overlayFileName, '28230820f8d97b36a4375ddbed084fdb')
+        self.removeWatermark = self.feature.featureEnabled('RemoveWatermark', '7da73bdcef5fa19a0eb0cfa4eab77fd7')
+        pass
 
     def cleanLogFiles(self):
         # Remove all but the last 10 log files
@@ -418,7 +423,8 @@ class MainWindow:
                 videoConfig.fps = self.settings.get('fps')
 
                 self.videoStream = VideoStream(videoConfig, self.exHandler)
-                self.videoStream.setWatermark(self.overlayFileName)
+                if not self.removeWatermark:
+                    self.videoStream.setWatermark(self.overlayFileName)
                 self.videoStream.start()
         except Exception as e:
             self.handleException(e)
