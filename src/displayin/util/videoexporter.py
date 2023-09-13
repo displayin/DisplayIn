@@ -60,11 +60,17 @@ class VideoExporter:
         overlayFileName = "DisplayInLogoWatermark.png"
         overlayFile = ffmpeg.input(os.path.join(
             'resource', 'images', overlayFileName))
-        (ffmpeg
-            .output(videoFile, audioFile, overlayFile, outFileName)
-            .global_args('-filter_complex', '[2]format=rgba,colorchannelmixer=aa=0.5[a];[0][a]overlay=30:30', '-progress', 'progress.txt', '-async', '1')
-            .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
-        self.logger.log("Saved recording to " + outFileName)
+        try:
+            (ffmpeg
+                .output(videoFile, audioFile, overlayFile, outFileName)
+                .global_args('-filter_complex', '[2]format=rgba,colorchannelmixer=aa=0.5[a];[0][a]overlay=30:30', '-progress', 'progress.txt', '-async', '1')
+                .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
+            self.logger.log("Saved recording to " + outFileName)
+        except ffmpeg.Error as e:
+            self.logger.log("Failed to save recording to " + outFileName)
+            self.logger.log('stdout:' + e.stdout.decode('utf8'))
+            self.logger.log('stderr:' + e.stderr.decode('utf8'))
+            self.progressWindow.hide()
 
         res.deleteFileIfExists(videoFileName)
         self.logger.log("Deleted " + videoFileName)
