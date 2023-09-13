@@ -4,6 +4,8 @@ SETTINGS_FILE = "settings.json"
 
 class Settings:
     def __init__(self, hideTaskbar: bool = False, displayDevice: str = None, audioIn: str = None, audioOut: str = None, volume: int = 50, resolution: str = "1920x1080", fps: int = 60, screenshotDir: str = 'screenshots', videoDir: str = 'recordings', logDir: str = 'logs'):
+        
+        self.logger = None
         self.settings = {}
         
         self.settings['hideTaskbar'] = hideTaskbar
@@ -24,7 +26,9 @@ class Settings:
             settingsFile = open(SETTINGS_FILE, 'r')
             self.settings = json.loads(settingsFile.read())
             settingsFile.close()
+            self.log("Settings file found")
         else:
+            self.log("Settings file created from default")
             self.save()
 
     def save(self):
@@ -45,3 +49,13 @@ class Settings:
         if value == None:
             value = default
         return value
+    
+    def log(self, message):
+        if not self.logger is None:
+            self.logger.log(message)
+
+    def logDump(self):
+        settingsLog = ""
+        for key in self.settings:
+            settingsLog = settingsLog + key + ' -> ' + str(self.get(key)) + '\n'
+        self.log('Settings file Dump\n=Settings File=\n' + settingsLog + '=End Settings File=')

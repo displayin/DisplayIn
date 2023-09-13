@@ -125,12 +125,15 @@ class MainWindow:
     def initialize(self, resetSettings = False):
         # initialize settings
         self.settings = Settings()
+        self.settings.logger = self.logger
 
         # save default settings
         if resetSettings:
+            self.logger.log("Settings Reset")
             self.settings.save()
 
         self.settings.open()
+        self.settings.logDump()
 
         # Display or hide action bar
         self.actionBar = self.getGtkObject("actionBar")
@@ -543,6 +546,7 @@ class MainWindow:
             self.stopAudio()
 
             self.window.close()
+            self.settings.logDump()
             self.logger.log("[Program Exited]")
             sys.exit(0)
         except Exception as e:
