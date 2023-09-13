@@ -55,9 +55,13 @@ class VideoExporter:
     def ffmpegExport(self, videoFileName, audioFileName, videoFile, audioFile, outFileName):
         self.window.buttonRecord.set_sensitive(False)
         self.running = True
+
+        overlayFileName = "DisplayInLogoWatermark.png"
+        overlayFile = ffmpeg.input(os.path.join(
+            'resource', 'images', overlayFileName))
         (ffmpeg
-            .output(videoFile, audioFile, outFileName)
-            .global_args('-progress', 'progress.txt', '-async', '1')
+            .output(videoFile, audioFile, overlayFile, outFileName)
+            .global_args('-filter_complex', 'overlay=30:30', '-progress', 'progress.txt', '-async', '1')
             .run(overwrite_output=True, capture_stdout=True, capture_stderr=True))
         
         res.deleteFileIfExists(videoFileName)
