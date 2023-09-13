@@ -124,6 +124,7 @@ class MainWindow:
 
     def initialize(self, resetSettings = False):
         # initialize settings
+        self.logger.log("initialize() started")
         self.settings = Settings()
         self.settings.logger = self.logger
 
@@ -162,6 +163,7 @@ class MainWindow:
         # Initialize Devices Lists
         self.initVideo()
         self.initAudio()
+        self.logger.log("initialize() completed")
 
     def handleException(self, e: Exception):
         if self.exHandler:

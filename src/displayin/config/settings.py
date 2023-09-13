@@ -38,11 +38,14 @@ class Settings:
         settingsFile.close()
         
     def set(self, key, value):
+        self.log('Setting "' + key + '" changed from "' + str(self.settings.get(key)) + '" to "' + str(value) + '"')
         self.settings[key] = value
         self.save()
 
     def get(self, key):
-        return self.settings.get(key)
+        value = self.settings.get(key)
+        self.log('Setting "' + key + '" retrieved "' + str(value) + '"')
+        return value
     
     def getOrDefault(self, key, default):
         value = self.get(key)
@@ -57,5 +60,5 @@ class Settings:
     def logDump(self):
         settingsLog = ""
         for key in self.settings:
-            settingsLog = settingsLog + key + ' -> ' + str(self.get(key)) + '\n'
+            settingsLog = settingsLog + key + ' -> ' + str(self.settings[key]) + '\n'
         self.log('Settings file Dump\n=Settings File=\n' + settingsLog + '=End Settings File=')
