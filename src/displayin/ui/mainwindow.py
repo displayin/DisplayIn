@@ -411,6 +411,8 @@ class MainWindow:
                 videoConfig.fps = self.settings.get('fps')
 
                 self.videoStream = VideoStream(videoConfig, self.exHandler)
+                overlayFileName = os.path.join('resource', 'images', "DisplayInLogoWatermark.png")
+                self.videoStream.setWatermark(overlayFileName)
                 self.videoStream.start()
         except Exception as e:
             self.handleException(e)

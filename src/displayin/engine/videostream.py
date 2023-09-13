@@ -40,6 +40,7 @@ class VideoStream(object):
             self.frame = []
             self.screenshotPath = None
             self.takeScreenshot = False
+            self.watermark = None
         except Exception as e:
             self.handleException(e)
 
@@ -103,7 +104,8 @@ class VideoStream(object):
                 # Display frames in main program
                 if self.capture.isOpened() and self.status and self.frame.any():
                     if self.takeScreenshot:
-                        cv.imwrite(self.screenshotPath, self.frame)
+                        result = self.addWatermark(self.frame)
+                        cv.imwrite(self.screenshotPath, result)
                         self.takeScreenshot = False
 
                     if self.recording:
@@ -157,4 +159,21 @@ class VideoStream(object):
         recordedFps = self.recordingFrameCount / elapsedTime
         return recordedFps
         
+    def setWatermark(self, watermarkPath: str):
+        self.watermark = cv.imread(watermarkPath)
+
+    def addWatermark(self, frame):
+        result = frame
+        if not self.watermark is None:
+            h, w, _ = self.watermark.shape
+
+            # calculating from top, bottom, right and left
+            topY = 30
+            leftX = 30
+            bottomY = topY + h
+            rightX = leftX + w
+            destination = frame[topY:bottomY, leftX:rightX]
+            slice = cv.addWeighted(destination, 0.5, self.watermark, 0.5, 0)
+            result[topY:bottomY, leftX:rightX] = slice
+        return result
 
