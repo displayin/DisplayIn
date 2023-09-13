@@ -13,6 +13,7 @@ import numpy as np
 import sys
 from util.videoexporter import VideoExporter
 
+import glob
 import os
 import gi
 gi.require_version("Gtk", "3.0")
@@ -145,6 +146,7 @@ class MainWindow:
         # Initialize logs directory
         self.logDir = self.settings.getOrDefault('logDir', 'logs')
         res.makeDir(self.logDir)
+        self.cleanLogFiles()
 
         # Initialize Devices Lists
         self.initVideo()
@@ -153,6 +155,17 @@ class MainWindow:
     def handleException(self, e: Exception):
         if self.exHandler:
             self.exHandler.handle(e)
+
+    def cleanLogFiles(self):
+        # Remove all but the last 10 log files
+        searchDir = os.path.join(self.logDir, "*")
+        files = list(filter(os.path.isfile, glob.glob(searchDir)))
+        files.sort(key=lambda x: os.path.getmtime(x))
+        if len(files) > 10:
+            indexOfLatestFiles = len(files) - 10
+            filesToDelete = files[:indexOfLatestFiles]
+            [res.deleteFileIfExists(file) for file in filesToDelete]
+        pass
 
     def initVideoSettings(self):
         self.setComboValue(self.selectResolution, self.settings.get('resolution'), 0)
