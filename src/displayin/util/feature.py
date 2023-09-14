@@ -8,14 +8,16 @@ class Feature:
         md5Hash = hashlib.md5()
 
         calculatedHash = None
-        with open(filename, "rb") as f:
-            # Read and update hash in chunks of 4K
-            for byteBlock in iter(lambda: f.read(4096), b""):
-                md5Hash.update(byteBlock)
-            calculatedHash = md5Hash.hexdigest()
+        
+        if os.path.exists(filename):
+            with open(filename, "rb") as f:
+                # Read and update hash in chunks of 4K
+                for byteBlock in iter(lambda: f.read(4096), b""):
+                    md5Hash.update(byteBlock)
+                calculatedHash = md5Hash.hexdigest()
 
         if calculatedHash is None:
-            raise Exception("Could not calculated MD5 hash of " + filename)
+            raise Exception("Could not calculate MD5 hash of " + filename)
         
         return calculatedHash
 
