@@ -106,6 +106,7 @@ class MainWindow:
                 displayWidget = self.getGtkObject("display")
                 viewport.remove(displayWidget)
                 self.glArea = OpenGLRenderer()
+                self.glArea.logger = self.logger
                 viewport.add(self.glArea)
                 self.glArea.show()
 

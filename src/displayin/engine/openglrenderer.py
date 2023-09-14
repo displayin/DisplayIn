@@ -59,6 +59,7 @@ class OpenGLRenderer(Gtk.GLArea):
         self.vao = None
         self.vbos = None
         self.version = None
+        self.logger = None
 
     def getVersion(self):
         major = glGetIntegerv(GL_MAJOR_VERSION)
@@ -75,16 +76,16 @@ class OpenGLRenderer(Gtk.GLArea):
 
         error = area.get_error()
         if error != None:
-            print("your graphics card is probably too old : ", error)
+            self.log("your graphics card is probably too old : " + str(error))
         else:
-            print(area, "realize... fine so far")
+            self.log(str(area) + "realize... fine so far")
 
         self.ctx = self.get_context()
         self.ctx.make_current()
 
         major, minor, self.version = self.getVersion()
-        print("OpenGL realized", self.ctx)
-        print("%s\n", self.version)
+        self.log("OpenGL realized" + str(self.ctx))
+        self.log(str(self.version))
 
     def onRender(self, area, ctx):
         
@@ -100,13 +101,13 @@ class OpenGLRenderer(Gtk.GLArea):
             glShaderSource(vertexShader, VERTEX_SOURCE)
             glCompileShader(vertexShader)
             status = glGetShaderiv(vertexShader, GL_COMPILE_STATUS)
-            print("Compile vertexShader status: " + str(status == GL_TRUE))
+            self.log("Compile vertexShader status: " + str(status == GL_TRUE))
 
             pixelShader = glCreateShader(GL_FRAGMENT_SHADER)
             glShaderSource(pixelShader, FRAGMENT_SOURCE)
             glCompileShader(pixelShader)
             status = glGetShaderiv(pixelShader, GL_COMPILE_STATUS)
-            print("Compile pixelShader status: " + str(status == GL_TRUE))
+            self.log("Compile pixelShader status: " + str(status == GL_TRUE))
 
             self.shaderProgram = glCreateProgram()
             glAttachShader(self.shaderProgram, vertexShader)
@@ -212,3 +213,9 @@ class OpenGLRenderer(Gtk.GLArea):
             # Queue Draw
             glFlush()
             self.queue_draw()
+
+    def log(self, message):
+        if not self.logger is None:
+            self.logger.log(message)
+        else:
+            print(message)
