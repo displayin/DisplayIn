@@ -107,3 +107,8 @@ cp ../../../opencv-4.7.0/build/lib/python3/cv2*.pyd dist/displayin/cv2/python-3.
 
 # Remove any gstreamer dependencies copied into the build directory (they may be the wrong version)
 rm dist/displayin/gst*.dll
+
+# make program folders
+mkdir dist/displayin/logs
+mkdir dist/displayin/recordings
+mkdir dist/displayin/screenshots
