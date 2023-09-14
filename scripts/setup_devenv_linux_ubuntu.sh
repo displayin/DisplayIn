@@ -15,3 +15,6 @@ sudo pip install pyopengl
 
 # Install FFmpeg
 sudo pip install ffmpeg-python
+
+# Install licenseheaders
+sudo pip install licenseheaders
