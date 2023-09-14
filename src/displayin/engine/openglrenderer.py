@@ -37,11 +37,6 @@ recVertices = np.array([
     1.0,  1.0, 0.0,   1.0, 0.0, 0.0,    1.0, 1.0,   # Top Right    4
 ], dtype=np.float32)
 
-def checkGlError(op: str):
-    error = glGetError()
-    if error is not None and error != 0:
-        print("after %s() glError (0x%x)", op, error)
-
 # Based on examples:
 # https://stackoverflow.com/questions/42153819/how-to-load-and-display-an-image-in-opengl-es-3-0-using-c
 # https://stackoverflow.com/questions/47565884/use-of-the-gtk-glarea-in-pygobject-gtk3
@@ -194,17 +189,17 @@ class OpenGLRenderer(Gtk.GLArea):
 
             # Use Shader Program, Bind Vertex Array and Texture
             glUseProgram(self.shaderProgram)
-            checkGlError("glUseProgram")
+            self.checkGlError("glUseProgram")
             glActiveTexture(GL_TEXTURE0)
-            checkGlError("glActiveTexture")
+            self.checkGlError("glActiveTexture")
             glBindTexture(GL_TEXTURE_2D, self.textureId)
-            checkGlError("glBindTexture")
+            self.checkGlError("glBindTexture")
             mlocation = glGetUniformLocation(self.shaderProgram, "ourTexture")
-            checkGlError("glGetUniformLocation")
+            self.checkGlError("glGetUniformLocation")
             glUniform1i(mlocation, 0)
-            checkGlError("glUniform1i")
+            self.checkGlError("glUniform1i")
             glBindVertexArray(self.vao)
-            checkGlError("glBindVertexArray")
+            self.checkGlError("glBindVertexArray")
 
             # Render Frame
             glDrawArrays(GL_TRIANGLES, 0, 3)
@@ -219,3 +214,8 @@ class OpenGLRenderer(Gtk.GLArea):
             self.logger.log(message)
         else:
             print(message)
+
+    def checkGlError(self, op: str):
+        error = glGetError()
+        if error is not None and error != 0:
+            self.log("after " + op + "() glError (0x" + str(error) + ")")
