@@ -58,8 +58,8 @@ pyinstaller --add-data="resource/ui/maingui.glade;resource/ui" --add-data "resou
 --add-binary "C:\tools\msys64\mingw64\bin\avformat-60.dll;." \
 --add-binary "C:\tools\msys64\mingw64\bin\avfilter-9.dll;." \
 --add-binary "C:\tools\msys64\mingw64\bin\libbluray-2.dll;." \
---add-binary "C:\tools\msys64\mingw64\bin\avdevice-60.dll;." \
---add-binary "C:\Windows\System32\vcruntime140_1.dll;lib\opencv\bin"
+--add-binary "C:\tools\msys64\mingw64\bin\avdevice-60.dll;." # \
+# --add-binary "C:\Windows\System32\vcruntime140_1.dll;lib\opencv\bin"
 
 
 # Workaround to manually copy cv2 standalone python and module config files to library modules output
