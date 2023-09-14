@@ -52,6 +52,7 @@ class MainWindow:
         try:
             # Initialize Gtk Builder
             self.logger.log("[Program Started]")
+            self.printSystemInfo()
             self.builder = Gtk.Builder()
             self.builder.add_from_file(res.getFilePath("resource/ui/maingui.glade"))
             self.builder.connect_signals(uiHandler)
@@ -168,6 +169,10 @@ class MainWindow:
     def handleException(self, e: Exception):
         if self.exHandler:
             self.exHandler.handle(e)
+
+    def logException(self, e: Exception):
+        if self.exHandler:
+            self.exHandler.logException(e)
 
     def integrityChecks(self):
         self.feature.integrityCheck(self.overlayFileName, '28230820f8d97b36a4375ddbed084fdb')
@@ -538,6 +543,18 @@ class MainWindow:
             self.buttonFullscreen.set_image(res.getIconButton("view-restore"))
             self.window.fullscreen()
             self.menuBar.hide()
+
+    def printSystemInfo(self):
+        try:
+            systemInfo = ""
+            info = res.getSystemInfo()
+            for key in info:
+                systemInfo = systemInfo + key + \
+                    ' -> ' + str(info[key]) + '\n'
+            self.logger.log('System Info Dump\n=System Info=\n' +
+                    systemInfo + '=End End System Info=')
+        except Exception as e:
+            self.logException(e)
 
     def getGtkObject(self, objectId: str):
         return self.builder.get_object(objectId)
