@@ -195,7 +195,7 @@ class MainWindow:
 
     def integrityChecks(self):
         self.feature.integrityCheck(self.overlayFileName, '28230820f8d97b36a4375ddbed084fdb')
-        self.removeWatermark = self.feature.featureEnabled('RemoveWatermark', '7da73bdcef5fa19a0eb0cfa4eab77fd7')
+        self.removeWatermark = self.feature.featureEnabled('RemoveWatermark', '39f57763f883f33f1514ee186c97bf25')
         self.logger.log('Feature "RemoveWatermark" enabled is ' + str(self.removeWatermark))
         pass
 
