@@ -23,19 +23,37 @@ class DialogExceptionHandler(ExceptionHandler):
         )
 
         # Print Error Message
-        errorMessage = "We have encountered an error!"
-        if len(ex.args) > 0:
-            errorMessage = ex.args[0]
-        
-        if len(ex.args) > 1 and ex.args[1] is not None:
-            errorMessage = errorMessage + "\nError Code: " + str(ex.args[1])
+        errorMessage = self.getErrorMessage(ex)
         
         # Log message
-        errorMessageWithStackTrace = '[Exception] ' + errorMessage + traceback.format_exc()
-        self.logger.log(errorMessageWithStackTrace)
+        self.logErrorMessage(errorMessage)
 
         dialog.format_secondary_text(str(errorMessage))
         dialog.run()
 
         dialog.destroy()
         pass
+
+    def getErrorMessage(self, ex: Exception):
+        errorMessage = "We have encountered an error!"
+        if len(ex.args) > 0:
+            errorMessage = ex.args[0]
+
+        if len(ex.args) > 1 and ex.args[1] is not None:
+            errorMessage = errorMessage + "\nError Code: " + str(ex.args[1])
+
+        return errorMessage
+    
+
+    def logErrorMessage(self, errorMessage):
+        # Log message
+        errorMessageWithStackTrace = '[Exception] ' + \
+            errorMessage + traceback.format_exc()
+        self.logger.log(errorMessageWithStackTrace)
+
+    def logException(self, ex):
+        # Print Error Message
+        errorMessage = self.getErrorMessage(ex)
+
+        # Log message
+        self.logErrorMessage(errorMessage)
