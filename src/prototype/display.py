@@ -1,8 +1,21 @@
-# Real-Time Camera
-# https://stackoverflow.com/questions/55828451/video-streaming-from-ip-camera-in-python-using-opencv-cv2-videocapture
-# https://stackoverflow.com/questions/58293187/opencv-real-time-streaming-video-capture-is-slow-how-to-drop-frames-or-get-sync
-# https://stackoverflow.com/questions/65683036/delay-lag-in-opencv-videocapture
-# https://stackoverflow.com/questions/37799847/python-playing-a-video-with-audio-with-opencv
+#
+# Copyright (c) 2023 Tekst LLC.
+#
+# This file is part of DisplayIn 
+# (see https://github.com/displayin).
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.#
 from threading import Thread
 import time, cv2, wave, threading
 import sounddevice as sd
