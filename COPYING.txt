@@ -1,3 +1,27 @@
+================================
+ The DisplayIn licensing terms
+================================
+ 
+
+Copyright (c) 2023, Tekst LLC
+
+DisplayIn is licensed under the terms of the GNU General Public License
+as published by the Free Software Foundation version 3 of the License.
+
+
+Features Exception
+--------------------
+Files distributed with binaries of this software 
+(under the features folder) may be under a different license
+which may not allow for copying or distribution.
+
+
+================================
+GNU General Public License
+================================
+
+https://www.gnu.org/licenses/gpl-3.0.txt
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
