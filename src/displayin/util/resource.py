@@ -140,8 +140,8 @@ class Resource:
     
     @staticmethod
     def makeDir(directory: str):
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+        os.makedirs(directory, exist_ok=True)
+            
 
     @staticmethod
     def getSystemInfo():
