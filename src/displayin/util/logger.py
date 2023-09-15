@@ -16,27 +16,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.#
+from datetime import datetime
+from util.resource import Resource as res
+import os
 
-# Initial test of Video Capture
-# See https://docs.opencv.org/3.4/dd/d43/tutorial_py_video_display.html
-import numpy as np
-import cv2 as cv
-# cap = cv.VideoCapture('mfvideosrc device-index=0 ! videoconvert ! videoscale ! appsink', cv.CAP_GSTREAMER)
-cap = cv.VideoCapture(0)
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    # if frame is read correctly ret is True
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
-    # Display the resulting frame
-    cv.imshow('frame', frame)
-    if cv.waitKey(1) == ord('q'):
-        break
-# When everything done, release the capture
-cap.release()
-cv.destroyAllWindows()
+class Logger:
+    def __init__(self, logDir: str = "logs", logFile: str = None):
+        self.logDir = logDir
+        self.logFile = logFile
+
+        if self.logFile == None:
+            self.logFile = res.getLogFileName()
+        
+    
+    def log(self, message: str) -> None:
+        print(message)
+        with open(os.path.join(self.logDir, self.logFile), 'a') as file:
+            file.write(str(datetime.utcnow()) + ' - ' + message + '\n')
