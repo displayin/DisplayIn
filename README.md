@@ -29,6 +29,12 @@ from your favorite console, or even view your PC's BIOS screen.
 - Screenshot capture
 - Ability to turn laptops into an extra monitor
 
-## Usage
+## Requirements
+- A compatible screen capture device (eg. [Guermok Capture Card](https://www.amazon.com/gp/product/B08Z3XDYQ7/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1))
+- Windows or Linux operating system
+- 4GB of RAM (8GB is recommended for smooth recording)
+- Dual-core processor either Intel or AMD
+
+# Usage
 Before launching DisplayIn, you must ensure that your capture device is plugged into your PC. When launching DisplayIn you will be greeted with this user interface. To ensure it is working properly, you should configure the following settings:
 ![User Interface](src/displayin/doc/images/displayin_bios.jpg)
