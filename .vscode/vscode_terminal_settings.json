@@ -1,0 +1,18 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "editor.accessibilitySupport": "off",
+    "terminal.integrated.profiles.windows": {
+        "msys mingw64": {
+            "path": "C:\\tools\\msys64\\msys2_shell.cmd",
+            "args": [
+                "-defterm",
+                "-here",
+                "-no-start",
+                "-mingw64"
+            ]
+        }
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    }
+}
