@@ -27,6 +27,9 @@ class Logger:
 
         if self.logFile == None:
             self.logFile = res.getLogFileName()
+
+        if not os.path.exists(self.logDir):
+            res.makeDir(self.logDir)
         
     
     def log(self, message: str) -> None:
