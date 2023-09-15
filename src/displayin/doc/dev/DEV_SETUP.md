@@ -28,6 +28,10 @@ DisplayIn App for streaming your display input using OpenCV written in Python.
 - [VSCode](https://code.visualstudio.com/)
 - [Glade GTK](https://glade.gnome.org/)
 
+# Setup Linux and Mac Dev Environments
+- ***Linux*** - Run `scripts/setup_devenv_linux_ubuntu.sh` on an Ubuntu or Debian based distro
+- ***Mac*** - Run `scripts/setup_devenv_macos.sh`
+
 # Setup Windows Dev Environment
 1. Install [Chocolatey](https://chocolatey.org/)
 2. Open Powershell in Administrator Window and run 
@@ -52,17 +56,18 @@ scripts/setup_devenv_windows_msys2.sh
 ```
 7. The first run will close the window, repeat steps 5 and 6 again to finish
 
-# Documentation
+## Documentation
 
-## Windows Tools
+### Windows Tools
 - [MSYS2 Pacman](https://www.msys2.org/)
 - [PyObject for Windows](https://sourceforge.net/projects/pygobjectwin32/)
 - [GitHub CLI](https://cli.github.com/)
 
-## Windows Documentation
+### Windows Documentation
 - [Install GTK3 using gvsbuild](https://github.com/wingtk/gvsbuild/)
+- [Compile OpenCV with GStreamer](BUILD_WIN.md)
 
-## Windows Misc Documentation
+### Windows Misc Documentation
 - [Install GTK in Windows](https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started)
 - [Setting up GTK for Windows](https://www.gtk.org/docs/installations/windows)
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw)
