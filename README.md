@@ -61,7 +61,7 @@ On the botton taskbar, to the right of the device selection drop-downs, there ar
 - ***Hide Taskbar*** - Hides the taskbar, you can also press ctrl + h. To make the taskbar re-appear simply move your cursor to the bottom of the window.
 
 ## Settings window
-To open the additional settings click the ***Settings* button on the taskbar or select File > Preferences.
+To open the additional settings click the ***Settings*** button on the taskbar or select File > Preferences.
 
 ![Settings window](src/displayin/doc/images/displayin_settings.png)
 
