@@ -18,7 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.-->
 <img src="src/displayin/resource/images/DisplayInSplash.png" width="324" height="124" alt="DisplayIn" />
 <br />
-<br />
 
 # DisplayIn
 DisplayIn is a powerful tool that allows you to stream any device to your PC using a capture device.
@@ -40,6 +39,7 @@ from your favorite console, or even view your PC's BIOS screen.
 - Windows or Linux operating system
 - 4GB of RAM (8GB is recommended for smooth recording)
 - Dual-core processor either Intel or AMD
+- [Microsoft Visual Studio C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) must be installed (Windows only, see the [latest downloads](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170))
 
 # Usage
 Before launching DisplayIn, you must ensure that your capture device is plugged into your PC. When launching DisplayIn you will be greeted with this user interface. To ensure it is working properly, you should configure the following settings from the bottom taskbar:
